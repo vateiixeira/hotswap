@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+{% block atendimento %}
+{% endblock atendimento %}
+{% block content%}
+<form method="post">{% csrf_token %}
+    <h2>Você deseja realmente excluir o item?</h2>
+    <button type='submit' class="btn btn-danger btn-icon-split" >
+        <span class="icon text-white-50">
+            <i class="fas fa-check"></i>
+        </span>
+        <span class="text">Excluir</span>
+    </button>
+</form>
+{% endblock %}

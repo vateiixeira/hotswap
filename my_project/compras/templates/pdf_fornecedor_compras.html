@@ -1,0 +1,69 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{titulo}}</title>
+<style>
+	@page {
+    size: letter landscape;
+    margin: 1cm;
+}
+</style>
+</head>
+<body>
+<p>{{dtgeracao}}</p>
+<hr />
+<p><strong>Relat&oacute;rio de compras por fornecedor</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}<br />
+Usuário: {{usuario}}<br />
+</p>
+<p>&nbsp;</p>
+
+<table align="center" border="1" cellpadding="3" cellspacing="3" style="width:700px">
+	<thead>
+		<tr>
+			<th scope="col">
+			<h3>Data</h3>
+			</th>
+			<th scope="col">
+			<h3>Num Pedido</h3>
+			</th>
+			<th scope="col">
+			<h3>Filial</h3>
+			</th>
+			<th scope="col">
+			<h3>Fornecedor</h3>
+			</th>
+			<th scope="col">
+			<h3>Data Vencimento</h3>
+			</th>
+			<th scope="col">
+			<h3>Equipamento</h3>
+			</th>
+			<th scope="col">
+			<h3>Patrimonio</h3>
+			</th>
+			<th scope="col">
+			<h3>Obs</h3>
+			</th>
+		</tr>
+	</thead>
+	<tbody>		
+		{% for i in atendimento %}
+			<tr>
+			<td>{{i.create_at|date:"d-M-Y"}}</td>
+			<td>{{i.num_pedido}}</td>
+			<td>{{i.filial}}</td>
+			<td>{{i.fornecedor}}</td>
+			<td>{{i.dt_vencimento}}</td>
+			<td>{{i.equipamento.name}}</td>
+			<td>{{i.equipamento.patrimonio}}</td>
+			<td>{{i.obs}}</td>
+			</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+</body>
+
+</html> 

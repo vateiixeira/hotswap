@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+
+{% block atendimento %}
+{% endblock atendimento %}
+
+{% block content%}
+<div class="container-fluid">
+  <!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Listagem de Circuitos de Dados</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+          <tr>
+              <th>Filial</th>
+              <th>Cod</th>
+              <th>Faxa IP</th>
+              <th>Produto</th>
+              <th>Circuito</th> 
+              <th>Roteador</th> 
+              <th>Velocidade</th>     
+          </tr>
+      </thead>
+          
+      <tbody>
+      {% for chamado in chamado %}
+          <tr>
+              <td>{{ chamado.nome_filial }}</td>
+              <td>{{ chamado.cod_filial}}</td>
+              <td>{{ chamado.faixa_ip }}</td>
+              <td>{{ chamado.produto }}</td>
+              <td>{{ chamado.circuito }}</td>
+              <td>{{ chamado.roteador }}</td>
+              <td>{{ chamado.velocidade }}</td>
+      {% endfor %}                   
+              </tbody>
+
+              </table> 
+              </div>
+
+{% endblock %}

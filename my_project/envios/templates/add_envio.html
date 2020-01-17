@@ -1,0 +1,86 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block atendimento %}
+{% endblock atendimento %}
+{% block head %}
+{{ formset.media.css }}
+{% endblock head %}
+
+{% block content%}
+<div class='row' style="margin-left: 10px">
+    {% if messages %}{% for mensagem in messages %}
+    <a href="#" class="btn btn-success btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="fas fa-check"></i>
+        </span>
+        <span class="text">{{mensagem}}</span>
+        </a>
+    {% endfor %}
+    {% endif %}
+</div>
+            <h2 style="margin-left: 30px"> Envio de equipamentos </h2>
+            <form class="pure-form pure-form-aligned" method="POST" style="margin-left: 10px" >
+                {% csrf_token %}
+                <div class="pure-control-group">
+                {{ form.as_p }}
+                {{ formset.management_form }}
+                </div>
+                
+            <hr></hr>
+
+                <div id="order" class="pure-form pure-form-aligned" style="margin-left: 10px">
+                    {% for item_order_form in formset %}
+                        <div id="item-{{ forloop.counter0 }}" class="pure-control-group">
+                            {{ item_order_form.as_p }}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <div class="pure-control-group"  style="margin-left: 10px">
+                <a class="btn btn-light" id="add-item"><i class="fa fa-plus"></i> Add Item</a>
+                    <button class="btn btn-primary pull-right" value="Save"><i class="fa fa-floppy-o"></i> Salvar</button>
+                </div>
+            </form>
+    </div>    
+
+
+
+
+    <script type="text/html" id="item-order">
+        <div id="item-__prefix__" style="margin-top: 10px" class="pure-control-group">
+                {{ formset.empty_form.as_p }}
+        </div>
+    </script>
+
+{% endblock %}
+
+
+{% block js %}
+
+<script>
+        $(document).ready(function(){
+            $("#add-item").click(function(ev) {
+                ev.preventDefault();
+                var count = $('#order').children().length;
+                var tmplMarkup = $("#item-order").html();
+                var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+                $("div#order").append(compiledTmpl);
+
+                // update form count
+                $('#id_product-TOTAL_FORMS').attr('value', count + 1);
+
+                // some animate to scroll to view our new form
+                $('html, body').animate({
+                    scrollTop: $("#add-item").position().top-200
+                }, 800);
+            });
+        });
+</script>
+{{ formset.media.js }}
+
+  <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
+  <!-- Custom scripts for all pages-->
+  <script src="{% static 'js/sb-admin-2.min.js'%}"></script>
+
+{% endblock js %}
+

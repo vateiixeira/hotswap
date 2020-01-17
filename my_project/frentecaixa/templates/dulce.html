@@ -1,0 +1,1235 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link href="{% static "vendor/fontawesome-free/css/all.min.css" %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
+
+    <style type="text/css">
+        input {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-4">
+            <h2>06:50</h2>
+        </div>
+        <div class="col-4" style="margin-left: 140px;">
+            <h2>07:30</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <input type="text" id='9981' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('9981'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('9981'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('9981'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('9981'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="9982" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('9982'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('9982'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('9982'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('9982'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='111' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('111'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('111'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('111'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('111'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="223" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('223'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('223'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('223'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('223'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='132' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('132'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('132'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('132'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('132'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="213" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('213'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('213'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('213'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('213'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='112' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('112'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('112'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('112'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('112'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="2454" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('2454'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('2454'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('2454'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('2454'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='1545' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('1545'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('1545'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('1545'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('1545'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="2565" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('2565'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('2565'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('2565'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('2565'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='1656' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('1656'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('1656'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('1656'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('1656'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="276" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('276'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('2767'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('2767'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('2767'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='1676' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('1676'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('1676'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('1676'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('1676'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="2878" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('2787'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('2787'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('2787'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('2'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='19' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('19'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('19'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('19'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('19'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="20" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('20'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('20'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('20'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('20'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='199' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('199'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('199'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('199'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('199'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="992" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('992'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('992'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('992'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('992'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h2>08:00</h2>
+        </div>
+        <div class="col-4" style="margin-left: 140px;">
+            <h2>08:30</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <input type="text" id='100' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('100'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('100'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('100'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('100'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="002" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('002'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('002'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('002'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('002'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='6661' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('6661'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('6661'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('6661'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('6661'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="6662" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('6662'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('6662'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('6662'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('6662'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='1666' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('1666'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('1666'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('1666'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('1666'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="2666" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('2666'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('2666'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('2666'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('2666'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='77771' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('77771'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('77771'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('77771'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('77771'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="77772" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('77772'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('77772'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('77772'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('77772'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='17777' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('17777'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('17777'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('17777'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('17777'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="27777" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('27777'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('27777'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('27777'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('27777'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='89891' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('89891'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('89891'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('89891'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('89891'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="89892" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('89892'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('89892'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('89892'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('89892'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='18989' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('18989'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('18989'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('18989'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('18989'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="28989" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('28989'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('28989'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('28989'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('28989'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='45471' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('45471'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('45471'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('45471'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('45471'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="45472" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('45472'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('45472'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('45472'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('45472'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='14547' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('14547'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('14547'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('14547'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('14547'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="24547" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('24547'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('24547'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('24547'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('24547'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h2>09:00</h2>
+        </div>
+        <div class="col-4" style="margin-left: 140px;">
+            <h2>13:00</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <input type="text" id='3432381' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('3432381'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('3432381'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('3432381'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('3432381'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="34323812" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('34323812'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('34323812'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('34323812'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('34323812'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='34323811' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('34323811'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('34323811'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('34323811'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('34323811'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="7912" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('7912'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('7912'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('7912'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('7912'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='7911' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('7911'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('7911'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('7911'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('7911'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="2791" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('2791'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('2791'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('2791'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('2791'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='6291' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('6291'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('6291'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('6291'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('6291'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="6292" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('6292'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('6292'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('6292'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('6292'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='1629' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('1629'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('1629'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('1629'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('1629'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="893422" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('893422'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('893422'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('893422'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('893422'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='893421' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('893421'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('893421'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('893421'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('893421'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="289342" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('289342'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('289342'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('289342'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('289342'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='189342' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('189342'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('189342'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('189342'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('189342'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="82462" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('82462'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('82462'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('82462'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('82462'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='82461' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('82461'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('82461'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('82461'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('82461'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="28246" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('28246'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('28246'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('28246'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('28246'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='9131' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('9131'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('9131'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('9131'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('9131'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="9132" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('9132'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('9132'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('9132'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('9132'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h2>13:30</h2>
+        </div>
+        <div class="col-4" style="margin-left: 140px;">
+            <h2>14:00</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <input type="text" id='1913' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('1913'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('1913'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('1913'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('1913'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="78222" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('78222'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('78222'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('78222'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('78222'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='78221' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('78221'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('78221'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('78221'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('78221'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="27822" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('27822'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('27822'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('27822'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('27822'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='6421' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('6421'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('6421'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('6421'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('6421'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="2642" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('2642'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('2642'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('2642'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('2642'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='71931' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('71931'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('71931'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('71931'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('71931'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="71932" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('71932'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('71932'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('71932'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('71932'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='17193' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('17193'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('17193'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('17193'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('17193'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="93712" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('93712'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('93712'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('93712'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('93712'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='93711' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('93711'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('93711'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('93711'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('93711'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="91372" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('91372'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('91372'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('91372'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('91372'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='91371' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('91371'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('91371'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('91371'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('91371'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="29137" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('29137'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('29137'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('29137'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('29137'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='643161' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('643161'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('643161'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('643161'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('643161'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="643162" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('643162'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('643162'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('643162'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('643162'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='164316' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('164316'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('164316'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('164316'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('164316'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="94622" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('94622'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('94622'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('94622'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('94622'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <h2>14:30</h2>
+        </div>
+        <div class="col-4" style="margin-left: 140px;">
+            <h2>15:00</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <input type="text" id='946271' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('946271'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('946271'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('946271'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('946271'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="946272" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('946272'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('946272'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('946272'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('946272'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='194627' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('194627'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('194627'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('194627'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('194627'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="822642" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('822642'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('822642'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('822642'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('822642'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='182264' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('182264'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('182264'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('182264'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('182264'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="8223132" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('8223132'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('8223132'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('8223132'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('8223132'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='8223131' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('8223131'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('8223131'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('8223131'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('8223131'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="2822313" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('2822313'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('2822313'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('2822313'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('2822313'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='951362521' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('951362521'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('951362521'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('951362521'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('951362521'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="295136252" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('295136252'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('295136252'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('295136252'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('295136252'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='1713571' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('1713571'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('1713571'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('1713571'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('1713571'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="1713572" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('1713572'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('1713572'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('1713572'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('1713572'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='1171357' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('1171357'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('1171357'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('1171357'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('1171357'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="2171357" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('2171357'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('2171357'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('2171357'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('2171357'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='171357121' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('171357121'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('171357121'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('171357121'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('171357121'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="171357122" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('171357122'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('171357122'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('171357122'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('171357122'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id='117135712' class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('117135712'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('117135712'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('117135712'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('117135712'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+        <div class="col-3">
+            <input type="text" id="9999992" class="form-control" style="font-weight: bold;" value="Op de caixa">
+        </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('9999992'); return false;"><i
+                class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('9999992'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('9999992'); return false;"><i
+                class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-warning" onclick="changeColorreturn('9999992'); return false;"><i
+                class="fas fa-undo-alt"></i></button>
+        {{form}}
+    </div>
+
+</body>
+
+<script>
+    function changeColor(id) {
+        var button = document.querySelector('#btn1');
+        var mostrador = document.querySelector('#demo');
+
+        button.addEventListener('click', function () {
+            new Timer(1, mostrador, function () {
+                alert('O tempo acabou!');
+            }).start();
+        });
+
+        function Timer(mins, target, cb) {
+            this.counter = mins * 60;
+            this.target = target;
+            this.callback = cb;
+        }
+        Timer.prototype.pad = function (s) {
+            return (s < 10) ? '0' + s : s;
+        }
+        Timer.prototype.start = function (s) {
+            this.count();
+        }
+        Timer.prototype.stop = function (s) {
+            this.count();
+        }
+        Timer.prototype.done = function (s) {
+            if (this.callback) this.callback();
+        }
+        Timer.prototype.display = function (s) {
+            this.target.innerHTML = this.pad(s);
+        }
+        Timer.prototype.count = function (s) {
+            var self = this;
+            self.display.call(self, self.counter);
+            self.counter--;
+            var clock = setInterval(function () {
+                self.display(self.counter);
+                self.counter--;
+                if (self.counter < 0) {
+                    clearInterval(clock);
+                    self.done.call(self);
+                }
+            }, 1000);
+        }
+        document.getElementById(id).style.color = "#000000"; // forecolor
+        document.getElementById(id).style.backgroundColor = "#3eb9c7"; // backcolor
+    }
+</script>
+
+<script>
+    function changeColorexit(id) {
+        document.getElementById(id).style.color = "#000000"; // forecolor
+        document.getElementById(id).style.backgroundColor = "#f72828"; // backcolor
+    }
+</script>
+
+<script>
+    function changeColorclean(id) {
+        document.getElementById(id).style.color = "#000000"; // forecolor
+        document.getElementById(id).style.backgroundColor = "#ffffff"; // backcolor
+    }
+
+
+</script>
+
+<script>
+    function changeColorreturn(id) {
+        document.getElementById(id).style.color = "#000000"; // forecolor
+        document.getElementById(id).style.backgroundColor = "#E0A800"; // backcolor
+    }
+
+
+</script>
+
+<!--
+
+    <script type="text/javascript">
+    $(window).on('beforeunload', function(){
+  var c=confirm();
+  if(c){
+    return true;
+  }
+  else
+  return false;
+  });
+  </script>
+-->

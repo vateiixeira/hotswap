@@ -1,0 +1,74 @@
+{% extends 'index.html' %}
+{% block atendimento %}
+{% endblock atendimento %}
+{% block content%}
+<div class="container-fluid">
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Listagem de Equipamentos</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+          <tr>
+              <th>Nome</th>
+              <th>Modelo</th>
+              <th>Serial</th>
+              <th>Patrimonio</th>
+              <th>Loja</th>
+              <th>Setor</th>
+              <th>Backup</th>
+              <th>Editar</th>
+              {% if staff == True %}
+              <th>Excluir</th>
+              {% endif %}
+              
+              
+          </tr>
+      </thead>
+          
+      <tbody>
+      {% for estoque in estoque %}
+          <tr>
+              <td>{{ estoque.name }}</td>
+              <td>{{ estoque.modelo }}</td>
+              <td>{{ estoque.serial }}</td>
+                  {% if estoque.patrimonio is NULL  %}
+                    <td>Inexistente</td>
+                  {% else %}
+                    <td>{{ estoque.patrimonio}}</td>
+                  {% endif %}                        
+                  <td>{{ estoque.loja }}</td>
+                  <td>{{estoque.setor}}</td>
+                      {% if estoque.backup == True  %}
+                      <td>Sim</td>
+                      {% else %}
+                      <td>Não</td>
+                      {% endif %}
+              <td>
+              
+              <a href="{% url 'estoque:update_estoque' pk=estoque.pk %}" class="btn btn-warning btn-circle btn-sm">
+              <i class="fas fa-exclamation-triangle"></i>
+              </a>                               
+              </td>
+              
+              {% if staff == True %}
+              <td> 
+              <!-- inicio excluir item-->              
+              <a href="{% url 'estoque:delete_estoque' pk=estoque.pk %}"
+              <i class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></i></a>
+              <!-- final excluir item-->
+              </td>
+              {% endif %}
+              
+
+              </tr>                    
+      {% endfor %}                   
+              </tbody>
+
+              </table> 
+              </div>
+
+{% endblock %}

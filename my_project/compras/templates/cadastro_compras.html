@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+{% block atendimento %}
+{% endblock atendimento %}
+{% block head %}
+{{ form.media.css }}
+{% endblock head %}
+
+{% block content%}
+<div class='row'>
+    {% if messages %}{% for mensagem in messages %}
+                <a href="#" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">{{mensagem}}</span>
+                  </a>
+    {% endfor %}
+    {% endif %}
+</div>
+<h1>Cadastro de compras </h1>    
+    <form class="pure-form pure-form-aligned" method="POST" >
+        {% csrf_token %}
+        <fieldset>
+            <div class="pure-control-group">
+            {{ form.as_p }}
+            </div>
+    </form>
+    <div>
+    <button type='submit' class="btn btn-success btn-icon-split" style="margin-left: 50px;">
+        <span class="icon text-white-50">
+            <i class="fas fa-check"></i>
+        </span>
+        <span class="text">Salvar</span>
+    </button>
+{% endblock %}
+
+{% block js %}
+
+
+{{ form.media.js }}
+{% endblock js %}
+
+

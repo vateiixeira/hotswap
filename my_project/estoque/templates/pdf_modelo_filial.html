@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{titulo}}</title>
+<style>
+	@page {
+    size: letter landscape;
+    margin: 2cm;
+}
+</style>
+</head>
+<body>
+<p>{{dtgeracao}}</p>
+<hr />
+<p><strong>Relat&oacute;rio de estoque por filial</strong><br />
+Filial: {{origem}}<br />
+
+</p>
+<p>&nbsp;</p>
+
+<table align="center" border="1" cellpadding="3" cellspacing="3" style="width:700px">
+	<thead>
+		<tr>
+			<th scope="col">
+			<h3>Nome</h3>
+			</th>
+			<th scope="col">
+			<h3>Modelo</h3>
+			</th>
+			<th scope="col">
+			<h3>Serial</h3>
+			</th>
+			<th scope="col">
+			<h3>Patrimônio</h3>
+			</th>
+			<th scope="col">
+			<h3>Quantidade</h3>
+			</th>
+			<th scope="col">
+			<h3>Backup</h3>
+			</th>
+		</tr>
+	</thead>
+	<tbody>		
+		{% for i in estoque %}
+			<tr>
+			<td>{{i.name}}</td>
+			<td>{{i.modelo}}</td>
+			<td>{{i.serial}}</td>
+			<td>{{i.patrimonio}}</td>
+			<td>{{i.qtd}}</td>
+			{% if i.backup == True %}
+				<td>Sim</td>
+			{% else %}
+				<td>Não</td>
+			{% endif %}
+			</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+</body>
+
+</html> 

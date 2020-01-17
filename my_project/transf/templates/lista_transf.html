@@ -1,0 +1,68 @@
+{% extends 'index.html' %}
+{% block atendimento %}
+{% endblock atendimento %}
+{% block content%}
+<div class="container-fluid">
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Listagem de Transferências</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+          <tr>
+              <th>Id</th>
+              <th>Filial Destino</th>
+              <th>Modelo</th>
+              <th>Serial</th>
+              <th>Patrimonio</th>
+              <th>Backup</th>
+              <th>Editar</th>
+              {% if staff == True %}
+              <th>Excluir</th>
+              {% endif %}
+              
+          </tr>
+      </thead>
+          
+      <tbody>
+      {% for transf in transf %}
+          <tr>
+              <td>{{ transf.pk }}</td>
+              <td>{{ transf.destino }}</td>
+              <td>{{ transf.equipamento.modelo }}</td>
+              <td>{{ transf.equipamento.serial }}</td>
+                  {% if transf.equipamento.patrimonio is NULL  %}
+                    <td>Inexistente</td>
+                  {% else %}
+                    <td>{{ transf.equipamento.patrimonio}}</td>
+                  {% endif %}
+                      {% if transf.equipamento.backup == True  %}
+                      <td>Sim</td>
+                      {% else %}
+                      <td>Não</td>
+                      {% endif %}
+              <td>
+              <a href="{% url 'transf:update_transf' pk=transf.pk %}" class="btn btn-warning btn-circle btn-sm">
+              <i class="fas fa-exclamation-triangle"></i>
+              </a>                               
+              </td>
+              
+              {% if staff == True %}
+              <td>
+              <!-- inicio excluir item-->              
+              <a href="{% url 'transf:delete_transf' pk=transf.pk %}"
+              <i class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></i></a>
+              <!-- final excluir item-->
+              </td>
+              {% endif %}
+              </tr>                    
+      {% endfor %}                   
+              </tbody>
+
+              </table> 
+              </div>
+
+{% endblock %}

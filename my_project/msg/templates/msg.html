@@ -1,0 +1,46 @@
+{% extends 'index.html' %}
+
+{% block atendimento %}
+<a href="{% url 'msg:cadastro'%}" class="btn btn-primary btn-icon-split btn-sm">
+  <span class="icon text-white-50">
+    <i class="fas fa-flag"></i>
+  </span>
+  <span class="text">Enviar mensagem!</span>
+</a>
+{% endblock atendimento %}
+
+{% block content %}
+<div class="row" style="padding-left: 10px;">
+<div class="col-lg-6" > 
+  {% for msg in msg %}
+  <!-- Basic Card Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <a href="{% url 'msg:msg_indi' id=msg.id %}"><h5 class="m-0 font-weight-bold text-primary">{{msg.assunto}}</h5></a>
+      {{msg.create_at}}
+    </div>
+    <div class="card-body">
+      <!-- 
+              {{msg.mensagem}}
+      <p>
+      <p>
+      <hr/>
+      -->
+
+      De: {{msg.user}}|
+      Importancia: {{msg.importancia}}
+      <p>
+      Grupo: {{msg.grupo}}
+    </div>
+  </div>
+  {% empty %}
+  <h2>NÃO POSSUI MENSAGENS</h2>
+  {% endfor %}  
+</div>
+</div>
+
+{% endblock content %}
+
+
+
+

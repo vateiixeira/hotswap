@@ -1,0 +1,20 @@
+{% extends 'index.html' %}
+{% block atendimento %}
+{% endblock atendimento %}
+{% block content%}
+<h1>Editar Transferência</h1>
+    {% csrf_token %}
+    <form class="pure-form pure-form-aligned" method="POST" >
+        <fieldset>
+            <div class="pure-control-group">
+            {{ form.as_p }}
+            </div>
+    </form>
+    <div>
+    <button type='submit' class="btn btn-success btn-icon-split" >
+        <span class="icon text-white-50">
+            <i class="fas fa-check"></i>
+        </span>
+        <span class="text">Salvar</span>
+    </button>
+{% endblock %}

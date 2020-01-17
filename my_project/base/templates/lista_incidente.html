@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block atendimento %}
+
+{% endblock atendimento %}
+
+{% block content%}
+
+<div class="container" style="margin-bottom: 20px; margin-left: 0px;"> 
+  <a href="{% url 'base:cadastro_incidente' %}" class="btn btn-outline-danger">
+   Cadastrar Incidente </a>
+  </button>
+</div>
+
+
+<div class="container-fluid">
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Listagem de Incidentes</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+          <tr>
+              <th>Id</th>
+              <th>Data</th>
+              <th>Loja</th>
+              <th>Incidente</th>              
+              <th>Editar</th> 
+              {% if staff == True %}
+              <th>Excluir</th>
+              {% endif %}        
+          </tr>
+      </thead>
+          
+      <tbody>
+      {% for chamado in chamado %}
+          <tr>
+              <td>{{ chamado.pk }}</td>
+              <td>{{ chamado.data}}</td>
+              <td>{{ chamado.filial }}</td>
+              <td>{{ chamado.incidente }}</td>              
+              <td>
+              <a href="{% url 'base:update_incidente' pk=chamado.pk %}" class="btn btn-warning btn-circle btn-sm">
+              <i class="fas fa-exclamation-triangle"></i>
+              </a>                               
+              </td>
+              {% if staff == True %}
+              <td> 
+              <!-- inicio excluir item-->              
+              <a href="{% url 'base:delete_incidente' pk=chamado.pk %}"
+              <i class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></i></a>
+              <!-- final excluir item-->
+              </td>
+              {% endif %}
+      {% endfor %}                   
+              </tbody>
+
+              </table> 
+              </div>
+
+{% endblock %}

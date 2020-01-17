@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+
+{% block atendimento %}
+{% endblock atendimento %}
+
+{% block content%}
+<div class="container-fluid">
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Listagem de Centrais Telefonicas</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+          <tr>
+              <th>Regiao Filial</th>
+              <th>Operadora</th>
+              <th>Designacao</th>
+              <th>Servico do Equipamento</th>
+              <th>Telefone p/ Abertura de Chamado</th> 
+              <th>Opcoes de Urla</th>     
+          </tr>
+      </thead>
+          
+      <tbody>
+      {% for chamado in chamado %}
+          <tr>
+              <td>{{ chamado.regiao_filial }}</td>
+              <td>{{ chamado.operadora}}</td>
+              <td>{{ chamado.designacao }}</td>
+              <td>{{ chamado.servico_equipamento }}</td>
+              <td>{{ chamado.tel_abrir_chamado }}</td>
+              <td>{{ chamado.op_urla }}</td>
+      {% endfor %}                   
+              </tbody>
+
+              </table> 
+              </div>
+
+{% endblock %}

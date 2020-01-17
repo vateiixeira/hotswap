@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+
+{% block atendimento %}
+{% endblock atendimento %}
+
+{% block content%}
+<div class="container-fluid">
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Listagem de chamados pendentes</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+          <tr>
+              <th>Num</th>
+              <th>Data</th>
+              <th>Loja</th>
+              <th>Serial</th>
+              <th>Defeito</th> 
+              <th>Editar</th> 
+              {% if staff == True %}
+              <th>Excluir</th>
+              {% endif %}        
+          </tr>
+      </thead>
+          
+      <tbody>
+      {% for chamado in chamado %}
+          <tr>
+              <td>{{ chamado.chamado }}</td>
+              <td>{{ chamado.create_at|date:"d-m-Y"}}</td>
+              <td>{{ chamado.loja }}</td>
+              <td>{{ chamado.serial }}</td>
+              <td>{{ chamado.defeito }}</td>
+              <td>
+              <a href="{% url 'chamado:update_chamado' pk=chamado.pk %}" class="btn btn-warning btn-circle btn-sm">
+              <i class="fas fa-exclamation-triangle"></i>
+              </a>                               
+              </td>
+              {% if staff == True %}
+              <td> 
+              <!-- inicio excluir item-->              
+              <a href="{% url 'chamado:delete_chamado' pk=chamado.pk %}"
+              <i class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></i></a>
+              <!-- final excluir item-->
+              </td>
+              {% endif %}
+      {% endfor %}                   
+              </tbody>
+
+              </table> 
+              </div>
+
+{% endblock %}

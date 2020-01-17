@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% block atendimento %}
+{% endblock atendimento %}
+{% block content%}
+<div class="container-fluid">
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Listagem de Compras</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+          <tr>
+              <th>Data</th>
+              <th>Num pedido</th>
+              <th>Filial</th>
+              <th>Fornecedor</th>              
+              <th>Equipamento</th> 
+              <th>Editar</th> 
+              {% if staff == True %}
+              <th>Excluir</th>
+              {% endif %}    
+          </tr>
+      </thead>
+          
+      <tbody>
+      {% for envio in compras %}
+          <tr>
+              <td>{{ envio.create_at|date:"d-m-Y" }}</td>
+              <td>{{ envio.num_pedido }}</td>
+              <td>{{ envio.filial }}</td>              
+              <td>{{ envio.fornecedor }}</td> 
+              <td>{{ envio.equipamento.patrimonio }}</td> 
+              <td>
+                <a href="{% url 'compras:update_compras' pk=envio.pk %}" class="btn btn-warning btn-circle btn-sm">
+                <i class="fas fa-exclamation-triangle"></i>
+                </a>                               
+                </td>
+                {% if staff == True %}
+                <td> 
+                <!-- inicio excluir item-->              
+                <a href="{% url 'compras:delete_compras' pk=envio.pk %}"
+                <i class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></i></a>
+                <!-- final excluir item-->
+                </td>
+                {% endif %}
+              </tr>                    
+      {% endfor %}                   
+              </tbody>
+
+              </table> 
+              </div>
+
+{% endblock %}

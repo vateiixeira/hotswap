@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+{% block atendimento %}
+{% endblock atendimento %}
+{% block content%}
+<div class="container-fluid">
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Listagem de Atendimentos</h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable_atendimento" width="100%" cellspacing="0">
+      <thead>
+          <tr>
+            <th>Data</th>
+            <th>Problema</th>
+            <th>Solução</th>
+            <th>Setor</th>              
+            <th>Loja</th>  
+            <th>Status</th> 
+
+            <th>Técnico</th>
+            <th>Editar</th> 
+            <th>ID</th>
+
+              
+          </tr>
+      </thead>
+          
+      <tbody>
+        {% for envio in envio %}
+        <tr>
+        <td>{{ envio.create_at|date:"d-m-Y" }}</td>
+        <td >{{ envio.problema|truncatechars:50 }}</td>
+        <td>{{ envio.solucao|truncatechars:50 }}</td>              
+        <td>{{ envio.setor }}</td> 
+        <td>{{ envio.loja }}</td>
+        {%if envio.status == 'r' %}
+        <td style="background-color: green; opacity: inherit "><span style="color: white; opacity: 10">Resolvido</span></td>
+        {% else %}
+        <td style="background-color: red; opacity: inherit"> <span style="color: white; opacity: 10">Pendente</span></td>
+        {%endif%}
+         
+        <td>{{ envio.user.first_name }}</td> 
+        
+        <td>                
+          <a href="{% url 'atendimento:update_atendimento' pk=envio.pk %}" class="btn btn-warning btn-circle btn-sm">
+          <i class="fas fa-exclamation-triangle"></i>
+          </a>                               
+          </td>
+          <td>{{envio.id}}</td>
+        </tr  >
+        {% endfor %}  
+        
+              </tbody>
+
+              </table> 
+              </div>
+
+{% endblock %}

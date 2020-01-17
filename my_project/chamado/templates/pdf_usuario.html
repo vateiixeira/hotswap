@@ -1,0 +1,60 @@
+!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{titulo}}</title>
+</head>
+<body>
+<p>{{dtgeracao}}</p>
+<hr />
+<p><strong>Relat&oacute;rio de chamados por usuário</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}<br />
+Usuário: {{usuario}}<br />
+</p>
+<p>&nbsp;</p>
+
+<table align="center" border="1" cellpadding="3" cellspacing="3" style="width:700px">
+	<thead>
+		<tr>
+			<th scope="col">
+			<h3>Chamado</h3>
+			</th>
+			<th scope="col">
+			<h3>Modelo</h3>
+			</th>
+			<th scope="col">
+			<h3>Serial</h3>
+			</th>
+			<th scope="col">
+			<h3>Defeito</h3>
+			</th>
+			<th scope="col">
+			<h3>Valor</h3>
+			</th>
+			<th scope="col">
+			<h3>Status</h3>
+			</th>
+		</tr>
+	</thead>
+	<tbody>		
+		{% for i in chamado %}
+			<tr>
+			<td>{{i.chamado}}</td>
+			<td>{{i.modelo}}</td>
+			<td>{{i.serial}}</td>
+			<td>{{i.defeito}}</td>
+			<td>{{i.valor}}</td>
+			{% if i.status == 'p' %}
+			<td>PENDENTE</td>
+			{% else %}
+			<td>CONCLUIDO</td>
+			{% endif %}		
+			</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+</body>
+
+</html> 

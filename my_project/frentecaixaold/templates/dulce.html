@@ -1,0 +1,574 @@
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link href="{% static "vendor/fontawesome-free/css/all.min.css" %}" rel="stylesheet" type="text/css">
+    <script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
+
+<style type="text/css">
+    input {font-weight:bold;}    
+</style>
+</head>
+
+<body>
+<div class="row">
+    <div class="col-4"><h2>06:50</h2></div>
+    <div class="col-4"><h2>07:30</h2></div>
+    <div class="col-3"><h2>08:00</h2></div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id='1' class="form-control" style="font-weight: bold;" value="Fulano de tal">
+    </div>
+        <button type='button' id="btn1" class="btn btn-info" onclick="changeColor('1'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('1'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('1'); return false;"><i class="fas fa-times"></i></button>
+        <!--
+        <h4 id="demo">05:30</h4>-->
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="2" class="form-control"style="font-weight: bold;" value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('2'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('2'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('2'); return false;"><i class="fas fa-times"></i></button>
+
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="3"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('3'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('3'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('3'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="4"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('4'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('4'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('4'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="5"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('5'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('5'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('5'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="6"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('6'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('6'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('6'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="7"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('7'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('7'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('7'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="8"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('8'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('8'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('8'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="9"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('9'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('9'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('9'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="10"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('10'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('10'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('10'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="11"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('11'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('11'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('11'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="12"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('12'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('12'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('12'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="13"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('13'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('13'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('13'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="14"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('14'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('14'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('14'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="15"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('15'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('15'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('15'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="16"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('16'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('16'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('16'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="17"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('17'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('17'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('17'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="18"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('18'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('18'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('18'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="116"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('116'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('116'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('16'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="117"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('117'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('117'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('117'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="118"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('118'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('118'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('118'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="216"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('216'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('216'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('216'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="217"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('217'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('217'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('217'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="218"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('218'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('218'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('218'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+
+<!-- SEGUNDA SEÇÃO DOS HORARIOS-->
+
+<div class="row">
+    <div class="col-4"><h2>08:30</h2></div>
+    <div class="col-4"><h2>09:00</h2></div>
+    <div class="col-3"><h2>13:00</h2></div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="19"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('19'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('19'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('19'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="20"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('20'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('20'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('20'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="21"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('21'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('21'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('21'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="22"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('22'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('22'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('22'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="23"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('23'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('23'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('23'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="24"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('24'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('24'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('24'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="25"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('25'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('25'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('25'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="26"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('26'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('26'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('26'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="27"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('27'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('27'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('27'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="28"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('28'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('28'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('28'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="29"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('29'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('29'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('29'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="30"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('30'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('30'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('30'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="31"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('31'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('31'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('31'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="32"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('32'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('32'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('32'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="33"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('33'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('33'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('33'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="34"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('34'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('34'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('34'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="35"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('35'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('35'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('35'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="36"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('36'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('36'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('36'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="316"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('316'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('316'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('316'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="317"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('317'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('317'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('317'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="318"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('318'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('318'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('318'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="16"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('16'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('16'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('16'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="417"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('417'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('417'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('417'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="418"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('418'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('418'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('418'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-4"><h2>13:30</h2></div>
+    <div class="col-4"><h2>14:00</h2></div>
+    <div class="col-3"><h2>14:30</h2></div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="16"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('16'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('16'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('16'); return false;"><i class="fas fa-times"></i></button>
+        
+        
+<div class="col">    </div>
+    <div class="col-2">
+        <input type="text" id="417"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('417'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('417'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('417'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+            <div class="col-2">
+        <input type="text" id="418"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('418'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('418'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('418'); return false;"><i class="fas fa-times"></i></button>
+        
+        <div class="col">    </div>
+</div>
+<div class="row">
+    <div class="col-4"><h2>15:00</h2></div>
+</div>
+<div class="row">
+    <div class="col-2">
+        <input type="text" id="5885"class="form-control" style="font-weight: bold;"value="Fulano de tal">
+    </div>
+        <button type='button' class="btn btn-info" onclick="changeColor('5885'); return false;" ><i class="fas fa-utensils"></i></button>
+        <button type='button' class="btn btn-danger" onclick="changeColorexit('5885'); return false;"><i class="fas fa-times"></i></button>
+        <button type='button' class="btn btn-light" onclick="changeColorclean('5885'); return false;"><i class="fas fa-times"></i></button>
+
+</div>
+
+</body>
+
+<script>
+    function changeColor(id)
+    {
+    var button = document.querySelector('#btn1');
+    var mostrador = document.querySelector('#demo');
+
+    button.addEventListener('click', function() {
+        new Timer(1, mostrador, function() {
+            alert('O tempo acabou!');
+        }).start();
+    });
+
+    function Timer(mins, target, cb) {
+        this.counter = mins * 60;
+        this.target = target;
+        this.callback = cb;
+    }
+    Timer.prototype.pad = function(s) {
+        return (s < 10) ? '0' + s : s;
+    }
+    Timer.prototype.start = function(s) {
+        this.count();
+    }
+    Timer.prototype.stop = function(s) {
+        this.count();
+    }
+    Timer.prototype.done = function(s) {
+        if (this.callback) this.callback();
+    }
+    Timer.prototype.display = function(s) {
+        this.target.innerHTML = this.pad(s);
+    }
+    Timer.prototype.count = function(s) {
+        var self = this;
+        self.display.call(self, self.counter);
+        self.counter--;
+        var clock = setInterval(function() {
+            self.display(self.counter);
+            self.counter--;
+            if (self.counter < 0) {
+                clearInterval(clock);
+                self.done.call(self);
+            }
+        }, 1000);
+    }
+  document.getElementById(id).style.color = "#000000"; // forecolor
+  document.getElementById(id).style.backgroundColor = "#3eb9c7"; // backcolor
+}
+</script>
+
+<script>
+function changeColorexit(id)
+{
+  document.getElementById(id).style.color = "#000000"; // forecolor
+  document.getElementById(id).style.backgroundColor = "#f72828"; // backcolor
+}
+</script>
+
+<script>
+function changeColorclean(id)
+{
+  document.getElementById(id).style.color = "#000000"; // forecolor
+  document.getElementById(id).style.backgroundColor = "#ffffff"; // backcolor
+}
+
+
+</script>
+
+

@@ -1,0 +1,56 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{titulo}}</title>
+</head>
+<body>
+<p>{{dtgeracao}}</p>
+<hr />
+<p><strong>Relat&oacute;rio de envio por data</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}</p>
+<p>&nbsp;</p>
+<table align="center" border="1" cellpadding="3" cellspacing="3" style="width:700px">
+	<thead>
+		<tr>
+			<th scope="col">
+			<h3>Patrimonio</h3>
+			</th>
+			<th scope="col">
+			<h3>Modelo</h3>
+			</th>
+			<th scope="col">
+			<h3>Serial</h3>
+			</th>
+			<th scope="col">
+			<h3>Defeito</h3>
+			</th>
+			<th scope="col">
+			<h3>Quantidade</h3>
+			</th>
+			<th scope="col">
+			<h3>Responsavel</h3>
+			</th>
+		</tr>
+	</thead>
+	<tbody>		
+		{% for i in movimento %}
+			<tr>
+			<td>{{i.equipamento.patrimonio}}</td>
+			<td>{{i.equipamento.modelo}}</td>
+			<td>{{i.equipamento.serial}}</td>
+			<td>{{i.defeito}}</td>
+			<td>{{i.quantidade}}</td>
+			<td>{{i.envio.user}}</td>
+			</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+</body>
+
+</html> 
+
+
+

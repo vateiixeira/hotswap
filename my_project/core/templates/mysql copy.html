@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+
+{% block head %}
+<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+{% endblock head%}
+
+{% block content%}
+<span class="counter">1,234,567.00</span>
+<span>$</span><span class="counter">1.99</span>
+<span class="counter">12345</span>
+
+ <h2 id="conteudo">NOTAS PRESAS</h2>
+{% endblock %}
+
+{% block js %}
+ <script>
+    $(document).ready(function() {
+        function getData() {
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8000/ajax/notas_travadas_mysql/",
+                dataType: "json",
+                beforeSend: function() {$("#conteudo").empty();$("#conteudo").append("Carregando");}                    
+            }).done(function(data) {
+                $("#conteudo").empty();         
+                $("#conteudo").append(data);
+            });
+        }
+        getData();
+        setInterval(getData, 1000);
+    });
+    
+</script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+
+<script>
+$('.counter').counterUp({
+    delay: 10,
+    time: 1000
+});
+</script>
+
+{% endblock %}
+

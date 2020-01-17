@@ -1,0 +1,196 @@
+@import compass
+
+// animation vars
+$duration: 0.35s
+$bounce: cubic-bezier(0.375, 1.495, 0.610, 0.780)
+
+// dimensions
+$height: 300px
+$width: 200px
+
+.count
+	box-shadow: 0 10px 5px -5px rgba(#000, 0.2)
+	height: $height
+	left: 50%
+	line-height: $height
+	margin: -($height / 2) 0 0 -($width / 2)
+	+perspective(500px)
+	position: absolute
+	text-align: center
+	top: 50%
+	+translateZ(0)
+	width: $width
+
+	// the basic "card"
+	//    there are four of these: top current, top next, bottom current, and bottom next
+	span
+		background: #202020
+		color: #f8f8f8
+		display: block
+		font-size: 250px
+		left: 0
+		position: absolute
+		top: 0
+		text-shadow: 0 1px 0 (#000 + 40), 0 2px 0 (#000 + 30), 0 3px 0 (#000 + 20), 0 4px 0 (#000 + 10), 0 5px 0 #000, 0 0 10px rgba(#000, 0.8)
+		+transform-origin(0, 150px, 0)
+		width: 100%
+
+		// the dividing line in the center
+		&:before
+			border-bottom: 2px solid #000
+			content: ''
+			left: 0
+			position: absolute
+			width: 100%
+
+		// a shadow fill that adds some convexity on the card surfaces
+		&:after
+			box-shadow: inset 0 0 60px rgba(#000, 0.35)
+			content: ''
+			height: 100%
+			left: 0
+			position: absolute
+			top: 0
+			width: 100%
+
+	// two-digit numbers get the 'small' class
+	.small
+		font-size: 175px
+
+	.top
+		// top card sit above the bottom ones, so if we give them the same
+		//   border radius they'll create some crunchiness.
+		//   instead, go one pixel smaller
+		border-top-left-radius: 11px
+		border-top-right-radius: 11px
+
+		// creating a light shine on the top of the card
+		box-shadow: inset 0 2px rgba(#000, 0.9), inset 0 3px 0 rgba(#fff, 0.4)
+
+		// top cards are only 50% height, and overflow-hidden
+		//   so they only show the top of their number
+		height: 50%
+		overflow: hidden
+
+		&:before
+			bottom: 0
+
+		&:after
+			// top card needs to get darker as it curves downward
+			+background(linear-gradient(rgba(#000, 0), rgba(#000, 0.15)))
+			border-top-left-radius: 11px
+			border-top-right-radius: 11px
+
+	.bottom
+		// bottom cards are 100% height, but their top half is hidden by "top" cards
+		//   this was the best way I could think of to show the bottom cards in half, but
+		//   there's probably another way using display: table-cell and vertical-align.
+		//   ew.
+		border-radius: 10px
+		height: 100%
+
+		&:before
+			top: 50%
+
+		&:after
+			border-radius: 10px
+			+background(linear-gradient(rgba(#fff, 0.1), rgba(#fff, 0.1) 50%, rgba(#fff, 0)))
+
+	// styles that only apply when counting "down"
+	&.down
+		.top
+			// use a higher number than the bottoms to prevent crunchy border radiuses
+			border-top-left-radius: 11px
+			border-top-right-radius: 11px
+			height: 50%
+
+			&.current
+				// required to prevent safari bug: https://bugs.webkit.org/show_bug.cgi?id=61824
+				+transform-style(flat)
+				z-index: 3
+
+			&.next
+				// when counting down, the next top card is rotated towards the user (and invisible)
+				+transform(rotate3d(1, 0, 0, -90deg))
+				z-index: 4
+
+		.bottom
+			border-radius: 10px
+
+			&.current
+				z-index: 2
+
+			&.next
+				z-index: 1
+
+		&.changing
+			.bottom.current
+				box-shadow: 0 75px 5px -20px rgba(#000, 0.3)
+				+transform(rotate3d(1, 0, 0, 90deg))
+
+				// the current bottom card rotates up to hide itself, and reveal the next one
+				+transition(transform $duration ease-in, box-shadow $duration ease-in)
+
+		&.changing,
+		&.changed
+			.top.next
+				// and the next top card rotates into view (after $duration)
+				+transition(transform $duration ease-out $duration)
+				+transform(none)
+
+	&.up
+		.top
+			height: 50%
+
+			&.current
+				z-index: 4
+
+			&.next
+				z-index: 3
+
+		.bottom
+			&.current
+				z-index: 1
+
+			&.next
+				box-shadow: 0 75px 5px -20px rgba(#000, 0.3)
+
+				// when counting "up", the next bottom card begins pointed at the user...
+				+transform(rotate3d(1, 0, 0, 90deg))
+				z-index: 2
+
+		&.changing
+			.top.current
+				// and the current top card does the rotating
+				+transform(rotate3d(1, 0, 0, -90deg))
+
+				// when the card is "dropping" it should be faster
+				+transition(transform $duration * 0.75 ease-in, box-shadow $duration * 0.75 ease-in)
+
+		&.changing,
+		&.changed
+			.bottom.next
+				box-shadow: 0 0 0 0 rgba(#000, 0)
+
+				// add a little bounce at the moment the card finishes falling
+				+transition(box-shadow $duration / 2 $bounce $duration, transform $duration $bounce $duration)
+				+transform(rotate3d(1, 0, 0, 0))
+
+	&.changed
+		.top.current,
+		.bottom.current
+			display: none
+
+// presentation styles
+@import url(https://fonts.googleapis.com/css?family=Oswald)
+
+html,
+body
+	height: 100%
+	width: 100%
+
+body
+	background: #202020 url(https://cl.ly/image/040I101f1i0I/planes.jpg) 50% 50%
+	background-origin: 50% 50%
+	+background-size(cover)
+	font-family: 'Oswald'

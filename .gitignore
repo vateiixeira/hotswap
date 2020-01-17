@@ -1,0 +1,15 @@
+venv/
+.vscode/
+.venv/
+__pycache__
+backend/__pycache__
+backend/Auth/__pycache__
+backend/Core/__pycache__
+config/__pycache__
+database.sqlite3
+db.sqlite3
+.env
+Procfile
+runtime.txt
+requirements.txt
+requirements-dev.txt
