@@ -27,8 +27,8 @@ class CircuitoDados(models.Model):
 class CircuitoVoz(models.Model):
     regiao_filial = models.CharField(max_length=20)
     operadora = models.CharField(max_length=20)
-    designacao = models.CharField(max_length=50)
-    servico_equipamento = models.CharField(max_length=80,null=True)
+    designacao = models.CharField(max_length=200)
+    servico_equipamento = models.CharField(max_length=200,null=True)
     tel_abrir_chamado = models.CharField(max_length=30, null=True)
     op_urla = models.CharField(max_length=50,null=True)
 

@@ -42,7 +42,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('cod_filial', models.IntegerField()),
                 ('loja', models.CharField(max_length=20)),
-                ('inauguracao', models.CharField()),
+                ('inauguracao', models.CharField(max_length=20)),
             ],
         ),
     ]
