@@ -14,6 +14,8 @@ from django.contrib.auth.models import User
 from django import forms
 from django.db.models import Q
 from my_project.core.models import Profile
+from my_project.estoque.models import Equipamento
+
 
 @login_required
 def cadastro(request):
@@ -125,10 +127,19 @@ class PdfPorData(View):
     def get(self, request, dtinicial, dtfinal):
         titulo = 'Chamado por data'
         dtgeracao = datetime.now()
-        chamado = Chamado.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial)        
+        chamado = Chamado.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial)  
+        
+        # PEGA O SERIAL DOS CHAMADOS EM QUESTAO E JOGA NUMA LISTA
+        # DEPOIS FAZ UMA QUERYSET PARA PEGAR OS DADOS DO PRODUTO
+        list_produtos = []
+        for i in chamado:
+            list_produtos.append(i.serial)
+        equipamento = Equipamento.object.filter(serial__in = list_produtos)
+     
         if not chamado.exists():
             return redirect('core:erro_relatorio')  
         params = {
+            'equipamento':equipamento,
             'chamado': chamado,
             'dtgeracao': dtgeracao,
             'dtinicial': dtinicial,

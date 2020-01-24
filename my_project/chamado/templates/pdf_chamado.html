@@ -2,11 +2,17 @@
 <head>
 <meta charset="UTF-8">
 <title>{{titulo}}</title>
+<style>
+	@page {
+    size: letter landscape;
+    margin: 0.5cm;
+}
+</style>
 </head>
 <body>
 <p>{{dtgeracao}}</p>
 <hr />
-<p><strong>Relat&oacute;rio de envio por data</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}</p>
+<p><strong>Relat&oacute;rio de chamado por data</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}</p>
 <p>&nbsp;</p>
 
 <table align="left" border="1" cellpadding="3" cellspacing="40" style="width:700px">
@@ -22,6 +28,12 @@
 			<h3>Serial</h3>
 			</th>
 			<th scope="col">
+			<h3>Patrimonio</h3>
+			</th>
+			<th scope="col">
+			<h3>Filial</h3>
+			</th>
+			<th scope="col">
 			<h3>Defeito</h3>
 			</th>
 			<th scope="col">
@@ -32,12 +44,16 @@
 			</th>
 		</tr>
 	</thead>
-	<tbody>		
+	<tbody>	
+		{% for product in equipamento %}
 		{% for i in chamado %}
+		
 			<tr>
 			<td>{{i.chamado}}</td>
 			<td>{{i.modelo}}</td>
 			<td>{{i.serial}}</td>
+			<td>{{product.patrimonio}}</td>
+			<td>{{i.loja}}</td>
 			<td>{{i.defeito}}</td>
 			<td>{{i.valor}}</td>
 			{% if i.status == 'p' %}
@@ -46,6 +62,7 @@
 			<td>CONCLUIDO</td>
 			{% endif %}			
 			</tr>
+		{% endfor %}
 		{% endfor %}
 		
 	</tbody>

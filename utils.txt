@@ -1,0 +1,12 @@
+usuario e senha base
+postgres@localhost
+1
+
+entra psql
+sudo -u postgres psql
+
+escolhe tabela
+\c hotswap
+
+lista tabelas
+\l 

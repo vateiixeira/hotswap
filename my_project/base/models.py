@@ -6,6 +6,9 @@ class DataInauguracao(models.Model):
     cod_filial = models.IntegerField()
     loja = models.CharField(max_length=20)
     inauguracao = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return self.loja
 
 
 class TestDataInauguracao(models.Model):
@@ -23,10 +26,10 @@ class CircuitoDados(models.Model):
     roteador = models.CharField(max_length=20, null=True)
     velocidade = models.CharField(max_length=10, null=True)
     
-
+    
 class CircuitoVoz(models.Model):
     regiao_filial = models.CharField(max_length=20)
-    operadora = models.CharField(max_length=20)
+    operadora = models.CharField(max_length=100)
     designacao = models.CharField(max_length=200)
     servico_equipamento = models.CharField(max_length=200,null=True)
     tel_abrir_chamado = models.CharField(max_length=30, null=True)

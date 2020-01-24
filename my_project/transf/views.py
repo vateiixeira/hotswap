@@ -69,7 +69,7 @@ class UpdateTransf(UpdateView):
 class DeleteTransf(DeleteView):
     template_name = 'delete_transf.html'
     model = Transferencia
-    success_url = reverse_lazy('trans:lista_transf')
+    success_url = reverse_lazy('transf:lista_transf')
 
 def transf_por_data_filial(request):
     template = 'viewpordatafilial_transf.html'
