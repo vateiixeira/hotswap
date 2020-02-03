@@ -7,6 +7,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from my_project.core.utils import render_to_pdf, Render
 from datetime import datetime
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 def cadastro(request): 
 
@@ -44,7 +45,6 @@ class DeleteCompras(DeleteView):
 def update_compras(request,pk):
     template = 'update_compras.html'
     model = Compras.objects.get(pk=pk)
-    print(model.dt_vencimento)
 
     if request.method == 'POST':
         form = UpdateComprasForm(request.POST, instance=model)

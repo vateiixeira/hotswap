@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="Vinicius Alexandre" content="">
 
-  <title>Hotswap</title>
+  <title>Hotswap </title>
   {% block head %}
   {% endblock head %}
 
@@ -430,6 +430,9 @@
               </div>
             </div>
           </div> <!-- FECHAMENTO DIV ROW-->
+
+
+
         {% endblock %}
           <!-- Content Row -->
           <footer>
@@ -750,7 +753,8 @@ var myBarChart = new Chart(ctx, {
       yAxes: [{
         ticks: {
           min: 0,
-          max: 50,
+          // CONTAGEM APENAS PARA DULCE
+          max:{{limit_contagem_atendimentos_moc}},
           maxTicksLimit: 9,
           padding: 10,
           // Include a dollar sign in the ticks

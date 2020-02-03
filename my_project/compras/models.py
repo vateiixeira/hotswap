@@ -19,6 +19,8 @@ class Compras(models.Model):
     updated_at =    models.DateTimeField('Atualizado em', auto_now=True)    
 
 
+    objects = models.Manager()
+
 
     def __str__(self):
         return str(self.num_pedido)

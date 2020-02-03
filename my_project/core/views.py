@@ -47,6 +47,7 @@ def homepage(request):
 
     atendimento_pendente = atendimento_pendente_def()
     data_atendimento_filial = contagem_atendimento_filial()
+    limit_contagem_atendimentos_moc = data_atendimento_filial[0]
     data = contagem_chamados_anual()
     data_filial = contagem_chamados_filial()
     chamados = Chamado.object.filter(status='p').count()
@@ -67,7 +68,8 @@ def homepage(request):
         'data_atendimento_filial':data_atendimento_filial,
         'atendimento_pendente':atendimento_pendente,
         'msg_nao_lida':msg_nao_lida,  
-        'lista_filial': lista_filial,      
+        'lista_filial': lista_filial, 
+        'limit_contagem_atendimentos_moc': limit_contagem_atendimentos_moc,     
     }
     
     return render(request,template,context)
