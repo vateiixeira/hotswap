@@ -86,16 +86,16 @@ def register(request):
         form = CriarUsuarioForm(request.POST) 
         form_profile = ProfileForm(request.POST)       
         if form.is_valid():            
-            #form.save()
+            form.save()
             form_profile.save(commit=False)
             instancia = User.objects.get(username = form.cleaned_data['username'])
             instancia_profile.grupo = form_profile.cleaned_data['grupo']
             instancia_profile.user = instancia
             if form_profile.is_valid():
                 instancia_profile.save()
-                print('deu')
+                messages.error(request,'Conta criada com sucesso!')                
             else:
-                print('error')
+                messages.error(request,'Formulário inválido!')
         else:            
             messages.error(request,'Formulário inválido!')
     else:
@@ -104,7 +104,7 @@ def register(request):
     template='register.html'
     context = {
         'form_profile': form_profile,
-        'messages': messages
+        'message': messages,
     }
     return render(request,template,context)
 
