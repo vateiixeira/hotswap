@@ -28,8 +28,8 @@
               <th>Data</th>
               <th>Loja</th>
               <th>Incidente</th>              
-              <th>Editar</th> 
               {% if staff == True %}
+              <th>Editar</th>               
               <th>Excluir</th>
               {% endif %}        
           </tr>
@@ -41,13 +41,14 @@
               <td>{{ chamado.pk }}</td>
               <td>{{ chamado.data}}</td>
               <td>{{ chamado.filial }}</td>
-              <td>{{ chamado.incidente }}</td>              
+              <td>{{ chamado.incidente }}</td>
+              {% if staff == True %}              
               <td>
               <a href="{% url 'base:update_incidente' pk=chamado.pk %}" class="btn btn-warning btn-circle btn-sm">
               <i class="fas fa-exclamation-triangle"></i>
               </a>                               
               </td>
-              {% if staff == True %}
+              
               <td> 
               <!-- inicio excluir item-->              
               <a href="{% url 'base:delete_incidente' pk=chamado.pk %}"

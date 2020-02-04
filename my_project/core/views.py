@@ -22,6 +22,7 @@ from mysql.connector import Error
 from my_project.atendimento.models import Atendimento
 from .conexao_oracle import conecta
 from django.contrib.auth.models import User
+from my_project.msg.models import Group_Msg
 
 @login_required
 def homepage(request):
@@ -82,17 +83,26 @@ def logout_request(request):
 
 def register(request):
     if request.method == 'POST':
-        instancia_profile = Profile()        
+        instancia_profile = Profile()  
+        grupo_msg = Group_Msg()      
         form = CriarUsuarioForm(request.POST) 
         form_profile = ProfileForm(request.POST)       
         if form.is_valid():            
-            form.save()
+            user = form.save()
+            user.set_password(user.password)
+            user.save()
+            
             form_profile.save(commit=False)
+
             instancia = User.objects.get(username = form.cleaned_data['username'])
             instancia_profile.grupo = form_profile.cleaned_data['grupo']
             instancia_profile.user = instancia
+
+            grupo_msg.user = instancia
+            grupo_msg.grupo = 'membro'
             if form_profile.is_valid():
                 instancia_profile.save()
+                grupo_msg.save()
                 messages.error(request,'Conta criada com sucesso!')                
             else:
                 messages.error(request,'Formulário inválido!')
