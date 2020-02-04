@@ -20,7 +20,10 @@
               <th>Designacao</th>
               <th>Servico do Equipamento</th>
               <th>Telefone p/ Abertura de Chamado</th> 
-              <th>Opcoes de Urla</th>     
+              <th>Opcoes de Urla</th>  
+              {% if staff == True %}
+              <th>Editar</th>
+              {% endif %}   
           </tr>
       </thead>
           
@@ -33,6 +36,14 @@
               <td>{{ chamado.servico_equipamento }}</td>
               <td>{{ chamado.tel_abrir_chamado }}</td>
               <td>{{ chamado.op_urla }}</td>
+              {% if staff == True %}
+              <td> 
+              <!-- inicio excluir item-->              
+              <a href="{% url 'base:update_circuito_voz' pk=chamado.pk %}" class="btn btn-warning btn-circle btn-sm">
+              <i class="fas fa-exclamation-triangle"></i>
+              <!-- final excluir item-->
+              </td>
+              {% endif %}
       {% endfor %}                   
               </tbody>
 

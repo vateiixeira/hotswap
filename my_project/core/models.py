@@ -12,7 +12,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
-    grupo = models.CharField("Area de atuacao", max_length=20, choices=GRUPO_USUARIOS, default="BH" )
+    grupo = models.CharField("Área de atuacao", max_length=20, choices=GRUPO_USUARIOS, default="BH" )
         
     class Meta:
         verbose_name = "Profile"

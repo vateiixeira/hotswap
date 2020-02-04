@@ -11,3 +11,5 @@ admin.site.register(DataInauguracao, DataInauguracaoAdmin)
 
 admin.site.register(CircuitoDados)
 admin.site.register(CircuitoVoz)
+admin.site.register(IpFixo)
+admin.site.register(Ferias)

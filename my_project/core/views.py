@@ -21,6 +21,7 @@ import mysql.connector
 from mysql.connector import Error
 from my_project.atendimento.models import Atendimento
 from .conexao_oracle import conecta
+from django.contrib.auth.models import User
 
 @login_required
 def homepage(request):
@@ -80,19 +81,32 @@ def logout_request(request):
     return redirect("core:homepage")
 
 def register(request):
-    if request.method == 'POST':        
-        form = CriarUsuarioForm(request.POST)        
-        if form.is_valid():
-            form.save()
-        else:
+    if request.method == 'POST':
+        instancia_profile = Profile()        
+        form = CriarUsuarioForm(request.POST) 
+        form_profile = ProfileForm(request.POST)       
+        if form.is_valid():            
+            #form.save()
+            form_profile.save(commit=False)
+            instancia = User.objects.get(username = form.cleaned_data['username'])
+            instancia_profile.grupo = form_profile.cleaned_data['grupo']
+            instancia_profile.user = instancia
+            if form_profile.is_valid():
+                instancia_profile.save()
+                print('deu')
+            else:
+                print('error')
+        else:            
             messages.error(request,'Formulário inválido!')
     else:
+        form_profile = ProfileForm(request.POST)
         form = CriarUsuarioForm(request.POST)
     template='register.html'
     context = {
+        'form_profile': form_profile,
         'messages': messages
     }
-    return render(request,template)
+    return render(request,template,context)
 
 def sessao_oracle(request):
     template = 'lista_sessao_bloqueada.html'
@@ -109,9 +123,9 @@ def change_password(request):
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
             user = form.save()
-            update_session_auth_hash(request, user)  # Important!
-            messages.success(request, 'Your password was successfully updated!')
+            update_session_auth_hash(request, user)  # Important!            
             return redirect('core:homepage')
+
         else:
             messages.error(request, 'Please correct the error below.')
     else:

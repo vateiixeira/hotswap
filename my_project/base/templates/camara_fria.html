@@ -5,10 +5,10 @@
 
 {% block content%}
 <div class="container-fluid">
-  <!-- DataTales Example -->
+<!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Listagem de Circuitos de Dados</h6>
+    <h6 class="m-0 font-weight-bold text-primary">Listagem de Centrais Telefonicas</h6>
   </div>
   <div class="card-body">
     <div class="table-responsive">
@@ -16,12 +16,11 @@
       <thead>
           <tr>
               <th>Filial</th>
-              <th>Cod</th>
-              <th>Faxa IP</th>
-              <th>Produto</th>
-              <th>Circuito</th> 
-              <th>Roteador</th> 
-              <th>Velocidade</th> 
+              <th>Ip Interno</th>
+              <th>Porta Interna</th>
+              <th>Ip Externo</th>
+              <th>Porta Externa</th>
+              <th>Online?</th>  
               {% if staff == True %}
               <th>Editar</th>
               {% endif %}     
@@ -31,17 +30,20 @@
       <tbody>
       {% for chamado in chamado %}
           <tr>
-              <td>{{ chamado.nome_filial }}</td>
-              <td>{{ chamado.cod_filial}}</td>
-              <td>{{ chamado.faixa_ip }}</td>
-              <td>{{ chamado.produto }}</td>
-              <td>{{ chamado.circuito }}</td>
-              <td>{{ chamado.roteador }}</td>
-              <td>{{ chamado.velocidade }}</td>
+              <td>{{ chamado.filial }}</td>
+              <td>{{ chamado.ip_interno}}</td>
+              <td>{{ chamado.porta_interna }}</td>
+              <td>{{ chamado.ip_externo }}</td>
+              <td>{{ chamado.porta_externa }}</td>
+              {% if chamado.status_online == 'S' %}
+              <td>Sim</td>
+              {% else %}
+              <td>Nao</td>
+              {% endif %}
               {% if staff == True %}
               <td> 
               <!-- inicio excluir item-->              
-              <a href="{% url 'base:update_circuito_dados' pk=chamado.pk %}" class="btn btn-warning btn-circle btn-sm">
+              <a href="{% url 'base:update_camara_fria' pk=chamado.pk %}" class="btn btn-warning btn-circle btn-sm">
               <i class="fas fa-exclamation-triangle"></i>
               <!-- final excluir item-->
               </td>

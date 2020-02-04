@@ -1,5 +1,5 @@
 from django import forms
-from .models import HistoricoIncidente, DataInauguracao
+from .models import *
 
 class IncidenteForm(forms.ModelForm):
     class Meta:
@@ -14,4 +14,21 @@ class DataInauguracaoForm(forms.ModelForm):
     class Meta:
         model = DataInauguracao
         fields = '__all__'
+
+class Circuito_VozForm(forms.ModelForm):
+    class Meta:
+        model = CircuitoVoz
+        fields = '__all__'
+        widgets = {
+            'servico_equipamento' : forms.Textarea(attrs={ 'rows': 5, 'cols':30}),
+        }
+
+class CentralTelefonicaForm(forms.ModelForm):
+    class Meta:
+        model = CentralTelefonica
+        fields = '__all__'
+        widgets = {
+            'obs' : forms.Textarea(attrs={ 'rows': 8, 'cols':30}),
+        }
+        
         

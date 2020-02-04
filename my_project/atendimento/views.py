@@ -80,22 +80,23 @@ def lista_atendimento(request):
     
     grupo_usuario = Profile.objects.get(user = request.user)
     if grupo_usuario.grupo == "BH":
-        envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__gt = 8)).order_by('-create_at')
+        envio = Atendimento.object.filter(Q(loja_id__gt = 8)).order_by('-create_at')
     elif grupo_usuario.grupo == "MONTES CLAROS":
-        envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__lt = 9)).order_by('-create_at')
+        envio = Atendimento.object.filter(Q(loja_id__lt = 9)).order_by('-create_at')
     else:
-        envio = Atendimento.object.filter(status='p').order_by('-create_at')
+        envio = Atendimento.object.all().order_by('-create_at')
 
     context = {
         "envio" : envio
     }
     return render(request,teamplate,context)
+    
 
-class ListaAtendimento(ListView):
-    template_name='lista_atendimento.html'
-    model = Atendimento
-    context_object_name = 'envio'
-    ordering = ['-create_at']
+# class ListaAtendimento(ListView):
+#     template_name='lista_atendimento.html'
+#     model = Atendimento
+#     context_object_name = 'envio'
+#     ordering = ['-create_at']
 
 
 def lista_atendimento_pendente(request):

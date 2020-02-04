@@ -38,16 +38,10 @@
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 text-gray-900 mb-4">Crie sua conta!</h1>
-                {% if messages %}
-                <h1 class="h4 text-gray-900 mb-4">
-                    {% for message in messages %}
-                    {{ message }}
-                    {% endfor %}
-                {% endif %}
+                <h1 class="h4 text-gray-900 mb-4">Crie sua conta!</h1>                
                 </h1>
               </div>
-              <form class="user" method="POST">
+              <form id="big" class="user" method="POST" >
               {% csrf_token %}              
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
@@ -66,7 +60,14 @@
                     </div>
                     <div class="col-sm-6">
                     <input type="password" class="form-control form-control-user" name="password" id="confirm_password" placeholder="Confirme senha">
-                    </div>          
+                    </div>      
+                    <div id="form-group" style="margin-top: 20px;margin-left: 90px;  ">
+
+                      {% for field in form_profile %}
+                              {{ field.label_tag }} {{ field }}                             
+                          
+                      {% endfor %}
+                    </div>    
                 </div>
                 <button type="submit" class="btn btn-primary btn-user btn-block">
                   Criar conta!

@@ -31,16 +31,12 @@
       <tbody>
       {% for chamado in chamado %}
           <tr>
-              <td>{{ chamado.chamado }}</td>
-              <td>{{ chamado.create_at|date:"d-m-Y"}}</td>
-              <td>{{ chamado.loja }}</td>
-              <td>{{ chamado.serial }}</td>
-              <td>{{ chamado.defeito }}</td>
-              {% if chamado.status == 'r'%}
-              <td> Resolvido </td>
-              {% else %}
-              <td> Pendente </td>
-              {% endif %}
+              <td>{{ chamado.modelo }}</td>
+              <td>{{ chamado.end_ip}}</td>
+              <td>{{ chamado.qtd_ramais }}</td>
+              <td>{{ chamado.qtd_ramais_utilizados }}</td>
+              <td>{{ chamado.dt_ult_preventiva }}</td>
+              <td>{{ chamado.filial }}</td>              
               <td>
               <a href="{% url 'base:update_central_telefonica' pk=chamado.pk %}" class="btn btn-warning btn-circle btn-sm">
               <i class="fas fa-exclamation-triangle"></i>

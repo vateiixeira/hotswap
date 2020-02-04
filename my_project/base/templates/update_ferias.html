@@ -2,7 +2,8 @@
 {% block atendimento %}
 {% endblock atendimento %}
 {% block content%}
-<h1 style="margin-left: 50px;">Editar Central Telefonica</h1>
+<h1 style="margin-left: 50px;">Editar Controle de Férias</h1>
+
 <hr>
     <form class="pure-form pure-form-aligned" method="POST" >
     {% csrf_token %}
@@ -18,5 +19,11 @@
         </span>
         <span class="text">Salvar</span>
     </button>
+    <a href="{% url 'base:delete_ferias' pk=model.pk %}" class="btn btn-danger btn-icon-split" >
+        <span class="icon text-white-50">
+            <i class="fas fa-check"></i>
+        </span>
+        <span class="text">Excluir</span>
+    </a>
     </div>
 {% endblock %}

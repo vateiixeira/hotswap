@@ -10596,7 +10596,7 @@ a:focus {
 }
 
 .bg-password-image {
-  background: url("../img/logo.jpg");
+  background: url("../img/password.png");
   background-position: center;
   background-size: cover;
 }
