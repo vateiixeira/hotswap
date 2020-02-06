@@ -183,7 +183,14 @@ class PdfCompletoAtendimento(View):
     def get(self, request, dtinicial, dtfinal, idorigem):
         titulo = 'Atendimentos'
         dtgeracao = datetime.now()
-        atendimento = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, loja=idorigem)
+        
+        geral = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, loja=idorigem, updated_at__lte=dtfinal, updated_at__gte=dtinicial)
+
+        #pega os finalizados no periodo filtrado
+        fechados = Atendimento.object.filter(updated_at__lte=dtfinal, updated_at__gte=dtinicial, status = 'r', loja=idorigem)
+
+        # junta as duas querysets
+        atendimento = geral | fechados
         params = {
             'atendimento': atendimento,
             'dtgeracao': dtgeracao,
@@ -259,7 +266,14 @@ class PdfCompletoAtendimentoTodas(View):
         usuario = request.user
         titulo = 'Atendimentos'
         dtgeracao = datetime.now()
-        atendimento = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial)
+        #pega todos criados no periodo filtrado
+        geral  = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, updated_at__lte=dtfinal, updated_at__gte=dtinicial)
+        #pega os finalizados no periodo filtrado
+        fechados = Atendimento.object.filter(updated_at__lte=dtfinal, updated_at__gte=dtinicial, status = 'r')
+
+        # junta as duas querysets
+        atendimento = geral | fechados
+
         params = {
             'atendimento': atendimento,
             'dtgeracao': dtgeracao,
