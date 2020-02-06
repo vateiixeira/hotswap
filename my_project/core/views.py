@@ -38,6 +38,15 @@ def homepage(request):
     grupo_msg = str(Group_Msg.object.get(user_id=user.id))
     id_msg = user.id
 
+    #pega localidade do operador logado
+    query_localidade = Profile.objects.get(user = request.user)
+    if query_localidade.grupo == 'BH':
+        see_bh = 1
+    elif query_localidade.grupo == 'MONTES CLAROS' :
+        see_bh = 2
+    else:
+        see_bh = 0
+
     # mensagens não lidas
     msg_nao_lida = Msg.object.filter(lida=False, dest=user).count()
 
@@ -45,10 +54,19 @@ def homepage(request):
     lista_filial = []
     query_filial = Lojas.object.all()
     for i in query_filial:
-        lista_filial.append(i.name)
+        lista_filial.append(i.id)
+
+    # lista filiais bh
+    lojas_bh = []
+    query_bh = Lojas.object.exclude(cidade='MONTES CLAROS')
+    for i in query_bh:
+        lojas_bh.append(i.id)
+
+
 
     atendimento_pendente = atendimento_pendente_def()
     data_atendimento_filial = contagem_atendimento_filial()
+    data_atendimento_bh = contagem_atendimento_bh()
     limit_contagem_atendimentos_moc = data_atendimento_filial[0]
     data = contagem_chamados_anual()
     data_filial = contagem_chamados_filial()
@@ -56,6 +74,8 @@ def homepage(request):
     mes_envios = contagem_envios_mes()
     custo_chamado = custo_chamado_mensal()
     context = {
+        'lojas_bh': lojas_bh,
+        'see_bh': see_bh,
         'staff': is_staff(user),
         'id': id_user,
         'data_filial': data_filial,
@@ -72,6 +92,7 @@ def homepage(request):
         'msg_nao_lida':msg_nao_lida,  
         'lista_filial': lista_filial, 
         'limit_contagem_atendimentos_moc': limit_contagem_atendimentos_moc,     
+        'data_atendimento_bh': data_atendimento_bh,     
     }
     
     return render(request,template,context)
@@ -264,6 +285,36 @@ def contagem_chamados_filial():
     data_filial = [dulce , sion , jaragua , ceanorte, mangabeira]
     return data_filial
 
+    
+def contagem_atendimento_bh():
+    dia,mes,ano = get_data_final_mes()
+    pav10 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=10).count()
+    cd = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=12).count()
+    cof= Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=13).count()
+    tito = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=14).count()
+    jfora = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=15).count()
+    vaz = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=16).count()
+    ampa = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=17).count()
+    hort = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=18).count()
+    bridadeiro = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=19).count()
+    divi = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=20).count()
+    justin = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=21).count()
+    p2 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=22).count()
+    jj = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=23).count()
+    trop = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=24).count()
+    serrano = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=25).count()
+    hm = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=26).count()
+    br040 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=27).count()
+    dctf = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=28).count()
+    dcp2 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=29).count()
+    dcbg = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=30).count()
+    sl = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=31).count()
+    itabi = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=32).count()
+    jatai = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=33).count()
+    ipatinga = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=34).count()
+    data = [pav10, cd, cof, tito,jfora,vaz,ampa,hort,bridadeiro,divi,justin,p2,jj,trop,serrano,hm,br040,dctf,dcp2,dcbg,sl,itabi,jatai,ipatinga]
+    return data
+
 def contagem_atendimento_filial():
     dia,mes,ano = get_data_final_mes()
     dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=2).count()
@@ -271,7 +322,10 @@ def contagem_atendimento_filial():
     jaragua = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=7).count()
     ceanorte = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=3).count()
     mangabeira = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=6).count()
-    data = [dulce , sion , ceanorte , jaragua, mangabeira]
+    posto_dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=11).count()
+    posto_jg = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=25).count()
+    dc_dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=8).count()
+    data = [dulce , sion , ceanorte , jaragua, mangabeira, posto_dulce, posto_jg, dc_dulce]
     return data
 
 def get_data_final_mes():
