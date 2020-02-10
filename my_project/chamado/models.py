@@ -20,6 +20,7 @@ class Chamado(models.Model):
     defeito = models.CharField("Defeito", max_length=200)
     valor = models.DecimalField('Valor', max_digits=7, decimal_places=2, blank=True)
     status = models.CharField(max_length=1, choices=SIT_CHOICE, default='p')
+    dt_finalizado = models.DateField(verbose_name='Data Finalizado', null=True)
 
     # status True = chamado não resolvido
 

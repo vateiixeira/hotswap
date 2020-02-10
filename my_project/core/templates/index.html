@@ -661,48 +661,7 @@
           }
       });
     </script>
-  
-
-
-  <!--INICIO CHART TORTA--> 
-  <script>
-  // Set new default font family and font color to mimic Bootstrap's default styling
-Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = '#858796';
-
-// Pie Chart Example
-var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["dulce" , "sion" , "jaragua" , "ceanorte", "mangabeira"],
-    datasets: [{
-      data: {{data_filial}},
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#0000FF', '#FF00BF'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf', '#0000FF', '#FF00BF'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-    },
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 80,
-  },
-});
-  </script>
-  <!--FIM CHART TORTA--> 
+   
   
   <!-- INICIO CHART LINHAS -->
   <script>
@@ -954,7 +913,7 @@ var myBarChart = new Chart(ctx, {
   <script src="{% static 'js/jquery-3.4.1.js' %}" ></script>
   <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+  <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script> -->
   <script href="{% static 'js/jquery.counterup.min.js' %}"></script>
 
   <!-- Fengyuan Chen's Datepicker -->
@@ -979,6 +938,18 @@ var myBarChart = new Chart(ctx, {
     $(function () {
         $("#id_dt_vencimento").datepicker({
         format:'dd-mm-yyyy',
+        days: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+        daysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+        daysMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+        months: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+        });
+    });
+    </script>
+  <script>
+    $(function () {
+        $("#id_dt_finalizado").datepicker({
+        format:'yyyy-mm-dd',
         days: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
         daysShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
         daysMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],

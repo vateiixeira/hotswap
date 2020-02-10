@@ -13,9 +13,10 @@ class UpdateChamadoForm(forms.ModelForm):
     defeito = forms.CharField(widget=forms.TextInput(attrs={'size':'60'}))
     quantidade = forms.IntegerField(min_value=0, widget=forms.TextInput(attrs={'size':'8'}))
     valor = forms.DecimalField(min_value=0, decimal_places=2, widget=forms.TextInput(attrs={'size':'8'}))
+    dt_finalizado = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
     class Meta:
         model = Chamado
-        fields = ['chamado','modelo','serial','loja','defeito','quantidade','valor','status']
+        fields = ['chamado','modelo','serial','loja','defeito','quantidade','valor','status','dt_finalizado']
 
 
 class ChamadoForm(forms.Form):
