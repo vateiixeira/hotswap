@@ -16,6 +16,9 @@ from my_project.core.models import Profile
 from django.db.models import Q
 
 
+lista_id_bh = [8,10,12,13,14,15,16,17,18,19,20,21,22,23,24,26,27,28,29,30,31,32,33,34,35]
+lista_id_moc = [2,3,4,6,7,9,11,25]
+
 class DeleteAtendimento(DeleteView):
     template_name='delete_atendimento.html'
     model = Atendimento
@@ -80,9 +83,9 @@ def lista_atendimento(request):
     
     grupo_usuario = Profile.objects.get(user = request.user)
     if grupo_usuario.grupo == "BH":
-        envio = Atendimento.object.filter(Q(loja_id__gt = 8)).order_by('-create_at')
+        envio = Atendimento.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')
     elif grupo_usuario.grupo == "MONTES CLAROS":
-        envio = Atendimento.object.filter(Q(loja_id__lt = 9)).order_by('-create_at')
+        envio = Atendimento.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')
     else:
         envio = Atendimento.object.all().order_by('-create_at')
 
@@ -105,9 +108,9 @@ def lista_atendimento_pendente(request):
     
     grupo_usuario = Profile.objects.get(user = request.user)
     if grupo_usuario.grupo == "BH":
-        envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__gt = 8))
+        envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__in = lista_id_bh))
     elif grupo_usuario.grupo == "MONTES CLAROS":
-        envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__lt = 9))
+        envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__in = lista_id_moc))
     else:
         envio = Atendimento.object.filter(status='p')
 

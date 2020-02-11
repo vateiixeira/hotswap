@@ -56,6 +56,8 @@ def homepage(request):
     for i in query_filial:
         lista_filial.append(i.id)
 
+
+
     # lista filiais bh
     lojas_bh = []
     query_bh = Lojas.object.exclude(cidade='MONTES CLAROS')
