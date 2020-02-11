@@ -4,9 +4,9 @@ from .models import *
 class IncidenteForm(forms.ModelForm):
     class Meta:
         model = HistoricoIncidente
-        fields = '__all__'
+        fields = '__all__'        
         widgets = {
-           'incidente': forms.Textarea(attrs={'cols': 60, 'rows': 3}),
+           'incidente': forms.Textarea(attrs={'cols': 60, 'rows': 8}),
            'data' : forms.TextInput(attrs={'placeholder': '16/01/2020 12:00'})
         }
 

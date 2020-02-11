@@ -1,0 +1,109 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{titulo}}</title>
+<style>
+	@page {
+    size: letter landscape;
+    margin: 0.5cm;
+}
+</style>
+</head>
+<body>
+<p>{{dtgeracao}}</p>
+<hr />
+<p><strong>Relat&oacute;rio de manutencao mensal</strong><br>Filial: {{filial}} <br> Código: {{filial.numero}}
+</p>
+<p>&nbsp;</p>
+
+<div class="2313">
+
+<table align="center" border="1" cellpadding="3" cellspacing="3" style="width:700px">
+	<thead>
+		<tr>
+			<th scope="col">
+			<h3>DATA ENTREGA</h3>
+			</th>
+			<th scope="col">
+			<h3>FORNECEDOR</h3>
+			</th>
+			<th scope="col">
+			<h3>Filial</h3>
+			</th>
+			<th scope="col">
+			<h3>CONTA</h3>
+			</th>
+			<th scope="col">
+			<h3>DESCRICAO</h3>
+			</th>
+			<th scope="col">
+			<h3>VALOR</h3>
+			</th>
+			<th scope="col">
+			<h3>N. NF</h3>
+			</th>
+			<th scope="col">
+			<h3>N. ORDEM</h3>
+			</th>
+			<th scope="col">
+			<h3>VENCIMENTO</h3>
+			</th>
+			<th scope="col">
+			<h3>STATUS</h3>
+			</th>
+			<th scope="col">
+			<h3>AQUISICAO DO EQUIPAMENTO</h3>
+			</th>
+			<th scope="col">
+			<h3>DT. ULTIMA MANUTENCAO</h3>
+			</th>
+		</tr>
+	</thead>
+	<tbody>		
+		{% for i in atendimento %}
+			<tr>
+			<td>{{i.dt_entrega}}</td>
+			<td>{{i.fornecedor}}</td>
+			<td>{{i.filial}}</td>
+			<td>{{i.conta}}</td>
+			<td>{{i.descricao}}</td>
+			<td>{{i.valor}}</td>
+			<td>{{i.nf}}</td>
+			<td>{{i.ordem}}</td>
+			<td>{{i.vencimento|date:"d/m/y"}}</td>
+
+			{% if i.status == 'CORRETIVA'%}
+				<td style="color: green;">{{i.status}}</td>
+				{% elif i.status == 'MAU USO' %}	
+				<td style="color: red;">{{i.status}}</td>
+				{% else %}	
+				<td style="color: blue;">{{i.status}}</td>
+			{% endif %}
+
+			<td>{{i.dt_aquisicao_equipamento|date:"d/m/y"}}</td>
+			{% if i.dt_ultima_manutencao is None %}			
+			<td>SEM HISTORICO </td>
+			{% else %}
+			<td>{{i.dt_ultima_manutencao|date:"d/m/y"}}</td>
+			{% endif %}
+			</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+</div>
+	<h1 class="child" style="margin-top: 30px;">Totalizadores </h1>
+		<h5 style="color: green;">VALOR MANUTENCAO CORRETIVA: {{custo_corretiva|floatformat:-2}}</h5>
+		<h5 style="color: red;"> VALOR MANUTENCAO MAU USO: {{custo_mau_uso|floatformat:-2}}</h5>
+		<h5 style="color: blue;">VALOR AQUISICOES: {{custo_aquisicao|floatformat:-2}}</h5>
+		<h1 >TOTAL: {{custo_total|floatformat:-2}}</h1>
+		<HR></HR>
+		<h5 style="color: green;">QUANTIDADE MANUTENCOES CORRETIVAS: {{count_corretiva}}</h5>
+		<h5 style="color: red;">QUANTIDADE MANUTENCOES MAU USO: {{count_mau}}</h5>
+		<h5 style="color: blue;">QUANTIDADE DE AQUISICOES: {{count_aquisicao}}</h5>
+		<h1>TOTAL: {{count_total}}</h1>
+
+<p>&nbsp;</p>
+</body>
+
+</html> 

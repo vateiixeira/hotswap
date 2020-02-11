@@ -72,6 +72,21 @@ def listagem_compras(request):
     template = 'lista_compras.html'
     return render(request,template,context)
 
+
+def manutencao_mensal(request):
+    template = 'manutencao_mensal.html'
+    if request.method == 'POST':
+        form = ManutencaoMensalForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('compras:listagem_compras')
+    else:
+        form = ManutencaoMensalForm()
+    context = {
+        'form': form
+    }
+    return render(request,template,context)
+
     # -----------------------------------------------------------------------------------#
 
 
@@ -185,3 +200,70 @@ class PdfFornecedorCompras(View):
             'usuario' : request.user
         }
         return Render.render('pdf_fornecedor_compras.html', params) 
+
+def rel_manutencao_mensal(request):
+    template = 'viewmanutencao_mensal.html'
+    if request.method == 'POST':
+        form = RelatorioManutencaoMensal(request.POST)
+        if form.is_valid():
+            idorigem = request.POST.get('filial')
+            dt_entrega = str(form.cleaned_data['dt_entrega'])
+
+            return redirect('compras:pdfmanutencaomensal', filial = idorigem, dt_entrega = dt_entrega)
+        else:
+            messages.error(request, "Formulário invalido!")
+            form = RelatorioManutencaoMensal()
+    else:
+        form = RelatorioManutencaoMensal()
+    context = {
+        'form': form
+    }
+    return render(request, template, context)
+
+class PdfManutencaoMensal(View):
+    def get(self,request, filial, dt_entrega):
+        titulo = 'Relacao de Manutencoes Mensais - Informatica'
+        dtgeracao = datetime.now()
+        atendimento = Manutencao_Mensal.objects.filter(filial = filial, dt_entrega = dt_entrega)
+        filial = Lojas.object.get(id=filial)
+
+        corretiva = Manutencao_Mensal.objects.filter(filial = filial, dt_entrega = dt_entrega)
+        mau_uso = Manutencao_Mensal.objects.filter(filial = filial, dt_entrega = dt_entrega, status='MAU USO')
+        aquisicao = Manutencao_Mensal.objects.filter(filial = filial, dt_entrega = dt_entrega)
+
+        count_corretiva = corretiva.count()
+        count_mau = mau_uso.count()
+        count_aquisicao = aquisicao.count()
+        count_total = count_aquisicao + count_corretiva + count_mau
+
+        custo_corretiva = 0 
+        for x in corretiva:
+            custo_corretiva = custo_corretiva + x.valor
+
+        custo_mau_uso = 0 
+        for x in mau_uso:
+            custo_mau_uso = custo_mau_uso + x.valor
+
+        custo_aquisicao = 0 
+        for x in aquisicao:
+            custo_aquisicao = custo_aquisicao + x.valor
+
+
+        custo_total = custo_aquisicao + custo_mau_uso + custo_aquisicao
+
+        params = {
+            'atendimento': atendimento,
+            'dtgeracao': dtgeracao,
+            'titulo': titulo,
+            'usuario' : request.user,
+            'count_total' : count_total,
+            'custo_mau_uso' : custo_mau_uso,
+            'custo_corretiva' : custo_corretiva,
+            'custo_aquisicao' : custo_aquisicao,
+            'count_corretiva' : count_corretiva,
+            'count_mau' : count_mau,
+            'count_aquisicao' : count_aquisicao,
+            'custo_total' : custo_total,
+            'filial' : filial,
+        }
+        return Render.render('pdf_manutencao_mensal.html', params)

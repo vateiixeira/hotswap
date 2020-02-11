@@ -10,3 +10,4 @@ class LojasAdmin(admin.ModelAdmin):
 
 admin.site.register(Lojas, LojasAdmin)
 admin.site.register(Profile)
+admin.site.register(Fornecedor)

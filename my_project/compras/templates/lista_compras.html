@@ -3,8 +3,12 @@
 {% endblock atendimento %}
 {% block content%}
 <div class="container-fluid">
+  <a href="{% url 'compras:manutencao_mensal'%}">
+  <button type="button" class="btn btn-secondary">Adicionar manutencao mensal </button></a>
+    <a href="{% url 'compras:rel_manutencao_mensal'%}">
+  <button type="button" class="btn btn-primary">Gerar Relatorio </button></a>
 <!-- DataTales Example -->
-<div class="card shadow mb-4">
+<div class="card shadow mb-4" style="margin-top: 20px;">
   <div class="card-header py-3">
     <h6 class="m-0 font-weight-bold text-primary">Listagem de Compras</h6>
   </div>

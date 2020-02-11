@@ -26,6 +26,15 @@ class UpdateComprasForm(forms.ModelForm):
         model = Compras
         exclude = ['create_at','updated_at','user', 'dt_vencimento']
 
+class ManutencaoMensalForm(forms.ModelForm):
+    class Meta:
+        model = Manutencao_Mensal
+        fields = '__all__'
+        
+class RelatorioManutencaoMensal(forms.Form):
+    filial = forms.ModelChoiceField(queryset=Lojas.object.all())
+    dt_entrega = forms.CharField(label='Data Entrega')
+
         
 class RelatorioCompletoForm(forms.Form):
     inicial = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")

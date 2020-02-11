@@ -4,6 +4,11 @@ from my_project.estoque.models import Equipamento
 from django.contrib.auth.models import User
 from django import forms
 
+STATUS_MANUTENCAO = (
+    ('CORRETIVA', 'CORRETIVA'),
+    ('PREVENTIVA', 'PREVENTIVA'),
+    ('MAU USO', 'MAU USO')
+)
 
 
 class Compras(models.Model):
@@ -25,6 +30,33 @@ class Compras(models.Model):
     def __str__(self):
         return str(self.num_pedido)
 
-    class Main:
+    class Meta:
         verbose_name = "Compra"
         verbose_name_plural = "Compras"
+
+
+class Manutencao_Mensal(models.Model):
+    dt_entrega = models.CharField('Mes da entrega', max_length= 30)
+    fornecedor =    models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
+    filial =        models.ForeignKey(Lojas,on_delete=models.CASCADE)
+    conta = models.IntegerField('Conta', blank=True, null=True) 
+    descricao = models.TextField('Descricao', max_length=400, null=True)
+    valor = models.FloatField('Valor')
+    nf =  models.IntegerField('Nota Fiscal')
+    ordem = models.IntegerField('Num Ordem')
+    vencimento = models.DateField('Vencimento')
+    status = models.CharField('Status', choices=STATUS_MANUTENCAO, max_length=20)
+    dt_aquisicao_equipamento = models.DateField('Data Aquisicao', null=True, blank=True)
+    dt_ultima_manutencao = models.DateField('Data Ultima Manutencao', null=True, blank=True)
+
+    objects = models.Manager()
+
+
+    def __str__(self):
+        return str(f'{self.filial} | {self.dt_entrega} | {self.vencimento}')
+
+    class Meta:
+        verbose_name = "Manutencao Mensal"
+        verbose_name_plural = "Manutencoes Mensais"
+
+
