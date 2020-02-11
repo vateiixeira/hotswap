@@ -2,7 +2,7 @@ from django import forms
 from .models import *
 from django.forms import ModelChoiceField
 from django_select2.forms import Select2Widget
-import datetime
+from datetime import date
 
 class MyModelChoiceField(ModelChoiceField):
     def label_from_instance(self, obj):
@@ -27,6 +27,9 @@ class UpdateComprasForm(forms.ModelForm):
         exclude = ['create_at','updated_at','user', 'dt_vencimento']
 
 class ManutencaoMensalForm(forms.ModelForm):
+    dt_ultima_manutencao = forms.DateField(initial=date.today())
+    dt_aquisicao_equipamento= forms.DateField(initial=date.today())
+    vencimento = forms.DateField(initial=date.today())
     class Meta:
         model = Manutencao_Mensal
         fields = '__all__'
