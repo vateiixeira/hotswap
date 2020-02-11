@@ -112,3 +112,5 @@ media/
 !**/migrations/__init__.py
 
 my_project.rar
+*.rar
+.rar
