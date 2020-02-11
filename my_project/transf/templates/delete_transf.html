@@ -2,8 +2,12 @@
 {% block atendimento %}
 {% endblock atendimento %}
 {% block content%}
-<form method="post">{% csrf_token %}
-    <p>Você deseja realmente excluir o item?</p>
-    <input type="submit" value="Confirm">
+<form method="post" style="margin-left: 50px;">{% csrf_token %}
+    <h4>Você deseja realmente excluir o item?</h4>
+    <button type="submit" class="btn btn-danger"> Excluir!! </button>
+    <a href="{% url 'transf:lista_transf'%}">
+        <button type="button" class="btn btn-warning">Voltar</button>
+    </a>
+    
 </form>
 {% endblock %}

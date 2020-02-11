@@ -5,7 +5,7 @@ from django_select2.forms import Select2Widget
 from bootstrap_datepicker_plus import DatePickerInput
 
 class TransferenciaForm(forms.ModelForm):
-    obs = forms.CharField(widget=forms.Textarea)    
+    obs = forms.CharField(widget=forms.Textarea(attrs={'cols': 60, 'rows': 7}))
     class Meta:
         model = Transferencia
         fields = ['equipamento', 'destino', 'obs', 'qtd']
@@ -17,6 +17,4 @@ class TransferenciaForm(forms.ModelForm):
 class RelatorioDataFilialForm(forms.Form):
     inicial = forms.DateField(input_formats=['%Y-%m-%d'])
     final = forms.DateField(input_formats=['%Y-%m-%d'])
-    #inicial = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
-    #final = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
     filial = forms.ModelChoiceField(queryset=Lojas.object.all())

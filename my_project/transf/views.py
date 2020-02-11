@@ -10,6 +10,7 @@ from django.views.generic import View
 from my_project.core.utils import is_staff
 from django.db.models import Q
 from my_project.core.models import Profile
+from django.urls import reverse_lazy
 
 @login_required
 def cadastro(request):
@@ -63,8 +64,10 @@ def list_transf(request):
 class UpdateTransf(UpdateView):
     template_name ='update_transf.html'
     model = Transferencia
-    fields = ['equipamento', 'destino', 'obs']
+    #fields = ['equipamento', 'destino', 'obs']
     context_object_name = 'transf'
+    form_class = TransferenciaForm
+    success_url = reverse_lazy('transf:lista_transf')
 
 class DeleteTransf(DeleteView):
     template_name = 'delete_transf.html'
