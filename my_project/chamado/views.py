@@ -15,6 +15,7 @@ from django import forms
 from django.db.models import Q
 from my_project.core.models import Profile
 from my_project.estoque.models import Equipamento
+from my_project.atendimento.views import lista_id_bh, lista_id_moc
 
 
 @login_required
@@ -47,16 +48,16 @@ def cadastro(request):
         "form": form
     }
     return render(request,template,context)
-
+\
 def lista_chamado(request):
     template='lista_chamado.html'
 
 
     grupo_usuario = Profile.objects.get(user = request.user)
     if grupo_usuario.grupo == "BH":
-        chamado = Chamado.object.filter(Q(loja_id__gt = 8)).order_by('-create_at')
+        chamado = Chamado.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')
     elif grupo_usuario.grupo == "MONTES CLAROS":
-        chamado = Chamado.object.filter(Q(loja_id__lt = 9)).order_by('-create_at')
+        chamado = Chamado.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')
     else:
         chamado = Chamado.object.all().order_by('-create_at')
 
@@ -71,7 +72,15 @@ def lista_chamado(request):
 
 def lista_chamado_pendente(request):
     template='lista_chamado_pendente.html'
-    chamado = Chamado.object.filter(status = 'p')
+    grupo_usuario = Profile.objects.get(user = request.user)
+
+    if grupo_usuario.grupo == "BH":
+        chamado = Chamado.object.filter(Q(loja_id__in = lista_id_bh), status = 'p')
+    elif grupo_usuario.grupo == "MONTES CLAROS":
+        chamado = Chamado.object.filter(Q(loja_id__in = lista_id_moc), status = 'p')
+    else:
+        chamado = Chamado.object.filter(status = 'p')
+
     user = request.user
     staff = is_staff(user)
     context = {

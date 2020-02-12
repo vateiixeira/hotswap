@@ -8,6 +8,8 @@ from django.urls import reverse_lazy
 from .forms import *
 from django.contrib import messages
 from my_project.core.utils import is_staff
+from my_project.atendimento.models import Atendimento
+from my_project.chamado.models import Chamado
 
 
 class UpdateCentralTelefonica(UpdateView):
@@ -230,3 +232,24 @@ class DeleteCamara_Fria(DeleteView):
     template_name = 'delete_ferias.html'
     model = IpFixo
     success_url = reverse_lazy('base:ferias')
+
+
+def lista_atendimento(request):
+    template= 'lista_atendimento_base.html'
+
+    envio = Atendimento.object.filter(status='r').order_by('-create_at')
+
+    context = {
+        "envio" : envio
+    }
+    return render(request,template,context)
+
+def lista_chamado(request):
+    template='lista_chamado_base.html'
+
+    chamado = Chamado.object.all().order_by('-create_at')
+
+    context = {
+        'chamado': chamado,
+    }
+    return render(request,template,context)

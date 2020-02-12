@@ -104,7 +104,7 @@ def lista_atendimento(request):
 
 def lista_atendimento_pendente(request):
     template = 'lista_atendimento_pendente.html'
-
+    
     
     grupo_usuario = Profile.objects.get(user = request.user)
     if grupo_usuario.grupo == "BH":

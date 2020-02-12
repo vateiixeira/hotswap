@@ -25,4 +25,6 @@ urlpatterns = [
     path('circuitovoz/delete/<int:pk>/', Delete_Circuito_Voz.as_view(), name='delete_circuito_voz'),
     path('circuitodados/update/<int:pk>/', Update_Circuito_Dados.as_view(), name='update_circuito_dados'),
     path('circuitodados/delete/<int:pk>/', Delete_Circuito_Dados.as_view(), name='delete_circuito_dados'),
+    path('atendimento/', lista_atendimento, name='lista_atendimento'),
+    path('chamado/', lista_chamado, name='lista_chamado'),
 ]

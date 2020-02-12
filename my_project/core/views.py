@@ -23,6 +23,7 @@ from my_project.atendimento.models import Atendimento
 from .conexao_oracle import conecta
 from django.contrib.auth.models import User
 from my_project.msg.models import Group_Msg
+from my_project.atendimento.views import lista_id_bh, lista_id_moc
 
 @login_required
 def homepage(request):
@@ -67,30 +68,38 @@ def homepage(request):
 
 
     atendimento_pendente = atendimento_pendente_def()
+    atendimento_pendente_bh = atendimento_pendente_def_bh()
     data_atendimento_filial = contagem_atendimento_filial()
     data_atendimento_bh = contagem_atendimento_bh()
     limit_contagem_atendimentos_moc = data_atendimento_filial[0]
-    data = contagem_chamados_anual()
+    contagem_chamados_anual_moc = contagem_chamados_anual()
+    data = contagem_chamados_anual_bh()
     data_filial = contagem_chamados_filial()
-    chamados = Chamado.object.filter(status='p').count()
+    chamados = Chamado.object.filter(status='p', loja_id__in = lista_id_moc).count()
+    chamados_bh = Chamado.object.filter(status='p', loja_id__in = lista_id_bh).count()
     mes_envios = contagem_envios_mes()
     custo_chamado = custo_chamado_mensal()
+    custo_chamado_bh = custo_chamado_mensal_bh()
     context = {
         'lojas_bh': lojas_bh,
         'see_bh': see_bh,
         'staff': is_staff(user),
         'id': id_user,
         'data_filial': data_filial,
+        'contagem_chamados_anual_moc': contagem_chamados_anual_moc,      
         'data': data,      
         'user': user,
         'chamados': chamados,
+        'chamados_bh': chamados_bh,
         'mes_envios': mes_envios,
         'custo_chamado':custo_chamado,
+        'custo_chamado_bh':custo_chamado_bh,
         'form_atendi': form_atendi,
         'grupo_msg': grupo_msg,
         'id_msg': id_msg,
         'data_atendimento_filial':data_atendimento_filial,
         'atendimento_pendente':atendimento_pendente,
+        'atendimento_pendente_bh':atendimento_pendente_bh,
         'msg_nao_lida':msg_nao_lida,  
         'lista_filial': lista_filial, 
         'limit_contagem_atendimentos_moc': limit_contagem_atendimentos_moc,     
@@ -262,18 +271,36 @@ def notas_travadas_mysql(request):
 
 def contagem_chamados_anual():
     dia,mes,ano = get_data_final_mes()
-    janeiro = Chamado.object.filter(create_at__lte=f'{ano}-1-31', create_at__gte=f'{ano}-1-1').count()
-    fevereiro = Chamado.object.filter(create_at__lte=f'{ano}-2-28', create_at__gte=f'{ano}-2-1').count()
-    marco = Chamado.object.filter(create_at__lte=f'{ano}-3-31', create_at__gte=f'{ano}-3-1').count()
-    abril = Chamado.object.filter(create_at__lte=f'{ano}-4-30', create_at__gte=f'{ano}-4-1').count()
-    maio = Chamado.object.filter(create_at__lte=f'{ano}-5-31', create_at__gte=f'{ano}-5-1').count()
-    jun = Chamado.object.filter(create_at__lte=f'{ano}-6-30', create_at__gte=f'{ano}-6-1').count()
-    julho = Chamado.object.filter(create_at__lte=f'{ano}-7-31', create_at__gte=f'{ano}-7-1').count()
-    agosto = Chamado.object.filter(create_at__lte=f'{ano}-8-31', create_at__gte=f'{ano}-8-1').count()
-    setembro = Chamado.object.filter(create_at__lte=f'{ano}-9-30', create_at__gte=f'{ano}-9-1').count()
-    outubro = Chamado.object.filter(create_at__lte=f'{ano}-10-31', create_at__gte=f'{ano}-10-1').count()
-    novembro = Chamado.object.filter(create_at__lte=f'{ano}-11-30', create_at__gte=f'{ano}-11-1').count()
-    dezembro = Chamado.object.filter(create_at__lte=f'{ano}-12-31', create_at__gte=f'{ano}-12-1').count()
+    janeiro = Chamado.object.filter(create_at__lte=f'{ano}-1-31', create_at__gte=f'{ano}-1-1', loja_id__in = lista_id_moc).count()
+    fevereiro = Chamado.object.filter(create_at__lte=f'{ano}-2-28', create_at__gte=f'{ano}-2-1', loja_id__in = lista_id_moc).count()
+    marco = Chamado.object.filter(create_at__lte=f'{ano}-3-31', create_at__gte=f'{ano}-3-1', loja_id__in = lista_id_moc).count()
+    abril = Chamado.object.filter(create_at__lte=f'{ano}-4-30', create_at__gte=f'{ano}-4-1', loja_id__in = lista_id_moc).count()
+    maio = Chamado.object.filter(create_at__lte=f'{ano}-5-31', create_at__gte=f'{ano}-5-1', loja_id__in = lista_id_moc).count()
+    jun = Chamado.object.filter(create_at__lte=f'{ano}-6-30', create_at__gte=f'{ano}-6-1', loja_id__in = lista_id_moc).count()
+    julho = Chamado.object.filter(create_at__lte=f'{ano}-7-31', create_at__gte=f'{ano}-7-1', loja_id__in = lista_id_moc).count()
+    agosto = Chamado.object.filter(create_at__lte=f'{ano}-8-31', create_at__gte=f'{ano}-8-1', loja_id__in = lista_id_moc).count()
+    setembro = Chamado.object.filter(create_at__lte=f'{ano}-9-30', create_at__gte=f'{ano}-9-1', loja_id__in = lista_id_moc).count()
+    outubro = Chamado.object.filter(create_at__lte=f'{ano}-10-31', create_at__gte=f'{ano}-10-1', loja_id__in = lista_id_moc).count()
+    novembro = Chamado.object.filter(create_at__lte=f'{ano}-11-30', create_at__gte=f'{ano}-11-1', loja_id__in = lista_id_moc).count()
+    dezembro = Chamado.object.filter(create_at__lte=f'{ano}-12-31', create_at__gte=f'{ano}-12-1', loja_id__in = lista_id_moc).count()
+    data = [janeiro , fevereiro, marco, abril, maio, jun, julho, agosto, setembro, outubro,novembro,dezembro]
+    return data
+
+
+def contagem_chamados_anual_bh():
+    dia,mes,ano = get_data_final_mes()
+    janeiro = Chamado.object.filter(create_at__lte=f'{ano}-1-31', create_at__gte=f'{ano}-1-1', loja_id__in = lista_id_bh).count()
+    fevereiro = Chamado.object.filter(create_at__lte=f'{ano}-2-28', create_at__gte=f'{ano}-2-1', loja_id__in = lista_id_bh).count()
+    marco = Chamado.object.filter(create_at__lte=f'{ano}-3-31', create_at__gte=f'{ano}-3-1', loja_id__in = lista_id_bh).count()
+    abril = Chamado.object.filter(create_at__lte=f'{ano}-4-30', create_at__gte=f'{ano}-4-1', loja_id__in = lista_id_bh).count()
+    maio = Chamado.object.filter(create_at__lte=f'{ano}-5-31', create_at__gte=f'{ano}-5-1', loja_id__in = lista_id_bh).count()
+    jun = Chamado.object.filter(create_at__lte=f'{ano}-6-30', create_at__gte=f'{ano}-6-1', loja_id__in = lista_id_bh).count()
+    julho = Chamado.object.filter(create_at__lte=f'{ano}-7-31', create_at__gte=f'{ano}-7-1', loja_id__in = lista_id_bh).count()
+    agosto = Chamado.object.filter(create_at__lte=f'{ano}-8-31', create_at__gte=f'{ano}-8-1', loja_id__in = lista_id_bh).count()
+    setembro = Chamado.object.filter(create_at__lte=f'{ano}-9-30', create_at__gte=f'{ano}-9-1', loja_id__in = lista_id_bh).count()
+    outubro = Chamado.object.filter(create_at__lte=f'{ano}-10-31', create_at__gte=f'{ano}-10-1', loja_id__in = lista_id_bh).count()
+    novembro = Chamado.object.filter(create_at__lte=f'{ano}-11-30', create_at__gte=f'{ano}-11-1', loja_id__in = lista_id_bh).count()
+    dezembro = Chamado.object.filter(create_at__lte=f'{ano}-12-31', create_at__gte=f'{ano}-12-1', loja_id__in = lista_id_bh).count()
     data = [janeiro , fevereiro, marco, abril, maio, jun, julho, agosto, setembro, outubro,novembro,dezembro]
     return data
 
@@ -345,7 +372,17 @@ def contagem_envios_mes():
 def custo_chamado_mensal():
     chamado_custo = 0
     dia,mes,ano = get_data_final_mes()
-    result = Chamado.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'))
+    result = Chamado.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'), loja_id__in = lista_id_moc)
+    if not result:
+        chamado_custo = 0
+    for i in result:        
+        chamado_custo = chamado_custo + i.valor
+    return chamado_custo
+
+def custo_chamado_mensal_bh():
+    chamado_custo = 0
+    dia,mes,ano = get_data_final_mes()
+    result = Chamado.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'), loja_id__in = lista_id_bh)
     if not result:
         chamado_custo = 0
     for i in result:        
@@ -353,5 +390,9 @@ def custo_chamado_mensal():
     return chamado_custo
 
 def atendimento_pendente_def():
-    data = Atendimento.object.filter(status='p').count()
+    data = Atendimento.object.filter(status='p', loja_id__in = lista_id_moc).count()
+    return data
+
+def atendimento_pendente_def_bh():
+    data = Atendimento.object.filter(status='p', loja_id__in = lista_id_bh).count()
     return data
