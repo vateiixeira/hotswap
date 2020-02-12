@@ -34,6 +34,7 @@ def cadastro(request):
             model.loja = form.cleaned_data['loja']
             model.defeito = form.cleaned_data['defeito'] 
             model.valor = form.cleaned_data['valor']
+            model.status = form.cleaned_data['status']
             model.user = usuario    
             model.save()
             form = ChamadoForm()

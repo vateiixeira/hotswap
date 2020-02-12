@@ -7,7 +7,12 @@ from django.contrib.auth.models import User
 from .models import Chamado
 
     
-SIT_CHOICE = [("p", "PENDENTE"),("r", "RESOLVIDO")]
+SIT_CHOICE = [
+    ("p", "PENDENTE"),
+    ("r", "RESOLVIDO"),
+    ("c", "COMPRADO"),
+    ("o", "RECOLHIDO"),
+]
 
 class UpdateChamadoForm(forms.ModelForm):
     defeito = forms.CharField(widget=forms.TextInput(attrs={'size':'60'}))

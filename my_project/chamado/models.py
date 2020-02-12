@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 class Chamado(models.Model):
     SIT_CHOICE = [
         ("p", "PENDENTE"),
-        ("r", "RESOLVIDO")
+        ("r", "RESOLVIDO"),
+        ("c", "COMPRADO"),
+        ("o", "RECOLHIDO"),
     ]
 
     chamado = models.IntegerField('Número chamado')   
