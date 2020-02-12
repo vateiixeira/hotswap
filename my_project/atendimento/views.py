@@ -145,7 +145,13 @@ class PdfTecnicoAtendimento(View):
     def get(self, request, dtinicial, dtfinal, usuario):
         titulo = 'Atendimento por técnico'
         dtgeracao = datetime.now()
-        atendimento = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, user_id=usuario)
+
+        abertos = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, user_id=usuario)
+
+        finalizados = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, user_finaliza_id=usuario)
+
+        atendimento = abertos | finalizados
+
         usuario = User.objects.get(id=usuario)
         params = {
             'usuario': usuario,
