@@ -45,11 +45,11 @@ class Fornecedor(models.Model):
     name = models.CharField('Nome', max_length=50)
     numero = models.IntegerField('Número da unidade', blank=True, null=True)
     razao_social = models.CharField('Razão Social', max_length=70)
-    cnpj = models.IntegerField('CNPJ')
+    cnpj = models.CharField('CNPJ', max_length=50)
     rua = models.CharField('Rua', max_length=50)
     num_rua = models.IntegerField('Num')
     bairro = models.CharField('Bairro', max_length=50)
-    cep = models.IntegerField('cep')
+    cep = models.CharField('Cep',max_length=50)
     cidade = models.CharField('Cidade', max_length=50)
 
     object = models.Manager()

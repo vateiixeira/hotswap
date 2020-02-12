@@ -326,7 +326,7 @@ def contagem_atendimento_filial():
     mangabeira = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=6).count()
     posto_dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=11).count()
     posto_jg = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=25).count()
-    dc_dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=8).count()
+    dc_dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=9).count()
     data = [dulce , sion , ceanorte , jaragua, mangabeira, posto_dulce, posto_jg, dc_dulce]
     return data
 
