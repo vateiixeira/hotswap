@@ -148,7 +148,7 @@ class PdfTecnicoAtendimento(View):
 
         abertos = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, user_id=usuario)
 
-        finalizados = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, user_finaliza_id=usuario)
+        finalizados = Atendimento.object.filter(updated_at__lte=dtfinal, updated_at__gte=dtinicial, status = 'r', user_finaliza_id=usuario)
 
         atendimento = abertos | finalizados
 

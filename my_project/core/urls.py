@@ -2,8 +2,6 @@ from django.urls import path,include
 from my_project.core.views import *
 
 
-
-
 app_name = 'core'  # here for namespacing of urls.
 
 urlpatterns = [

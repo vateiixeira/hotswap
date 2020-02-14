@@ -24,6 +24,7 @@ from .conexao_oracle import conecta
 from django.contrib.auth.models import User
 from my_project.msg.models import Group_Msg
 from my_project.atendimento.views import lista_id_bh, lista_id_moc
+from django.core import serializers
 
 @login_required
 def homepage(request):

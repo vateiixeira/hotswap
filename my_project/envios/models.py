@@ -23,3 +23,18 @@ class EnvioBh(models.Model):
     class Meta:
         verbose_name = "Envio"
         verbose_name_plural = "Envios"
+        
+
+class Recebimento(models.Model):
+    envio = models.ForeignKey(EnvioBh, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    create_at = models.DateTimeField('Recebido em', auto_now_add=True)
+
+    object = models.Manager() 
+
+    def __str__(self):
+        return str(self.envio)
+
+    class Meta:
+        verbose_name = "Recebimento"
+        verbose_name_plural = "Recebimentos"

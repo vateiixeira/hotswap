@@ -37,10 +37,12 @@ INSTALLED_APPS = [
     'my_project.msg',
     'my_project.compras',
     'my_project.base',
+    'my_project.api',
 
     'django_select2',
     'bootstrap_datepicker_plus',
     'bootstrap4',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

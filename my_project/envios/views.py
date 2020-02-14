@@ -17,13 +17,21 @@ from my_project.core.models import Profile
 def lista_envio(request):
     template = 'lista_envio.html'
 
-    grupo_usuario = Profile.objects.get(user = request.user)
-    if grupo_usuario.grupo == "BH":
-        envio = EnvioBh.object.filter(Q(filial_origem_id__gt = 8)).order_by('-create_at')
-    elif grupo_usuario.grupo == "MONTES CLAROS":
-        envio = EnvioBh.object.filter(Q(filial_origem_id__lt = 9)).order_by('-create_at')
-    else:
-        envio = EnvioBh.object.all().order_by('-create_at')
+    # grupo_usuario = Profile.objects.get(user = request.user)
+    # if grupo_usuario.grupo == "BH":
+    #     envio = EnvioBh.object.filter(Q(filial_origem_id__gt = 8)).order_by('-create_at')
+    # elif grupo_usuario.grupo == "MONTES CLAROS":
+    #     envio = EnvioBh.object.filter(Q(filial_origem_id__lt = 9)).order_by('-create_at')
+    # else:
+    envio = EnvioBh.object.all().order_by('-create_at')
+
+    instancia = Recebimento()    
+    if request.method == 'POST':
+        objeto = EnvioBh.object.get(id=request.POST.get('envio'))
+        instancia.envio = objeto
+        instancia.user = request.user
+        instancia.save()
+        return redirect('core:homepage')    
     context = {
         'envio':envio,
     }

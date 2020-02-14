@@ -32,3 +32,8 @@ class RelatorioDataModeloForm(forms.Form):
     final = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
     modelo = forms.ModelChoiceField(queryset=Equipamento.object.all().values_list('name', flat=True).distinct(), 
     to_field_name='name',widget=Select2Widget)
+
+class RecebimentoForm(forms.ModelForm):
+    class Meta:
+        model = Recebimento
+        fields = ['envio']
