@@ -33,7 +33,7 @@ class Recebimento(models.Model):
     object = models.Manager() 
 
     def __str__(self):
-        return str(self.envio)
+        return str(f'Nota: {self.envio.num_nota} | Envio:{self.envio}')
 
     class Meta:
         verbose_name = "Recebimento"

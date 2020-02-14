@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import EnvioBh
+from .models import EnvioBh,Recebimento
 
 
 class EnvioAdmin(admin.ModelAdmin):
@@ -8,3 +8,4 @@ class EnvioAdmin(admin.ModelAdmin):
     list_filter = ['create_at']
 
 admin.site.register(EnvioBh, EnvioAdmin)
+admin.site.register(Recebimento)
