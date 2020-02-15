@@ -50,7 +50,7 @@ def envio(request):
         form = EnvioForm(request.POST, instance=envio_form, prefix='main')
         formset = item_movimento(request.POST, instance=envio_form, prefix='product')
 
-        if form.is_valid() and formset.is_valid():
+        if form.is_valid() and formset.is_valid():            
             form = form.save(commit=False)
             form.user = request.user
             form.save()
@@ -58,17 +58,28 @@ def envio(request):
                         
             # ATUALIZAR ESTOQUE
             enviobh = EnvioBh.object.last()
+            # RECEBE ULTIMO ENVIO
             ultimo_envio = enviobh.id 
+            # RECEBE ULTIMA MOVIMENTACAO
             movimentacao = Movimento.object.filter(envio_id=ultimo_envio)
+
+            loja_destino = Lojas.object.get(name=envio_form.filial_destino)
+            loja_origem = Lojas.object.get(name=envio_form.filial_origem)
 
             for item in movimentacao:
                 id_equipamento = item.equipamento_id
-                quantidade = item.quantidade
+                quantidade = item.quantidade                
                 estoque = Equipamento.object.get(id=id_equipamento)                
                 qtd_atual = estoque.qtd
-                qtd_final = qtd_atual + quantidade
-                estoque.qtd = qtd_final
-                estoque.save()
+                if estoque.loja == loja_destino:
+                    qtd_final = qtd_atual + quantidade
+                    estoque.qtd = qtd_final
+                    estoque.save()
+
+                elif estoque.loja == loja_origem:
+                    qtd_final = qtd_atual - quantidade
+                    estoque.qtd = qtd_final
+                    estoque.save()
 
             messages.success(request, 'Envio cadastrado com sucesso!')
             context = {'messages': messages}

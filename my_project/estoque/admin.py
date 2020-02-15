@@ -7,7 +7,7 @@ class EquipamentoAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
 
 class MovimentoAdmin(admin.ModelAdmin):
-    list_display=['equipamento', 'envio', 'defeito', 'tipo']
+    list_display=['equipamento', 'envio', 'defeito']
     list_filter= ['create_at']
 
 

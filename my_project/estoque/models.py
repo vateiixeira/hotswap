@@ -65,13 +65,8 @@ class Equipamento(models.Model):
     
 
 class Movimento(models.Model):
-    TIPO_CHOICE= (
-        ("s", "Saída"),
-        ("e", "Entrada")
-    )
     equipamento = models.ForeignKey(Equipamento,on_delete=models.CASCADE)    
-    envio = models.ForeignKey(EnvioBh, related_name='movimento', on_delete=models.CASCADE)
-    tipo = models.CharField("Tipo de movimentação",choices=TIPO_CHOICE, max_length=5)
+    envio = models.ForeignKey(EnvioBh, related_name='movimento', on_delete=models.CASCADE)    
     quantidade = models.IntegerField("Quantidade", default=1)
     defeito = models.CharField("Defeito", max_length=200)
 
