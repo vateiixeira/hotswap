@@ -1,0 +1,66 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>{{titulo}}</title>
+<style>
+	@page {
+    size: letter landscape;
+    margin: 0.5cm;
+}
+</style>
+</head>
+<body>
+<p>{{dtgeracao}}</p>
+<hr />
+<p><strong>Relat&oacute;rio de recebimentos por data</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}</p>
+<p>&nbsp;</p>
+<table align="center" border="1" cellpadding="3" cellspacing="3" style="width:700px">
+	<thead>
+		<tr>
+			<th scope="col">
+			<h3>ID Envio</h3>
+			</th>
+			<th scope="col">
+			<h3>Data</h3>
+			</th>
+			<th scope="col">
+			<h3>Nota Fiscal</h3>
+			</th>
+			<th scope="col">
+			<h3>Filial Origem</h3>
+			</th>
+			<th scope="col">
+			<h3>Filial Destino</h3>
+			</th>
+			<th scope="col">
+			<h3>Recebido pelo usuario</h3>
+			</th>
+		</tr>
+	</thead>
+	<tbody>		
+		{% for i in movimento %}
+			<tr>
+			<td>{{i.envio}}</td>
+			<td>{{i.create_at}}</td>
+			{% if i.envio.num_nota is None %}
+			<td>S/N</td>
+			{% else %}
+			<td>{{i.envio.num_nota}}</td>
+			{% endif %}
+			<td>{{i.envio.filial_origem}}</td>
+			<td>{{i.envio.filial_destino}}</td>
+			<td>{{i.user}}</td>
+			</tr>
+		{% endfor %}
+		
+	</tbody>
+</table>
+
+<p>&nbsp;</p>
+</body>
+
+</html> 
+
+
+

@@ -16,6 +16,10 @@ class RelatorioDataForm(forms.Form):
     inicial = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
     final = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
 
+class RelatorioRecebDataForm(forms.Form):
+    inicial = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
+    final = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
+
 class RelatorioDataFilialForm(forms.Form):
     inicial = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
     final = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
@@ -23,6 +27,11 @@ class RelatorioDataFilialForm(forms.Form):
     filial_destino = forms.ModelChoiceField(queryset=Lojas.object.all())
 
 class RelatorioUsuarioForm(forms.Form):
+    inicial = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
+    final = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
+    usuario = forms.ModelChoiceField(queryset=User.objects.all())
+    
+class RelatorioUsuarioRecebForm(forms.Form):
     inicial = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
     final = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")
     usuario = forms.ModelChoiceField(queryset=User.objects.all())

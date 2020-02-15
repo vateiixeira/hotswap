@@ -306,3 +306,84 @@ class PdfPorModelo(View):
         return Render.render('pdf_data_modelo_envio.html', params)
 
 #FIM ENVIO POR MODELO
+
+# ____________________ PDF RECEBIMENTOS ___________________________
+
+def recebimento_data(request):
+    template = 'viewpordata_recebimento.html'
+    dtinicial = dtfinal = 0
+    if request.method == 'POST':
+        form = RelatorioRecebDataForm(request.POST)
+        if form.is_valid():
+            dtinicial = str(form.cleaned_data['inicial'])
+            dtfinal = str(form.cleaned_data['final'])
+            return redirect('envios:pdfdata_receb',dtinicial=dtinicial, dtfinal=dtfinal) 
+        else:
+            messages.error(request, "Formulário invalido!")            
+            form = RelatorioDataForm()
+    else: 
+        form = RelatorioDataForm()
+    context = {
+        'staff': is_staff(request.user),
+        'form': form
+    }    
+    return render(request,template, context)
+    
+
+class PdfPorDataReceb(View):
+    def get(self, request, dtinicial, dtfinal):
+        titulo = 'Recebimentos por data'
+        dtgeracao = datetime.now() 
+        # FORMATO DATA = ANO/MES/DIA
+        movimento = Recebimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial)
+        #PEGA OS ID DOS ENVIOS E FILTRA PELO MOVIMENTO PARA PEGAR OS EQUIPAMENTOS UTILIZADOS
+
+        params = {
+            'titulo': titulo,
+            'movimento': movimento,
+            'dtgeracao': dtgeracao,
+            'dtinicial': dtinicial,
+            'dtfinal': dtfinal,
+        }
+
+        return Render.render('pdf_data_receb.html', params)
+
+
+def recebimento_por_usuario(request):
+    template = 'viewporusuario_recebimento.html'
+    dtinicial = dtfinal = 0
+    if request.method == 'POST':
+        form = RelatorioUsuarioRecebForm(request.POST)
+        if form.is_valid():
+            dtinicial = str(form.cleaned_data['inicial'])
+            dtfinal = str(form.cleaned_data['final'])
+            usuario = request.POST.get('usuario')
+            return redirect('envios:pdfusuario_receb',dtinicial=dtinicial, dtfinal=dtfinal, usuario=usuario) 
+        else: 
+            messages.error(request, "Formulário invalido!")
+            form = RelatorioUsuarioForm()
+    else: 
+        form = RelatorioUsuarioForm()
+    context = {
+        'staff': is_staff(request.user),
+        'form': form
+    }    
+    return render(request,template, context)
+
+class PdfPorUsuarioReceb(View):
+    def get(self, request, dtinicial, dtfinal, usuario):
+        titulo = 'Recebimentos por usuario'
+        dtgeracao = datetime.now()
+        usuario = User.objects.get(id=usuario)
+        movimento = Recebimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, user_id=usuario)
+
+        params = {
+            'titulo': titulo,
+            'movimento': movimento,
+            'dtgeracao': dtgeracao,
+            'dtinicial': dtinicial,
+            'dtfinal': dtfinal,
+            'usuario': usuario,
+        }
+
+        return Render.render('pdf_usuario_receb.html', params)    
