@@ -6,7 +6,7 @@
 <style>
 	@page {
     size: letter landscape;
-    margin: 2cm;
+    margin: 0.5cm;
 }
 </style>
 </head>
@@ -38,6 +38,9 @@ Filial: {{origem}}<br />
 			<h3>Quantidade</h3>
 			</th>
 			<th scope="col">
+			<h3>Setor</h3>
+			</th>
+			<th scope="col">
 			<h3>Backup</h3>
 			</th>
 		</tr>
@@ -50,6 +53,7 @@ Filial: {{origem}}<br />
 			<td>{{i.serial}}</td>
 			<td>{{i.patrimonio}}</td>
 			<td>{{i.qtd}}</td>
+			<td>{{i.setor}}</td>
 			{% if i.backup == True %}
 				<td>Sim</td>
 			{% else %}

@@ -134,8 +134,8 @@ def estoque_por_modelo(request):
         form = ViewModeloForm(request.POST or None) 
         if form.is_valid():
             idorigem = request.POST.get('filial')
-            modelo = request.POST.get('modelo')
-            return redirect('estoque:pdfmodelofilial',modelo=modelo,idorigem=idorigem) 
+            name = request.POST.get('name')
+            return redirect('estoque:pdfmodelofilial',name=name,idorigem=idorigem) 
         else: 
             messages.error(request, "Formulário invalido!")  
             form = ViewModeloForm() 
@@ -148,11 +148,11 @@ def estoque_por_modelo(request):
     return render(request,template, context)
 
 class PdfPorModelo(View):
-    def get(self, request, modelo, idorigem):
+    def get(self, request, name, idorigem):
         titulo = 'Estoque por modelo e filial'
         dtgeracao = datetime.now()
         origem = Lojas.object.get(id=idorigem)
-        estoque = Equipamento.object.filter(modelo=modelo, loja=idorigem)
+        estoque = Equipamento.object.filter(name=name, loja=idorigem)
         params = {
             'staff': is_staff(request.user),
             'titulo': titulo,

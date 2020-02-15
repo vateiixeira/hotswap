@@ -225,7 +225,7 @@
         <div id="collapsePages4" class="collapse" aria-labelledby="Estoque" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="{% url 'estoque:estoque_por_filial'%}">Completo por filial</a>
-            <a class="collapse-item" href="{% url 'estoque:estoque_por_modelo'%}">Modelo e Filial</a>
+            <a class="collapse-item" href="{% url 'estoque:estoque_por_modelo'%}">Tipo e Filial</a>
           </div>        
       </li>
 
@@ -1022,7 +1022,7 @@ var myBarChart = new Chart(ctx, {
       backgroundColor: "#4e73df",
       hoverBackgroundColor: "#2e59d9",
       borderColor: "#4e73df",
-      data: {{data_atendimento_filial}} ,
+      data: {{data_atendimento_filial}}
     }],
   },
   options: {

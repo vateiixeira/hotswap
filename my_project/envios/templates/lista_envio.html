@@ -95,6 +95,13 @@ var app = new Vue({
   methods: {
     getPK(value) {
       this.pk = value
+    },
+    noty(){
+      this.$notify({
+        group: 'foo',
+        title: 'Important message',
+        text: 'Hello user! This is a notification!'
+      });
     }
   }
 })

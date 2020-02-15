@@ -22,5 +22,5 @@ class ViewFilialForm(forms.Form):
 
 class ViewModeloForm(forms.Form):
     filial = forms.ModelChoiceField(queryset=Lojas.object.all())
-    modelo = forms.ModelChoiceField(queryset=Equipamento.object.all().values_list('modelo', flat=True).distinct(), 
-    to_field_name='modelo',widget=Select2Widget)
+    name = forms.ModelChoiceField(queryset=Equipamento.object.all().values_list('name', flat=True).distinct(), 
+    to_field_name='name',widget=Select2Widget)

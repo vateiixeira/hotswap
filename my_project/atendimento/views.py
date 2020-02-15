@@ -152,6 +152,9 @@ class PdfTecnicoAtendimento(View):
 
         atendimento = abertos | finalizados
 
+        if not atendimento:
+            return redirect('core:erro_relatorio')
+
         usuario = User.objects.get(id=usuario)
         params = {
             'usuario': usuario,
@@ -200,6 +203,9 @@ class PdfCompletoAtendimento(View):
 
         # junta as duas querysets
         atendimento = geral | fechados
+        
+        if not atendimento:
+            return redirect('core:erro_relatorio')
         params = {
             'atendimento': atendimento,
             'dtgeracao': dtgeracao,
@@ -238,6 +244,8 @@ class PdfSetorAtendimento(View):
         titulo = 'Atendimentos'
         dtgeracao = datetime.now()
         atendimento = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, setor=idorigem)
+        if not atendimento:
+            return redirect('core:erro_relatorio')
         params = {
             'atendimento': atendimento,
             'dtgeracao': dtgeracao,
@@ -282,6 +290,9 @@ class PdfCompletoAtendimentoTodas(View):
 
         # junta as duas querysets
         atendimento = geral | fechados
+
+        if not atendimento:
+            return redirect('core:erro_relatorio')
 
         params = {
             'atendimento': atendimento,

@@ -228,6 +228,8 @@ class PdfPorUsuario(View):
         dtgeracao = datetime.now()
         chamado = Chamado.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, user_id=usuario)
         usuario = User.objects.get(id=usuario)
+        if not chamado:
+            return redirect('core:erro_relatorio')
         params = {
             'usuario': usuario,
             'chamado': chamado,

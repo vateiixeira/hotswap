@@ -17,6 +17,6 @@ urlpatterns = [
     path('rel/porequip_filial/', estoque_por_filial, name='estoque_por_filial'),
     path('rel/por_filial/', estoque_por_filial, name='estoque_por_filial'),
     path('pdf/data/<int:idorigem>/', PdfPorFilial.as_view(), name='pdffilial'), 
-    path('pdf/data/<int:idorigem>/<str:modelo>/', PdfPorModelo.as_view(), name='pdfmodelofilial'),
+    path('pdf/data/<int:idorigem>/<str:name>/', PdfPorModelo.as_view(), name='pdfmodelofilial'),
     path('rel/porfilialmodelo/', estoque_por_modelo, name='estoque_por_modelo'),
 ]
