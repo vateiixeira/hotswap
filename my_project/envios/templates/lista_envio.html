@@ -37,7 +37,7 @@
                 <td>{{ envio.create_at }}</td>
                 <td>{{ envio.filial_origem }}</td>
                 <td>{{ envio.filial_destino }}</td>              
-                <td>{{ envio.user }}</td> 
+                <td>{{ envio.user.first_name }}</td> 
                 {% if envio.recebido == True %}
                 <td>Recebido</td>
                 {% else %}
