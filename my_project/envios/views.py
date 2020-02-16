@@ -24,6 +24,9 @@ def lista_envio(request):
     #     envio = EnvioBh.object.filter(Q(filial_origem_id__lt = 9)).order_by('-create_at')
     # else:
     envio = EnvioBh.object.all().order_by('-create_at')
+    recebimento = Recebimento.object.all().order_by('-create_at')
+
+    
 
     instancia = Recebimento()    
     if request.method == 'POST':
@@ -31,9 +34,12 @@ def lista_envio(request):
         instancia.envio = objeto
         instancia.user = request.user
         instancia.save()
-        return redirect('core:homepage')    
+        objeto.recebido = True
+        objeto.save()     
+        return redirect('envios:lista_envio')    
     context = {
         'envio':envio,
+        'recebimento':recebimento,
     }
     return render(request,template,context)
 

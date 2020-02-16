@@ -6,27 +6,16 @@
 {% endblock head %}
 
 {% block content%}
-<div class='row'>
-    {% if messages %}{% for mensagem in messages %}
-                <a href="#" class="btn btn-success btn-icon-split">
-                    <span class="icon text-white-50">
-                      <i class="fas fa-check"></i>
-                    </span>
-                    <span class="text">{{mensagem}}</span>
-                  </a>
-    {% endfor %}
-    {% endif %}
-</div>
 <h1>Cadastro de chamado </h1>    
-    <form class="pure-form pure-form-aligned" method="POST" >
+    <form class="pure-form pure-form-aligned" method="POST" id="post-form">
         {% csrf_token %}
         <fieldset>
-            <div class="pure-control-group">
+            <div class="pure-control-group" id="the_post">
             {{ form.as_p }}
             </div>
     </form>
     <div>
-    <button type='submit' class="btn btn-success btn-icon-split" >
+    <button  type='submit' class="btn btn-success btn-icon-split" >
         <span class="icon text-white-50">
             <i class="fas fa-check"></i>
         </span>
@@ -35,6 +24,103 @@
 {% endblock %}
 
 {% block js %}
+<script>
+$(function() {
+    // Submit post on submit
+    $('#post-form').on('submit', function(event){
+        event.preventDefault();
+        create_post();
+    });
+
+    // AJAX for posting
+    function create_post() {
+        $.ajax({
+            url : "http://localhost:8000/chamado/cadastro/", // the endpoint
+            type : "POST", // http method
+            data : { 
+                chamado :$('#id_chamado').val(),
+                modelo : $('#id_modelo').val(),
+                serial : $('#id_serial').val(),
+                loja :   $('#id_loja').val(),
+                defeito :$('#id_defeito').val(),
+                valor :  $('#id_valor').val(),
+                status : $('#id_status').val() 
+             },
+            // handle a successful response
+            success : function(json) {
+                $('#id_chamado').val('')
+                $('#id_modelo').val(''),
+                $('#id_serial').val(''),
+                $('#id_loja').val(''),
+                $('#id_defeito').val('')
+                $('#id_valor').val(''),
+                $('#id_status').val('') 
+                $.notify("Chamado cadastrado com sucesso!", "success");
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                $.notify("Error! Valide os campos e envie novamente!", "error");
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    };
+
+
+    // This function gets cookie with a given name
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    /*
+    The functions below will create a header with csrftoken
+    */
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    function sameOrigin(url) {
+        // test that a given url is a same-origin URL
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && sameOrigin(settings.url)) {
+                // Send the token to same-origin, relative URLs only.
+                // Send the token only if the method warrants CSRF protection
+                // Using the CSRFToken value acquired earlier
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+});
+</script>
 {{ form.media.js }}
 {% endblock js %}
 

@@ -13,10 +13,42 @@ from my_project.core.utils import is_staff
 from django.contrib.auth.models import User
 from django import forms
 from django.db.models import Q
-from my_project.core.models import Profile
+from my_project.core.models import Profile,Lojas
 from my_project.estoque.models import Equipamento
 from my_project.atendimento.views import lista_id_bh, lista_id_moc
 
+
+# @login_required
+# def cadastro(request):
+#     template= 'add_chamado.html'  
+#     model = Chamado()
+#     usuario = request.user
+
+#     if request.method =='POST':
+#         context = {}
+#         form = ChamadoForm(request.POST)
+#         if form.is_valid():
+#             model.chamado = form.cleaned_data['chamado']
+#             model.modelo = form.cleaned_data['modelo']
+#             model.serial = form.cleaned_data['serial']
+#             model.loja = form.cleaned_data['loja']
+#             model.defeito = form.cleaned_data['defeito'] 
+#             model.valor = form.cleaned_data['valor']
+#             model.status = form.cleaned_data['status']
+#             model.user = usuario    
+#             model.save()
+#             form = ChamadoForm()
+#             messages.success(request, 'Chamado cadastrado com sucesso!')
+#             context = {'messages': messages}
+#         else:
+#             messages.error(request, 'Formulário inválido!')
+#             context = {'messages': messages}
+#     else:
+#         form = ChamadoForm()
+#     context = {
+#         "form": form
+#     }
+#     return render(request,template,context)
 
 @login_required
 def cadastro(request):
@@ -27,29 +59,23 @@ def cadastro(request):
     if request.method =='POST':
         context = {}
         form = ChamadoForm(request.POST)
-        if form.is_valid():
-            model.chamado = form.cleaned_data['chamado']
-            model.modelo = form.cleaned_data['modelo']
-            model.serial = form.cleaned_data['serial']
-            model.loja = form.cleaned_data['loja']
-            model.defeito = form.cleaned_data['defeito'] 
-            model.valor = form.cleaned_data['valor']
-            model.status = form.cleaned_data['status']
-            model.user = usuario    
-            model.save()
-            form = ChamadoForm()
-            messages.success(request, 'Chamado cadastrado com sucesso!')
-            context = {'messages': messages}
-        else:
-            messages.error(request, 'Formulário inválido!')
-            context = {'messages': messages}
+        model.chamado = request.POST.get('chamado')
+        model.modelo = request.POST.get('modelo')
+        model.serial = request.POST.get('serial')        
+        model.loja = Lojas.object.get(id=request.POST.get('loja'))
+        model.defeito = request.POST.get('defeito')
+        model.valor = request.POST.get('valor')
+        model.status = request.POST.get('status')
+        model.user = usuario    
+        model.save()
     else:
         form = ChamadoForm()
     context = {
         "form": form
     }
     return render(request,template,context)
-\
+
+
 def lista_chamado(request):
     template='lista_chamado.html'
 

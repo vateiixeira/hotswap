@@ -8,6 +8,8 @@ class EnvioBh(models.Model):
     filial_destino = models.ForeignKey(Lojas,on_delete=models.CASCADE)  
     num_nota = models.CharField('Número nota', max_length=10, null=True, blank=True)
     num_ficha_transf = models.CharField('Número ficha de transferência', max_length=10, null=True, blank=True)
+    recebido = models.BooleanField('Recebido', default=False)
+    #Recebido = True , Nao=False
 
     create_at = models.DateTimeField('Criado em', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)    

@@ -298,8 +298,6 @@
             <span style="font: bold;">Notas presas banco Socin: </span> 
             <span id="conteudo"></span>
           </div>    
-     
-
           <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
@@ -1203,7 +1201,9 @@ var myBarChart = new Chart(ctx, {
       setInterval(getData, 5000);
   });
 
+
 </script>
+  <script src="{% static 'js/notify.js' %}"></script>
 
    {% block js %}{% endblock js %}
 </body>

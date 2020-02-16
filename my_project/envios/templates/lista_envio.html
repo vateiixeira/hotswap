@@ -38,6 +38,9 @@
                 <td>{{ envio.filial_origem }}</td>
                 <td>{{ envio.filial_destino }}</td>              
                 <td>{{ envio.user }}</td> 
+                {% if envio.recebido == True %}
+                <td>Recebido</td>
+                {% else %}
                 <td>
                 <button type="button" class="btn btn-success btn-circle btn-sm" 
                 data-toggle="modal" 
@@ -47,6 +50,7 @@
                   <i class="far fa-check-circle"></i>
                 </button>                        
                 </td>
+                {% endif%}
                 </tr> 
         {% endfor %}                   
                 </tbody>
