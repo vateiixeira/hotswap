@@ -65,6 +65,17 @@ Filial: {{origem}}<br />
 	</tbody>
 </table>
 
+<br>
+
+<hr>
+<h2>Totalizadores</h2>
+
+{% for x in valores %}
+{{x.name}}:{{x.name__count}}
+<br>
+{% endfor %}
+
+
 <p>&nbsp;</p>
 </body>
 

@@ -15,7 +15,7 @@ from django.contrib import messages
 from django.views.generic import View
 from .models import *
 from my_project.core.utils import is_staff
-
+from django.db.models import Count
 
 @login_required
 def cadastro(request):
@@ -113,6 +113,17 @@ class PdfPorFilial(View):
         estoque = Equipamento.object.filter(loja=idorigem) 
         loja = Lojas.object.get(id=idorigem)
 
+        list = []
+        anterior = ''
+        for i in estoque:
+            if i.name != anterior:
+                list.append(i.name)
+                anterior = i.name
+
+        valores = Equipamento.object.filter(loja=idorigem, name__in= list).\
+        values('name').annotate(Count('name'))
+
+
         if not estoque.exists():
             return redirect('core:erro_relatorio')
         params = {
@@ -122,6 +133,7 @@ class PdfPorFilial(View):
             'loja': loja,
             'origem': origem,
             'titulo': titulo,
+            'valores': valores,
         }
 
         return Render.render('pdf_filial.html', params)
