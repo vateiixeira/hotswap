@@ -35,7 +35,7 @@ $(function() {
     // AJAX for posting
     function create_post() {
         $.ajax({
-            url : "http://localhost:8000/chamado/cadastro/", // the endpoint
+            url : "{% url 'chamado:cadastro'%}", // the endpoint
             type : "POST", // http method
             data : { 
                 chamado :$('#id_chamado').val(),
