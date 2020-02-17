@@ -43,64 +43,84 @@ def lista_envio(request):
     }
     return render(request,template,context)
 
-
 def envio(request):
     template = 'add_envio.html'
-    envio_form = EnvioBh()
-    item_movimento = inlineformset_factory(EnvioBh, Movimento, 
-    form=MovimentoForm, extra=0, 
-    can_delete=False,
-    min_num=1, validate_min=True)
-
+    
+    form = EnvioForm()
+    formset = MovimentoForm()
+        
     if request.method == 'POST':
-        form = EnvioForm(request.POST, instance=envio_form, prefix='main')
-        formset = item_movimento(request.POST, instance=envio_form, prefix='product')
 
-        if form.is_valid() and formset.is_valid():            
-            form = form.save(commit=False)
-            form.user = request.user
-            form.save()
-            formset.save()
-                        
-            # ATUALIZAR ESTOQUE
-            enviobh = EnvioBh.object.last()
-            # RECEBE ULTIMO ENVIO
-            ultimo_envio = enviobh.id 
-            # RECEBE ULTIMA MOVIMENTACAO
-            movimentacao = Movimento.object.filter(envio_id=ultimo_envio)
+#       PEGA OS DADOS DO POST E JOGA NAS LISTAS
+        for key, values in request.POST.lists():
+            if key == 'filial_origem':
+                filial_origem = values
+            elif key == 'filial_destino':
+                filial_destino = values
+            elif key == 'num_nota':
+                num_nota = values
+            elif key == 'num_ficha_transf':
+                num_ficha_transf = values
+            elif key == 'equipamento':
+                equipamento = []
+                equipamento = values
+            elif key == 'quantidade':
+                quantidade = []
+                quantidade = values
+            elif key == 'defeito':
+                defeito = []
+                defeito = values 
 
-            loja_destino = Lojas.object.get(name=envio_form.filial_destino)
-            loja_origem = Lojas.object.get(name=envio_form.filial_origem)
+        envio = EnvioBh()
+        envio.filial_origem = Lojas.object.get(id=filial_origem[0]) 
+        envio.filial_destino = Lojas.object.get(id=filial_destino[0]) 
+        envio.num_nota = num_nota[0]
+        envio.num_ficha_transf = num_ficha_transf[0]
+        envio.user = request.user
+        envio.save()
 
-            for item in movimentacao:
-                id_equipamento = item.equipamento_id
-                quantidade = item.quantidade                
-                estoque = Equipamento.object.get(id=id_equipamento)                
-                qtd_atual = estoque.qtd
-                if estoque.loja == loja_destino:
-                    qtd_final = qtd_atual + quantidade
-                    estoque.qtd = qtd_final
-                    estoque.save()
+        # ATUALIZAR ESTOQUE
+        enviobh = EnvioBh.object.last()
+        # RECEBE ULTIMO ENVIO
+        ultimo_envio = enviobh.id    
 
-                elif estoque.loja == loja_origem:
-                    qtd_final = qtd_atual - quantidade
-                    estoque.qtd = qtd_final
-                    estoque.save()
+        # ADICIONA OS ITENS NOS OBJETOS E SALVA DIRETO NO MOVIMENTO
+        lista = []
+        i = 0
+        while i < len(quantidade):
+            obj = Movimento(
+                equipamento = Equipamento.object.get(id =equipamento[i]),
+                envio = EnvioBh.object.get(id =ultimo_envio),
+                quantidade = quantidade[i],
+                defeito = defeito[i],
+            )
+            lista.append(obj)
+            i = i + 1
+        Movimento.object.bulk_create(lista)
+                           
+        loja_destino = Lojas.object.get(id=filial_destino[0])
+        loja_origem = Lojas.object.get(id=filial_origem[0])
 
-            messages.success(request, 'Envio cadastrado com sucesso!')
-            context = {'messages': messages}
+        # RECEBE ULTIMA MOVIMENTACAO
+        movimentacao = Movimento.object.filter(envio_id=ultimo_envio)
 
-            #LIMPA INSTANCIA PARA NÃO DAR ERRO NO FORMULARIO
-            envio_form = EnvioBh()
-            form = EnvioForm(instance=envio_form, prefix='main')
-            formset = item_movimento(instance=envio_form, prefix='product')
+        for item in movimentacao:
+            id_equipamento = item.equipamento_id
+            quantidade = item.quantidade                
+            estoque = Equipamento.object.get(id=id_equipamento)                
+            qtd_atual = estoque.qtd
+            if estoque.loja == loja_destino:
+                qtd_final = qtd_atual + quantidade
+                estoque.qtd = qtd_final
+                estoque.save()
 
-        else:
-            messages.error(request, 'Formulário inválido!')
-            context = {'messages': messages}
+            elif estoque.loja == loja_origem:
+                qtd_final = qtd_atual - quantidade
+                estoque.qtd = qtd_final
+                estoque.save()
     else:
-        form = EnvioForm(instance=envio_form, prefix='main')
-        formset = item_movimento(instance=envio_form, prefix='product')
+        form = EnvioForm()
+        formset = MovimentoForm()
 
     context = {
         'staff': is_staff(request.user),
@@ -108,6 +128,73 @@ def envio(request):
         'formset': formset,
     }
     return render(request,template,context)
+
+# def envio(request):
+#     template = 'add_envio.html'
+#     envio_form = EnvioBh()
+#     item_movimento = inlineformset_factory(EnvioBh, Movimento, 
+#     form=MovimentoForm, extra=0, 
+#     can_delete=False,
+#     min_num=1, validate_min=True)
+
+#     if request.method == 'POST':
+#         form = EnvioForm(request.POST, instance=envio_form, prefix='main')
+#         formset = item_movimento(request.POST, instance=envio_form, prefix='product')
+
+#         data = request.POST.get('dados')
+#         print(data)
+#         if form.is_valid() and formset.is_valid():            
+#             form = form.save(commit=False)
+#             form.user = request.user
+#             form.save()
+#             formset.save()
+                        
+#             # ATUALIZAR ESTOQUE
+#             enviobh = EnvioBh.object.last()
+#             # RECEBE ULTIMO ENVIO
+#             ultimo_envio = enviobh.id 
+#             # RECEBE ULTIMA MOVIMENTACAO
+#             movimentacao = Movimento.object.filter(envio_id=ultimo_envio)
+
+#             loja_destino = Lojas.object.get(name=envio_form.filial_destino)
+#             loja_origem = Lojas.object.get(name=envio_form.filial_origem)
+
+#             for item in movimentacao:
+#                 id_equipamento = item.equipamento_id
+#                 quantidade = item.quantidade                
+#                 estoque = Equipamento.object.get(id=id_equipamento)                
+#                 qtd_atual = estoque.qtd
+#                 if estoque.loja == loja_destino:
+#                     qtd_final = qtd_atual + quantidade
+#                     estoque.qtd = qtd_final
+#                     estoque.save()
+
+#                 elif estoque.loja == loja_origem:
+#                     qtd_final = qtd_atual - quantidade
+#                     estoque.qtd = qtd_final
+#                     estoque.save()
+
+#             messages.success(request, 'Envio cadastrado com sucesso!')
+#             context = {'messages': messages}
+
+#             #LIMPA INSTANCIA PARA NÃO DAR ERRO NO FORMULARIO
+#             envio_form = EnvioBh()
+#             form = EnvioForm(instance=envio_form, prefix='main')
+#             formset = item_movimento(instance=envio_form, prefix='product')
+
+#         else:
+#             messages.error(request, 'Formulário inválido!')
+#             context = {'messages': messages}
+#     else:
+#         form = EnvioForm(instance=envio_form, prefix='main')
+#         formset = item_movimento(instance=envio_form, prefix='product')
+
+#     context = {
+#         'staff': is_staff(request.user),
+#         'form': form,
+#         'formset': formset,
+#     }
+#     return render(request,template,context)
 
 
 def envio_por_data(request):
@@ -134,7 +221,6 @@ class PdfPorData(View):
     def get(self, request, dtinicial, dtfinal):
         titulo = 'Envios por data'
         dtgeracao = datetime.now()
-        print(dtgeracao)
         lista = []
         # FORMATO DATA = ANO/MES/DIA
         #FILTRA OS ENVIOS PELA DATA DIGITADA

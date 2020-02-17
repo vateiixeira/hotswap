@@ -19,25 +19,24 @@
     {% endif %}
 </div>
             <h2 style="margin-left: 30px"> Envio de equipamentos </h2>
-            <form id="post-form" class="pure-form pure-form" method="POST" style="margin-left: 10px" >
+            <form id="post-form" class="pure-form pure-form-aligned" method="POST" style="margin-left: 10px" >
                 {% csrf_token %}
                 <div class="pure-control-group">
                 {{ form.as_p }}
+                {{ formset.management_form }}
                 </div>
                 
             <hr></hr>
 
-                <div id="order" class="pure-form pure-form" >
+                <div id="order" class="pure-form pure-form-aligned" style="margin-left: 10px">
                     {% for item_order_form in formset %}
-                        <div id="item-{{ forloop.counter0 }}" class="pure-control-group" style="margin-top: 10px" >
-
-                            {{ item_order_form.label }}
-                            {{ item_order_form }}
+                        <div id="item-{{ forloop.counter0 }}" class="pure-control-group">
+                            {{ item_order_form.as_p }}
                         </div>
                     {% endfor %}
                 </div>
 
-                <div class="pure-control-group" style="margin-top: 10px" >
+                <div class="pure-control-group"  style="margin-left: 10px">
                 <a class="btn btn-light" id="add-item"><i class="fa fa-plus"></i> Add Item</a>
                     <button  class="btn btn-primary pull-right" value="Save"><i class="fa fa-floppy-o"></i> Salvar</button>
                 </div>
@@ -48,9 +47,8 @@
 
 
     <script type="text/html" id="item-order">
-        <div id="item-__prefix__"  >
-            <hr>
-                {{ formset.as_p }}
+        <div id="item-__prefix__" style="margin-top: 10px" class="pure-control-group">
+                {{ formset.empty_form.as_p }}
         </div>
     </script>
 
@@ -68,6 +66,7 @@
         event.preventDefault();
         //console.log( $( this ).serializeArray());
         data = $( this ).serializeArray();
+        console.log(data)
         console.log("form submitted!")  // sanity check
         create_post();
     });
@@ -78,20 +77,17 @@
         $.ajax({
             url : "http://localhost:8000/envio/cadastro/", // the endpoint
             type : "POST", // http method
-            data : data, // data sent with the post request
+            data : {dados : data}, // data sent with the post request
             // handle a successful response
             success : function(json) {
-                $('#id_filial_origem').val('')
-                $('#id_filial_destino').val(''),
-                $('#id_num_nota').val(''),
-                $('#id_num_ficha_transf').val(''),
-                $.notify("EQUIPAMENTOS ENVIADOS COM SUCESSO!", "success");
+                $('#order').val(''); // remove the value from the input
+                console.log(json); // log the returned json to the console
                 $("#talk").prepend("<li><strong>"+json.text+"</strong> - <em> "+json.author+"</em> - <span> "+json.created+
                     "</span> - <a id='delete-post-"+json.postpk+"'>delete me</a></li>");
+                console.log("success"); // another sanity check
             },
             // handle a non-successful response
             error : function(xhr,errmsg,err) {
-                $.notify("Error! Valide os campos e envie novamente!", "error");
                 $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
                     " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
