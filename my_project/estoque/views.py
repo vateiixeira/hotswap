@@ -16,6 +16,9 @@ from django.views.generic import View
 from .models import *
 from my_project.core.utils import is_staff
 from django.db.models import Count
+from my_project.core.models import Profile
+from my_project.atendimento.views import lista_id_bh,lista_id_moc
+from django.db.models import Q
 
 @login_required
 def cadastro(request):
@@ -35,6 +38,15 @@ def cadastro(request):
 def lista_estoque(request):
     template='lista_estoque.html'
     estoque = Equipamento.object.all()
+
+    grupo_usuario = Profile.objects.get(user = request.user)
+    if grupo_usuario.grupo == "BH":
+        estoque = Equipamento.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')
+    elif grupo_usuario.grupo == "MONTES CLAROS":
+        estoque = Equipamento.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')
+    else:
+        estoque = Equipamento.object.all().order_by('-create_at')
+
     user = request.user
     staff = is_staff(user)
     context = {
@@ -65,7 +77,7 @@ class ListaEstoqueQtd(ListView):
 class UpdateEstoque(UpdateView):
     template_name ='update_estoque.html'
     model = Equipamento
-    fields = ['name', 'modelo', 'serial', 'patrimonio', 'backup', 'setor', 'loja', 'qtd']
+    fields = ['name', 'modelo','serial','patrimonio','backup','setor','loja', 'qtd', 'hd', 'memoria', 'processador', 'so']
     context_object_name = 'estoque'
     success_url = reverse_lazy('estoque:lista_estoque')
 

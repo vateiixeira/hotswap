@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Equipamento,Movimento
+from .models import *
 
 class EquipamentoAdmin(admin.ModelAdmin):
     list_display=['modelo', 'name','serial','patrimonio']
@@ -13,3 +13,7 @@ class MovimentoAdmin(admin.ModelAdmin):
 
 admin.site.register(Equipamento, EquipamentoAdmin)
 admin.site.register(Movimento,MovimentoAdmin)
+admin.site.register(CategoriaHD)
+admin.site.register(CategoriaMemoria)
+admin.site.register(CategoriaProcessador)
+admin.site.register(CategoriaSO)

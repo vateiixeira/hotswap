@@ -57,8 +57,9 @@
               {% if staff == True %}
               <td> 
               <!-- inicio excluir item-->              
-              <a href="{% url 'estoque:delete_estoque' pk=estoque.pk %}"
-              <i class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></i></a>
+              <a href="{% url 'estoque:delete_estoque' pk=estoque.pk %}" class="btn btn-danger btn-circle btn-sm">
+                <i class="fas fa-trash"></i>
+              </a>
               <!-- final excluir item-->
               </td>
               {% endif %}

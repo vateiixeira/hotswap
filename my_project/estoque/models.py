@@ -4,6 +4,54 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from my_project.envios.models import EnvioBh
 
+class CategoriaHD(models.Model):
+    hd = models.CharField('Hard Disk', max_length=50)
+
+    object = models.Manager()
+
+    def __str__(self):
+        return str(self.hd)
+
+    class Meta:
+        verbose_name = "HD"
+        verbose_name_plural = "HDs"
+
+class CategoriaMemoria(models.Model):
+    memoria = models.CharField('Memória', max_length=50)
+
+    object = models.Manager()
+
+    def __str__(self):
+        return str(self.memoria)
+
+    class Meta:
+        verbose_name = "Memoria"
+        verbose_name_plural = "Memorias"
+
+class CategoriaSO(models.Model):
+    so = models.CharField('Sistema Operacional', max_length=50)
+
+    object = models.Manager()
+
+    def __str__(self):
+        return str(self.so)
+
+    class Meta:
+        verbose_name = "SO"
+        verbose_name_plural = "SOs"
+
+class CategoriaProcessador(models.Model):
+    processador = models.CharField('Processador', max_length=50)
+
+    object = models.Manager()
+
+    def __str__(self):
+        return str(self.processador)
+
+    class Meta:
+        verbose_name = "Processador"
+        verbose_name_plural = "Processadores"
+
 
 class Equipamento(models.Model):
     SETOR_CHOICES=(
@@ -53,7 +101,11 @@ class Equipamento(models.Model):
     obs = models.TextField()
     #image = models.ImageField(upload_to='courses/images', verbose_name='Imagem', null=True, blank=True)
     #user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    hd = models.ForeignKey(CategoriaHD, on_delete=models.CASCADE, null=True, blank=True)
+    memoria = models.ForeignKey(CategoriaMemoria, on_delete=models.CASCADE, null=True, blank=True)
+    processador = models.ForeignKey(CategoriaProcessador, on_delete=models.CASCADE, null=True, blank=True)
+    so = models.ForeignKey(CategoriaSO, on_delete=models.CASCADE, null=True, blank=True)  
+    
     def __str__(self):
         return str(self.patrimonio)
 
@@ -82,3 +134,5 @@ class Movimento(models.Model):
     class Meta:
         verbose_name = "Movimento"
         verbose_name_plural = "Movimentos"
+
+

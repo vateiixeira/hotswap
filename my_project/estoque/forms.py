@@ -6,7 +6,7 @@ from django_select2.forms import Select2Widget
 class EquipamentoForm(forms.ModelForm):
     class Meta:
         model = Equipamento
-        fields = ['name', 'modelo','serial','patrimonio','backup','setor','loja', 'qtd']
+        fields = ['name', 'modelo','serial','patrimonio','backup','setor','loja', 'qtd', 'hd', 'memoria', 'processador', 'so']
 
 
 class MovimentoForm(forms.ModelForm):
