@@ -121,6 +121,7 @@ class DeleteChamado(DeleteView):
     model = Chamado
     success_url = reverse_lazy('chamado:lista_chamado')
 
+
 def update_chamado(request,pk):
     template = 'update_chamado.html'
     model = Chamado.object.get(pk=pk)
@@ -129,6 +130,7 @@ def update_chamado(request,pk):
         form = UpdateChamadoForm(request.POST, instance=model)
         if form.is_valid():
             form.save()
+            return redirect('chamado:lista_chamado')
     else:
         form = UpdateChamadoForm(instance=model)
     

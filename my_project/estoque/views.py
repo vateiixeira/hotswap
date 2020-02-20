@@ -26,8 +26,6 @@ def cadastro(request):
         form.user_id = usuario
         form.save()
         return redirect('core:homepage')
-    else:
-        print('FUDEUS')
     context = {
         'form': form
     }
@@ -67,7 +65,7 @@ class ListaEstoqueQtd(ListView):
 class UpdateEstoque(UpdateView):
     template_name ='update_estoque.html'
     model = Equipamento
-    fields = ['name', 'modelo', 'serial', 'patrimonio', 'backup', 'setor', 'loja']
+    fields = ['name', 'modelo', 'serial', 'patrimonio', 'backup', 'setor', 'loja', 'qtd']
     context_object_name = 'estoque'
     success_url = reverse_lazy('estoque:lista_estoque')
 

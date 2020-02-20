@@ -10,7 +10,6 @@
           <input type="text" class="form-control" placeholder="{{model.create_at|date:'d-m-Y'}}" disabled style="width: 120px;">
         </div>
 </form>
-
     <form class="pure-form pure-form-aligned" method="POST" >
     {% csrf_token %}
         <fieldset>
@@ -27,4 +26,9 @@
         <span class="text">Salvar</span>
     </button>
     </div>
+{% endblock %}
+
+{% block js%}
+
+
 {% endblock %}
