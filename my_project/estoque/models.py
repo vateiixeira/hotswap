@@ -85,6 +85,9 @@ class Equipamento(models.Model):
         ("GERAL", "Geral"),
         ("POSTO-PISTA", "Posto-Pista"),
         ("POSTO-ADM", "Posto-Adm"),
+        ("LOGISTICA", "Logistica"),
+        ("EXPEDICAO", "Expedição"),
+        ("PRESIDENCIA", "Presidência"),
 
     )
     name = models.CharField("Nome", max_length=50)

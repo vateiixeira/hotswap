@@ -81,6 +81,7 @@ class UpdateEstoque(UpdateView):
     context_object_name = 'estoque'
     success_url = reverse_lazy('estoque:lista_estoque')
 
+
 class DeleteEstoque(DeleteView):
     template_name = 'delete_estoque.html'
     model = Equipamento
