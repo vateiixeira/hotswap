@@ -14,7 +14,7 @@ SECRET_KEY = 'x4&en%b6kbe4+z&y+7&0iqtf9gx%g8tt)c@gh&vhc+$5-c6wq0'
 
 DEBUG = True
 
-ALLOWED_HOSTS = [ '192.168.0.102', 'hotswap', 'localhost', '192.168.0.238']
+ALLOWED_HOSTS = [ '192.168.0.102', 'hotswap', 'localhost', '192.168.0.238', '127.0.0.1']
 
 
 # Application definition
@@ -131,7 +131,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-#USE_TZ = True
+USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
