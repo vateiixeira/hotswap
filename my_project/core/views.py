@@ -25,6 +25,7 @@ from django.contrib.auth.models import User
 from my_project.msg.models import Group_Msg
 from my_project.atendimento.views import lista_id_bh, lista_id_moc
 from django.core import serializers
+from django.db.models import Sum
 
 @login_required
 def homepage(request):
@@ -81,6 +82,8 @@ def homepage(request):
     mes_envios = contagem_envios_mes()
     custo_chamado = custo_chamado_mensal()
     custo_chamado_bh = custo_chamado_mensal_bh()
+    custo_chamado_anual_moc = custo_chamados_anual_moc()
+    custo_chamado_anual_bh = custo_chamados_anual_bh()
     context = {
         'lojas_bh': lojas_bh,
         'see_bh': see_bh,
@@ -104,7 +107,9 @@ def homepage(request):
         'msg_nao_lida':msg_nao_lida,  
         'lista_filial': lista_filial, 
         'limit_contagem_atendimentos_moc': limit_contagem_atendimentos_moc,     
-        'data_atendimento_bh': data_atendimento_bh,     
+        'data_atendimento_bh': data_atendimento_bh,  
+        'custo_chamados_anual_moc': custo_chamado_anual_moc,   
+        'custo_chamados_anual_bh': custo_chamado_anual_bh,   
     }
     
     return render(request,template,context)
@@ -357,6 +362,64 @@ def contagem_atendimento_filial():
     dc_dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=9).count()
     data = [dulce , sion , ceanorte , jaragua, mangabeira, posto_dulce, posto_jg, dc_dulce]
     return data
+
+def custo_chamados_anual_moc():
+    dia,mes,ano = get_data_final_mes()
+    janeiro = Chamado.object.filter(updated_at__lte=f'{ano}-1-31', updated_at__gte=f'{ano}-1-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    fevereiro = Chamado.object.filter(updated_at__lte=f'{ano}-2-28', updated_at__gte=f'{ano}-2-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    marco = Chamado.object.filter(updated_at__lte=f'{ano}-3-31', updated_at__gte=f'{ano}-3-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    abril = Chamado.object.filter(updated_at__lte=f'{ano}-4-30', updated_at__gte=f'{ano}-4-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    maio = Chamado.object.filter(updated_at__lte=f'{ano}-5-31', updated_at__gte=f'{ano}-5-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    jun = Chamado.object.filter(updated_at__lte=f'{ano}-6-30', updated_at__gte=f'{ano}-6-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    julho = Chamado.object.filter(updated_at__lte=f'{ano}-7-31', updated_at__gte=f'{ano}-7-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    agosto = Chamado.object.filter(updated_at__lte=f'{ano}-8-31', updated_at__gte=f'{ano}-8-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    setembro = Chamado.object.filter(updated_at__lte=f'{ano}-9-30', updated_at__gte=f'{ano}-9-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    outubro = Chamado.object.filter(updated_at__lte=f'{ano}-10-31', updated_at__gte=f'{ano}-10-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    novembro = Chamado.object.filter(updated_at__lte=f'{ano}-11-30', updated_at__gte=f'{ano}-11-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    dezembro = Chamado.object.filter(updated_at__lte=f'{ano}-12-31', updated_at__gte=f'{ano}-12-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    data = [janeiro.get('valor__sum') , fevereiro.get('valor__sum'), marco.get('valor__sum'), abril.get('valor__sum'), 
+            maio.get('valor__sum'), jun.get('valor__sum'), julho.get('valor__sum'), agosto.get('valor__sum'), 
+            setembro.get('valor__sum'), outubro.get('valor__sum'),novembro.get('valor__sum'),dezembro.get('valor__sum')]
+    # METODO GET PEGA O VALOR DA SOMA QUE FOI GERADO DENTRO DE UM DICT NA QUERY SET
+    aux = []
+    for i in data:
+        if i is None:
+            i = 0
+            aux.append(i)
+        else:
+# ITEREAR OS VALORES GERADOS PARA TRATAR SE EH NONE E TAMBEM FAZER RETORNAR O FLOAT SE HOPUVER VALOR.. 
+            valor = float(i)
+            aux.append(valor)
+    return aux
+
+def custo_chamados_anual_bh():
+    dia,mes,ano = get_data_final_mes()
+    janeiro = Chamado.object.filter(updated_at__lte=f'{ano}-1-31', updated_at__gte=f'{ano}-1-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    fevereiro = Chamado.object.filter(updated_at__lte=f'{ano}-2-28', updated_at__gte=f'{ano}-2-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    marco = Chamado.object.filter(updated_at__lte=f'{ano}-3-31', updated_at__gte=f'{ano}-3-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    abril = Chamado.object.filter(updated_at__lte=f'{ano}-4-30', updated_at__gte=f'{ano}-4-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    maio = Chamado.object.filter(updated_at__lte=f'{ano}-5-31', updated_at__gte=f'{ano}-5-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    jun = Chamado.object.filter(updated_at__lte=f'{ano}-6-30', updated_at__gte=f'{ano}-6-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    julho = Chamado.object.filter(updated_at__lte=f'{ano}-7-31', updated_at__gte=f'{ano}-7-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    agosto = Chamado.object.filter(updated_at__lte=f'{ano}-8-31', updated_at__gte=f'{ano}-8-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    setembro = Chamado.object.filter(updated_at__lte=f'{ano}-9-30', updated_at__gte=f'{ano}-9-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    outubro = Chamado.object.filter(updated_at__lte=f'{ano}-10-31', updated_at__gte=f'{ano}-10-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    novembro = Chamado.object.filter(updated_at__lte=f'{ano}-11-30', updated_at__gte=f'{ano}-11-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    dezembro = Chamado.object.filter(updated_at__lte=f'{ano}-12-31', updated_at__gte=f'{ano}-12-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    data = [janeiro.get('valor__sum') , fevereiro.get('valor__sum'), marco.get('valor__sum'), abril.get('valor__sum'), 
+            maio.get('valor__sum'), jun.get('valor__sum'), julho.get('valor__sum'), agosto.get('valor__sum'), 
+            setembro.get('valor__sum'), outubro.get('valor__sum'),novembro.get('valor__sum'),dezembro.get('valor__sum')]
+    # METODO GET PEGA O VALOR DA SOMA QUE FOI GERADO DENTRO DE UM DICT NA QUERY SET
+    aux = []
+    for i in data:
+        if i is None:
+            i = 0
+            aux.append(i)
+        else:
+# ITEREAR OS VALORES GERADOS PARA TRATAR SE EH NONE E TAMBEM FAZER RETORNAR O FLOAT SE HOPUVER VALOR.. 
+            valor = float(i)
+            aux.append(valor)
+    return aux
 
 def get_data_final_mes():
     mes = datetime.now().month
