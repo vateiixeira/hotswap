@@ -437,6 +437,7 @@ def custo_chamado_mensal():
     chamado_custo = 0
     dia,mes,ano = get_data_final_mes()
     result = Chamado.object.filter(dt_finalizado__lte=(f'{ano}-{mes}-{dia}'), dt_finalizado__gte=(f'{ano}-{mes}-1'), loja_id__in = lista_id_moc)
+    # ser
     if not result:
         chamado_custo = 0
     for i in result:        
