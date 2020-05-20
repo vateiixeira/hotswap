@@ -265,7 +265,7 @@ def notas_travadas_mysql(request):
                                 host='192.168.3.123',
                                 database='concentrador')
         cursor = cnx.cursor()
-        script = "select count(*) from exp_imp_movimento where data_movimento= CURDATE() and situacao_movimento=1;"
+        script = "select count(*) from exp_imp_movimento where data_movimento= CURDATE() and situacao_movimento=1 and tipo_movimento=1;"
         cursor.execute(script) 
         for i in cursor:
             data = i[0]
