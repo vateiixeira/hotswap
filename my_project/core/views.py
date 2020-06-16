@@ -114,6 +114,7 @@ def homepage(request):
     
     return render(request,template,context)
   
+
 def logout_request(request):
     logout(request)
     messages.info(request, "Logout feito!")

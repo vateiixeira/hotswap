@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+{% load static%}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="Vinicius Alexandre" content="">
+
+  <title>Help Desk </title>
+
+
+  <link rel="icon" href="{% static 'img/fav.png' %}" type="image/png">
+  <script src="{% static 'js/count-up.js' %}"></script>
+  <script src="{% static 'js/Chart.min.js' %}"></script>
+  <!-- bootstrap4 -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+  <script src="{% static 'js/popper.min.js' %}" ></script>
+  <script src="{% static 'js/jquery.mask.js' %}" ></script>
+  <script src="{% static 'js/bootstrap.min.js' %}" ></script>
+  <!-- Custom fonts for this template-->
+  <link href="{% static "vendor/fontawesome-free/css/all.min.css" %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'css/fonts.css' %}" rel="stylesheet">
+  <script src="{% static 'js/jquery-3.4.1.js' %}" ></script>
+  <script src="{% static 'js/vue.js' %}" ></script>
+  <link href="{% static "css/pure-min.css" %}" rel="stylesheet">
+
+  <script src="{% static 'js/axios.min.js' %}"></script>
+
+  <!--<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">-->
+  <!-- Fengyuan Chen's Datepicker -->
+<link rel="stylesheet" href="{% static "js/datepicker.min.css" %}" />
+<script src="{% static 'js/datepicker.min.js' %}"></script>
+
+  <!-- Custom styles for this template-->
+<link href="{% static "css/sb-admin-2.min.css" %}" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+      <span>SETOR </span>: {{ usuario.setor }} __//__
+      LOJA : {{ usuario.loja}}
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+ 
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ user.username }}</span>
+                <!-- FOTO DA PESSOA LOGADA-->
+                <i class="fas fa-user-circle"></i>
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">                
+                <a class="dropdown-item" href="{% url 'core:logout'%}" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+                <a class="dropdown-item" href="{% url 'core:change_password' %}">
+                  <i class="fas fa-unlock-alt text-gray-400"></i>
+                   Alterar Senha
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+    <div class="header">
+        <div class="row justify-content-md-center">
+        <button class="btn btn-info btn-icon-split btn-lg" v-on:click="novo">
+            <span class="icon text-white-50">
+                <i class="fas fa-arrow-up"></i>
+            </span>
+            <span class="text">Novo</span>
+          </button>
+        <button class="btn btn-warning btn-icon-split btn-lg" v-on:click="pendente">
+            <span class="icon text-white-50">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+            <span class="text">Pendente</span>
+          </button>
+        <button class="btn btn-danger btn-icon-split btn-lg" v-on:click="cancelado">
+            <span class="icon text-white-50">
+              <i class="fas fa-trash"></i>
+            </span>
+            <span class="text">Cancelados/Devolvidos</span>
+          </button>
+        <button class="btn btn-success btn-icon-split btn-lg" v-on:click="concluido">
+            <span class="icon text-white-50">
+              <i class="fas fa-check"></i>
+            </span>
+            <span class="text">Concluídos</span>
+          </button>
+        </div>
+    </div>
+    <div class="row justify-content-md-center" v-if="concluidoShow">
+      <div class="col-lg-9">
+            <div class="card-body">
+                <table class="table">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Problema</th>
+                      <th scope="col">Solução</th>
+                      <th scope="col">Finalizado por</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="x in listConcluido" v-on:key="x.id">
+                      <th scope="row">[x.id]</th>
+                      <td>[x.problema]</td>
+                      <td>[x.solucao]</td>
+                      <td>[x.user_finaliza]</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+            </div>
+          </div>
+      </div>
+    <div class="row justify-content-md-center" v-if="semDados">
+      <div class="col-lg-9">
+            <div class="card-body">
+                SEM DADOS PARA ESSA OPÇÃO.
+            </div>
+          </div>
+      </div>
+
+
+    <div class="row justify-content-md-center" v-if="novoChamado">
+    <div class="col-lg-9">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">NOVO CHAMADO</h6>
+          </div>
+          <div class="card-body">
+            <div class="form-group row" v-if="novoChamado">
+              <textarea type="text-area" v-model="issue" placeholder="Problema" class="form-control form-control-user" rows="5" cols="33">
+              </textarea>
+              <input type="text" placeholder="Solicitante" v-model="solicitante" class="form-control form-control-user" >
+              <button v-on:click="submita" class="btn btn-success btn-icon-split" v-on:click="concluido" style="margin-top: 10px;">
+                <span class="icon text-white-50">
+                  <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Enviar!</span>
+              </button>
+              
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+    <div class="col-lg-9">
+        <div class="card shadow mb-4">
+          <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Dados gerais</h6>
+          </div>
+          <div class="card-body">
+            <div class="row" style="margin-left: 10px;">
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <a class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pendentes</a>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ quantidade.pendente }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <a class="text-xs font-weight-bold text-success text-uppercase mb-1">Concluidos</a>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ quantidade.concluido }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa- fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <a class="text-xs font-weight-bold text-danger text-uppercase mb-1">Cancelados</a>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ quantidade.cancelados }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-arrow fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div> 
+
+          </div>
+        </div>
+        </div>
+
+    </div>
+<div hidden id="id">{{usuario.id}}</div>
+</div>
+
+<!-- FECHA DIV APP --> 
+
+</body>
+
+<script src="{% static "js/helpdesk.js" %}">
+</script>
+        <!-- scripts -->
+        
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="{% static "vendor/jquery/jquery.min.js" %}"></script>
+  <script src="{% static "vendor/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{% static "vendor/jquery-easing/jquery.easing.min.js" %}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{% static "js/sb-admin-2.min.js" %}"></script>
+
+  <!-- Page level plugins -->
+  <script src="{% static "vendor/chart.js/Chart.min.js" %}"></script>
+
+<style>
+    .header{
+        margin-top: 60px;
+        margin-bottom: 30px;
+    }
+    .btn {
+        margin-right: 20px;
+    }
+</style>
+</html>

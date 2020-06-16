@@ -10,4 +10,7 @@ router.register('envios', Envio_List)
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('helpdesk/usuario/<int:id>', user_helpdesk),
+    path('helpdesk/novo/atendimento', novo_atendimento_helpdesk),
+    path('helpdesk/lista', list_atendimento_helpdesk)
 ]

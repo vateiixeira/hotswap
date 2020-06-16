@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'my_project.compras',
     'my_project.base',
     'my_project.api',
+    'my_project.helpdesk',
 
     'django_select2',
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -57,6 +60,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'my_project.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
