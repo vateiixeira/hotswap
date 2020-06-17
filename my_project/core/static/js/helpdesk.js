@@ -23,7 +23,6 @@ var vm = new Vue({
     axios
       .get(`http://localhost:8000/api/helpdesk/usuario/${this.id}`)
       .then(function (response) {
-        console.log(response);
         this.setor = response.data.setor;
         this.loja = response.data.loja;
         this.user = response.data.user;
@@ -35,8 +34,8 @@ var vm = new Vue({
             },
           })
           .then(function (response) {
-            console.log(response.data);
-            this.atendimentos = response.data;
+            vm.atendimentos = response.data;
+            console.log(vm.atendimentos);
           })
           .catch(function (error) {
             console.log(error);
@@ -79,7 +78,7 @@ var vm = new Vue({
           console.log(error);
         });
     },
-    pendente: () => {    
+    pendente: function() {  
         var lista = vm.atendimentos.filter(function (el) {
             return el.status == "p";
         });
@@ -93,7 +92,7 @@ var vm = new Vue({
         }
     },
     cancelado: () => {
-        var lista = this.atendimentos.filter(function (el) {
+        var lista = vm.atendimentos.filter(function (el) {
             return el.status == "o";
         });
         if (lista.length <= 0 ) {
@@ -106,7 +105,7 @@ var vm = new Vue({
         }
     },
     concluido: () => {
-        var lista = this.atendimentos.filter(function (el) {
+        var lista = vm.atendimentos.filter(function (el) {
             return el.status == "r";
         });
         if (lista.length <= 0 ) {
