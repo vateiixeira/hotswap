@@ -21,13 +21,13 @@ var vm = new Vue({
   mounted() {
     this.id = document.getElementById("id").innerHTML;
     axios
-      .get(`http://localhost:8000/api/helpdesk/usuario/${this.id}`)
+      .get(`http://192.168.0.238/api/helpdesk/usuario/${this.id}`)
       .then(function (response) {
         this.setor = response.data.setor;
         this.loja = response.data.loja;
         this.user = response.data.user;
         axios
-          .get(`http://127.0.0.1:8000/api/helpdesk/lista`, {
+          .get(`http://192.168.0.238/api/helpdesk/lista`, {
             params: {
               loja: this.loja,
               setor: this.setor,
@@ -62,7 +62,7 @@ var vm = new Vue({
     submita: () => {
       console.log(this.problema);
       axios
-        .post(`http://localhost:8000/api/helpdesk/novo/atendimento`, {
+        .post(`http://192.168.0.238/api/helpdesk/novo/atendimento`, {
           setor: this.setor,
           loja: this.loja,
           user: this.user,
