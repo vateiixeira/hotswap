@@ -16,3 +16,5 @@ class Usuario(models.Model):
         verbose_name = "Usuario"
         verbose_name_plural = "Usuários"
 
+    def __str__(self):
+        return str(self.user)

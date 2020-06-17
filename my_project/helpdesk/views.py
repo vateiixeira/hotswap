@@ -10,10 +10,15 @@ def help_desk(request):
     user = request.user
     perfil = Usuario.objects.get(user = user)
 
-    pendente = Atendimento.object.filter(status = 'p'  , setor = perfil.setor, loja = perfil.loja ).count()
-    concluido = Atendimento.object.filter(status = 'r' , setor = perfil.setor, loja = perfil.loja ).count()
-    cancelados = Atendimento.object.filter(status = 'o', setor = perfil.setor, loja = perfil.loja ).count()
-    
+    if perfil.setor == 'GERENCIA':
+        pendente = Atendimento.object.filter(status = 'p'  , loja = perfil.loja ).count()
+        concluido = Atendimento.object.filter(status = 'r' , loja = perfil.loja ).count()
+        cancelados = Atendimento.object.filter(status = 'o', loja = perfil.loja ).count()
+    else:
+        pendente = Atendimento.object.filter(status = 'p'  , setor = perfil.setor, loja = perfil.loja ).count()
+        concluido = Atendimento.object.filter(status = 'r' , setor = perfil.setor, loja = perfil.loja ).count()
+        cancelados = Atendimento.object.filter(status = 'o', setor = perfil.setor, loja = perfil.loja ).count()
+        
 
     context = {
         'quantidade': {
