@@ -40,8 +40,12 @@ def novo_atendimento_helpdesk(request):
 @api_view(['GET'])
 def list_atendimento_helpdesk(request):
     loja = Lojas.object.get(id = request.GET.get('loja'))
-    atendimento = Atendimento.object.filter(setor = request.GET.get('setor'), loja = loja)
-    serializer = AtendimentoSerializer(atendimento, many=True)
+    if request.GET.get('setor') == 'GERENCIA':
+        atendimento = Atendimento.object.filter(loja = loja)
+        serializer = AtendimentoSerializer(atendimento, many=True)
+    else:
+        atendimento = Atendimento.object.filter(setor = request.GET.get('setor'), loja = loja)
+        serializer = AtendimentoSerializer(atendimento, many=True)
     return Response(serializer.data)
 
 
