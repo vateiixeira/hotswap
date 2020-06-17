@@ -5,10 +5,16 @@ from my_project.core.models import Lojas
 from my_project.estoque.models import Equipamento
 
 
+SIT_CHOICE = [
+    ("p", "PENDENTE"),
+    ("r", "RESOLVIDO"),
+    ("o", "CANCELADO"),
+]
+
 class Atendimento(models.Model):
     problema = models.CharField("Problema", max_length=455)
     solucao = models.CharField("Resolução", max_length=455, blank=True)
-    status = models.CharField(max_length=1, choices=Chamado.SIT_CHOICE, default='p')
+    status = models.CharField(max_length=1, choices=SIT_CHOICE, default='p')
     setor = models.CharField("Setor", max_length=50, choices= Equipamento.SETOR_CHOICES)
     solicitante = models.CharField("Solicitante", max_length=50)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
