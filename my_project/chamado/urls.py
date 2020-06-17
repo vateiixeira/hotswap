@@ -16,4 +16,5 @@ urlpatterns = [
     path('rel/pordatafilial/', chamado_por_data_filial, name='chamado_por_data_filial'),
     path('rel/porusuario/', chamado_por_usuario, name='chamado_por_usuario'),
     path('pdf/data/<str:dtinicial>/<str:dtfinal>/<int:usuario>', PdfPorUsuario.as_view(), name='pdfusuario'),
+    path('change_date', change_date, name='change_date'),
 ]

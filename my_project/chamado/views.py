@@ -270,3 +270,11 @@ class PdfPorUsuario(View):
         return Render.render('pdf_usuario.html', params)    
 
 #FIM ENVIO POR USUARIO
+
+def change_date(request):
+    template = 'change_date.html'
+    obj = Chamado.object.get(id=57)
+    finalizado = obj.dt_finalizado
+    obj.create_at = finalizado
+    obj.save()
+    return render(request,template)
