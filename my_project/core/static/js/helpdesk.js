@@ -1,4 +1,3 @@
-
 var vm = new Vue({
   el: "#app",
   delimiters: ["[", "]"],
@@ -81,7 +80,7 @@ var vm = new Vue({
         });
     },
     pendente: () => {    
-        var lista = this.atendimentos.filter(function (el) {
+        var lista = vm.atendimentos.filter(function (el) {
             return el.status == "p";
         });
         if (lista.length <= 0 ) {
