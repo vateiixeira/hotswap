@@ -17,6 +17,7 @@ from my_project.atendimento.views import add_atendimento
 from my_project.atendimento.forms import AtendimentoForm
 from my_project.msg.models import Group_Msg, Msg
 from my_project.core.utils import is_staff
+from my_project.core.models import Profile
 import mysql.connector
 from mysql.connector import Error
 from my_project.atendimento.models import Atendimento
@@ -190,8 +191,14 @@ def login_request(request):
         password=request.POST['password']
         user = authenticate(request, username=username,password=password)
         if user is not None:
-            login(request, user)
-            return redirect('core:homepage')
+            login(request, user)         
+            try:
+                profile = Profile.objects.get(user = user)
+                print(profile) 
+            except Profile.DoesNotExist:
+                return redirect('helpdesk:help_desk')
+            else:
+                return redirect('core:homepage')
         else:
             messages.error(request, f'Você digitou usuario/senha inválidos.')
     context = {

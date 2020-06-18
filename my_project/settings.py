@@ -149,6 +149,6 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # REDIRECIONA APOS FEITO LOGIN
 LOGIN_URL = 'core:login'
-LOGIN_REDIRECT_URL = 'core:homepage'
+#LOGIN_REDIRECT_URL = 'core:homepage'
 # REDIRECIONA APOS LOGOUT
 LOGOUT_REDIRECT_URL = 'core:logout'
