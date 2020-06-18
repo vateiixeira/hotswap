@@ -279,5 +279,6 @@ def change_date(request):
         finalizado = x.dt_finalizado
         x.create_at = finalizado
         x.save()
+        print('SALVOU')
     return render(request,template)
 
