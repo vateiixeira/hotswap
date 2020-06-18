@@ -89,13 +89,23 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'hotswap',
+        'NAME': 'teste',
         'USER': 'root',
         'PASSWORD': '1',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'hotswap',
+#         'USER': 'root',
+#         'PASSWORD': '1',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 
 #DATABASES = {
