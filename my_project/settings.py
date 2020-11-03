@@ -14,7 +14,7 @@ SECRET_KEY = 'x4&en%b6kbe4+z&y+7&0iqtf9gx%g8tt)c@gh&vhc+$5-c6wq0'
 
 DEBUG = True
 
-ALLOWED_HOSTS = [ '192.168.0.102', 'hotswap', 'localhost', '192.168.0.238', '127.0.0.1']
+ALLOWED_HOSTS = [ '192.168.0.102', 'hotswap', 'localhost', '192.168.0.238', '127.0.0.1','192.168.1.64']
 
 
 # Application definition
@@ -100,7 +100,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'hotswap',
-        'USER': 'root',
+        'USER': 'postgres',
         'PASSWORD': '1',
         'HOST': 'localhost',
         'PORT': '',

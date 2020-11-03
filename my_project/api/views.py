@@ -25,7 +25,7 @@ def user_helpdesk(request,id):
 
 @api_view(['POST'])
 def novo_atendimento_helpdesk(request):
-    data = json.loads(request.body.decode('utf-8'))
+    data = request.data
     obj = Atendimento()
     obj.problema = data['problema']
     obj.setor = data['setor']
@@ -35,7 +35,6 @@ def novo_atendimento_helpdesk(request):
     loja = Lojas.object.get(id = data['loja'])
     obj.loja = loja
     obj.save()
-    print(data)
     return Response('ok')
 
 @api_view(['GET'])

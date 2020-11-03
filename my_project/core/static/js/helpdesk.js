@@ -1,3 +1,4 @@
+Vue.use(Toasted)
 var vm = new Vue({
   el: "#app",
   delimiters: ["[", "]"],
@@ -22,15 +23,15 @@ var vm = new Vue({
   },
   mounted() {
     this.id = document.getElementById("id").innerHTML;
-    console.log(`http://192.168.0.238/api/helpdesk/usuario/${this.id}`)
+    console.log(`http://http://192.168.0.238/api/helpdesk/usuario/${this.id}`)
     axios
-      .get(`http://192.168.0.238/api/helpdesk/usuario/${this.id}`)
+      .get(`http://http://192.168.0.238/api/helpdesk/usuario/${this.id}`)
       .then(function (response) {
         this.setor = response.data.setor;
         this.loja = response.data.loja;
         this.user = response.data.user;
         axios
-          .get(`http://192.168.0.238/api/helpdesk/lista`, {
+          .get(`http://http://192.168.0.238/api/helpdesk/lista`, {
             params: {
               loja: this.loja,
               setor: this.setor,
@@ -38,7 +39,6 @@ var vm = new Vue({
           })
           .then(function (response) {
             vm.atendimentos = response.data;
-            console.log(vm.atendimentos);
           })
           .catch(function (error) {
             console.log(error);
@@ -47,7 +47,7 @@ var vm = new Vue({
       .catch(function (error) {
         console.log(error);
       });
-    // axios.get(`http://192.168.0.238/api/helpdesk/lista`,
+    // axios.get(`http://http://192.168.0.238/api/helpdesk/lista`,
     // {
     //     params: {
     //         'loja': vm.loja,
@@ -63,9 +63,10 @@ var vm = new Vue({
   },
   methods: {
     submita: () => {
-      console.log(this.problema);
-      axios
-        .post(`http://192.168.0.238/api/helpdesk/novo/atendimento`, {
+      axios.defaults.xsrfCookieName = 'csrftoken'
+      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN",
+        axios
+        .post(`http://http://192.168.0.238/api/helpdesk/novo/atendimento`, {
           setor: this.setor,
           loja: this.loja,
           user: this.user,
@@ -73,52 +74,60 @@ var vm = new Vue({
           solicitante: vm.solicitante,
         })
         .then(function (response) {
-          console.log(response);
+          console.log(response.data);
           vm.issue = "";
           vm.solicitante = "";
+          vm.$toasted.show('Chamado aberto com sucesso!!', {
+            theme: 'outline',
+            duration: 5000,
+            type: 'success'
+          })
         })
         .catch(function (error) {
           console.log(error);
         });
     },
-    pendente: function() {  
-        var lista = vm.atendimentos.filter(function (el) {
-            return el.status == "p";
-        });
-        if (lista.length <= 0 ) {
-            vm.concluidoShow = false
-            vm.semDados = true
-        } else {
-            vm.concluidoShow = true
-            console.log(lista);
-            vm.listConcluido = lista;
-        }
+    pendente: function () {
+      var lista = vm.atendimentos.filter(function (el) {
+        return el.status == "p";
+      });
+      if (lista.length <= 0) {
+        vm.concluidoShow = false
+        vm.semDados = true
+        vm.novoChamado = false
+      } else {
+        vm.concluidoShow = true
+        vm.novoChamado = false
+        vm.listConcluido = lista;
+      }
     },
     cancelado: () => {
-        var lista = vm.atendimentos.filter(function (el) {
-            return el.status == "o";
-        });
-        if (lista.length <= 0 ) {
-            vm.concluidoShow = false
-            vm.semDados = true
-        } else {
-            vm.concluidoShow = true
-            console.log(lista);
-            vm.listConcluido = lista;
-        }
+      var lista = vm.atendimentos.filter(function (el) {
+        return el.status == "o";
+      });
+      if (lista.length <= 0) {
+        vm.concluidoShow = false
+        vm.semDados = true
+        vm.novoChamado = false
+      } else {
+        vm.concluidoShow = true
+        vm.novoChamado = false
+        vm.listConcluido = lista;
+      }
     },
     concluido: () => {
-        var lista = vm.atendimentos.filter(function (el) {
-            return el.status == "r";
-        });
-        if (lista.length <= 0 ) {
-            vm.concluidoShow = false
-            vm.semDados = true
-        } else {
-            vm.concluidoShow = true            
-            console.log(lista);
-            vm.listConcluido = lista;
-        }
+      var lista = vm.atendimentos.filter(function (el) {
+        return el.status == "r";
+      });
+      if (lista.length <= 0) {
+        vm.concluidoShow = false
+        vm.semDados = true
+        vm.novoChamado = false
+      } else {
+        vm.concluidoShow = true
+        vm.novoChamado = false
+        vm.listConcluido = lista;
+      }
     },
     novo: function (event) {
       vm.concluidoShow = false
