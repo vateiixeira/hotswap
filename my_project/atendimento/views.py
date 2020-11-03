@@ -83,11 +83,11 @@ def lista_atendimento(request):
     
     grupo_usuario = Profile.objects.get(user = request.user)
     if grupo_usuario.grupo == "BH":
-        envio = Atendimento.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')
+        envio = Atendimento.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')[:200]
     elif grupo_usuario.grupo == "MONTES CLAROS":
-        envio = Atendimento.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')
+        envio = Atendimento.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')[:200]
     else:
-        envio = Atendimento.object.all().order_by('-create_at')
+        envio = Atendimento.object.all().order_by('-create_at')[:200]
 
     context = {
         "envio" : envio

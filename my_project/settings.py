@@ -14,7 +14,7 @@ SECRET_KEY = 'x4&en%b6kbe4+z&y+7&0iqtf9gx%g8tt)c@gh&vhc+$5-c6wq0'
 
 DEBUG = True
 
-ALLOWED_HOSTS = [ '192.168.0.102', 'hotswap', 'localhost', '192.168.0.238', '127.0.0.1']
+ALLOWED_HOSTS = [ '192.168.0.102', 'hotswap', 'localhost', '192.168.0.238', '127.0.0.1','192.168.1.64']
 
 
 # Application definition
@@ -38,11 +38,13 @@ INSTALLED_APPS = [
     'my_project.compras',
     'my_project.base',
     'my_project.api',
+    'my_project.helpdesk',
 
     'django_select2',
     'bootstrap_datepicker_plus',
     'bootstrap4',
     'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -50,6 +52,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -57,6 +60,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'my_project.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
@@ -81,11 +86,21 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'teste',
+#         'USER': 'root',
+#         'PASSWORD': '1',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'hotswap',
-        'USER': 'root',
+        'USER': 'postgres',
         'PASSWORD': '1',
         'HOST': 'localhost',
         'PORT': '',
@@ -144,6 +159,6 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # REDIRECIONA APOS FEITO LOGIN
 LOGIN_URL = 'core:login'
-LOGIN_REDIRECT_URL = 'core:homepage'
+#LOGIN_REDIRECT_URL = 'core:homepage'
 # REDIRECIONA APOS LOGOUT
 LOGOUT_REDIRECT_URL = 'core:logout'

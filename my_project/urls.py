@@ -14,4 +14,5 @@ urlpatterns = [
     path("compras/", include('my_project.compras.urls')),   
     path("base/", include('my_project.base.urls')),   
     path("api/", include('my_project.api.urls')),   
+    path("helpdesk/", include('my_project.helpdesk.urls')),   
 ]

@@ -270,3 +270,6 @@ class PdfPorUsuario(View):
         return Render.render('pdf_usuario.html', params)    
 
 #FIM ENVIO POR USUARIO
+
+
+
