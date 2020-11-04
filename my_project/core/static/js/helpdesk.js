@@ -23,9 +23,9 @@ var vm = new Vue({
   },
   mounted() {
     this.id = document.getElementById("id").innerHTML;
-    console.log(`http://http://192.168.0.238/api/helpdesk/usuario/${this.id}`)
+    console.log(`http://192.168.0.238/api/helpdesk/usuario/${this.id}`)
     axios
-      .get(`http://http://192.168.0.238/api/helpdesk/usuario/${this.id}`)
+      .get(`http://192.168.0.238/api/helpdesk/usuario/${this.id}`)
       .then(function (response) {
         this.setor = response.data.setor;
         this.loja = response.data.loja;
