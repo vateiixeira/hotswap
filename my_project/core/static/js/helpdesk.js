@@ -66,7 +66,7 @@ var vm = new Vue({
       axios.defaults.xsrfCookieName = 'csrftoken'
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN",
         axios
-        .post(`http://http://192.168.0.238/api/helpdesk/novo/atendimento`, {
+        .post(`http://192.168.0.238/api/helpdesk/novo/atendimento`, {
           setor: this.setor,
           loja: this.loja,
           user: this.user,
