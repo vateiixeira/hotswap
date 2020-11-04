@@ -47,19 +47,7 @@ var vm = new Vue({
       .catch(function (error) {
         console.log(error);
       });
-    // axios.get(`http://http://192.168.0.238/api/helpdesk/lista`,
-    // {
-    //     params: {
-    //         'loja': vm.loja,
-    //         'setor' : vm.setor
-    //     }
-    // })
-    // .then(function (response) {
-    //     console.log(response)
-    // })
-    // .catch(function (error) {
-    //     console.log(error)
-    // })
+    this.novoChamado = true
   },
   methods: {
     submita: () => {

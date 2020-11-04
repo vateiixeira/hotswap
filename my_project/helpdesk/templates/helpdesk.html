@@ -214,7 +214,8 @@
                           <tr v-for="x in listConcluido" v-on:key="x.id">
                             <th scope="row">[x.id]</th>
                             <td>[x.problema]</td>
-                            <td>[x.solucao]</td>
+                            <td v-if="x.setor_visualiza_solucao == true">[x.solucao]</td>
+                            <td v-else>---</td>
                             <td>[x.solicitante]</td>
                             <td>[x.user_finaliza]</td>
                             <td>[x.setor]</td>

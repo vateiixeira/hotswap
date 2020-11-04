@@ -41,10 +41,10 @@ def novo_atendimento_helpdesk(request):
 def list_atendimento_helpdesk(request):
     loja = Lojas.object.get(id = request.GET.get('loja'))
     if request.GET.get('setor') == 'GERENCIA':
-        atendimento = Atendimento.object.filter(loja = loja)
+        atendimento = Atendimento.object.filter(loja = loja).order_by('-create_at')
         serializer = AtendimentoSerializer(atendimento, many=True)
     else:
-        atendimento = Atendimento.object.filter(setor = request.GET.get('setor'), loja = loja)
+        atendimento = Atendimento.object.filter(setor = request.GET.get('setor'), loja = loja).order_by('-create_at')
         serializer = AtendimentoSerializer(atendimento, many=True)
     return Response(serializer.data)
 
