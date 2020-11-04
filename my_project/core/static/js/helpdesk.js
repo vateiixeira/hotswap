@@ -31,7 +31,7 @@ var vm = new Vue({
         this.loja = response.data.loja;
         this.user = response.data.user;
         axios
-          .get(`http://http://192.168.0.238/api/helpdesk/lista`, {
+          .get(`http://192.168.0.238/api/helpdesk/lista`, {
             params: {
               loja: this.loja,
               setor: this.setor,
