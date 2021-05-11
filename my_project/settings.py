@@ -16,6 +16,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [ '192.168.0.102', 'hotswap', 'localhost', '192.168.0.238', '127.0.0.1','192.168.1.64']
 
+from decouple import config
 
 # Application definition
 
@@ -101,7 +102,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'hotswap',
-        'USER': 'root',
+        'USER': config('DB_USER'),
         'PASSWORD': '1',
         'HOST': 'localhost',
         'PORT': '',
@@ -163,3 +164,13 @@ LOGIN_URL = 'core:login'
 #LOGIN_REDIRECT_URL = 'core:homepage'
 # REDIRECIONA APOS LOGOUT
 LOGOUT_REDIRECT_URL = 'core:logout'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp-mail.outlook.com'
+#EMAIL_HOST = 'smtp.office365.com'
+EMAIL_HOST_USER = config('EMAIL_USER')
+FROM_EMAIL = config('EMAIL_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
