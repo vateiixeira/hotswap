@@ -37,16 +37,17 @@ def cadastro(request):
 
 def lista_estoque(request):
     template='lista_estoque.html'
-    estoque = Equipamento.object.all()
+    #estoque = Equipamento.object.all()
 
-    grupo_usuario = Profile.objects.get(user = request.user)
-    if grupo_usuario.grupo == "BH":
-        estoque = Equipamento.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')
-    elif grupo_usuario.grupo == "MONTES CLAROS":
-        estoque = Equipamento.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')
-    else:
-        estoque = Equipamento.object.all().order_by('-create_at')
+    # grupo_usuario = Profile.objects.get(user = request.user)
+    # if grupo_usuario.grupo == "BH":
+    #     estoque = Equipamento.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')
+    # elif grupo_usuario.grupo == "MONTES CLAROS":
+    #     estoque = Equipamento.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')
+    # else:
+    #     estoque = Equipamento.object.all().order_by('-create_at')
 
+    estoque = Equipamento.object.filter(loja__in = request.user.profile.filiais.all()).order_by('-create_at')
     user = request.user
     staff = is_staff(user)
     context = {
@@ -58,7 +59,7 @@ def lista_estoque(request):
 
 def lista_backup(request):
     template='lista_estoque_backup.html'
-    estoque = Equipamento.object.filter(backup=True)
+    estoque = Equipamento.object.filter(backup=True,loja__in=request.user.profile.filiais.all())
     user = request.user
     staff = is_staff(user)
     context = {
@@ -72,6 +73,10 @@ class ListaEstoqueQtd(ListView):
     template_name='lista_estoque_qtd.html'
     model = Equipamento
     context_object_name = 'estoque'
+
+    def get_queryset(self):
+        queryset =  super().get_queryset()
+        return queryset.filter(loja__in=self.request.user.profile.filiais.all())
 
 
 class UpdateEstoque(UpdateView):

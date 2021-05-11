@@ -413,11 +413,26 @@
               <div class="card-body">
                 <div class="row no-gutters align-items-center">
                   <div class="col mr-2">
-                    <a href="{% url "msg:msg" id=id_msg grupo=grupo_msg %}"><div class="text-xs font-weight-bold text-info text-uppercase mb-1">Mensagens não lidas</div></a>                      
-                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ msg_nao_lida }}</div>
+                    <a href="{% url 'atendimento:lista_atendimento_pendente_user' %}"><div class="text-xs font-weight-bold text-info text-uppercase mb-1">Seus atendimentos pendentes</div></a>                      
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ seus_atendimentos_pendentes }}</div>
                   </div>
                   <div class="col-auto">
-                    <i class="far fa-comment-dots fa-2x text-gray-300"></i>
+                    <i class="fas fa-angle-double-down fa-2x text-gray-300"></i>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+          <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+              <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                  <div class="col mr-2">
+                    <a href="{% url 'envios:lista_envio_pendente' %}"><div class="text-xs font-weight-bold text-info text-uppercase mb-1">ENVIOS PENDENTES</div></a>                      
+                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ envios_pendentes }}</div>
+                  </div>
+                  <div class="col-auto">
+                    <i class="fas fa-truck-moving fa-2x text-gray-300"></i>
                   </div>
                 </div>
               </div>
@@ -634,6 +649,7 @@
             <!-- <span>Copyright &copy; Vinícius Alexandre 2019</span> -->
           </div>
         </div>
+        
       </footer>
 
       <!-- End of Footer -->
@@ -714,32 +730,14 @@
     var colunas = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["Dulce", "Sion", "Ceanorte", "Jaraguá", "Mangabeira", "Posto Dulce", "Posto JG", "DC Dulce"],
-            datasets: [{
-                label: 'atendimentos',
-                data: {{data_atendimento_filial}} ,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(175, 59, 59, 0.2)',
-                    'rgba(206, 83, 59, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(175, 59, 59, 0.2)',
-                    'rgba(206, 83, 59, 0.2)',
-                ],
-                borderWidth: 2
-            }]
+          labels: {{filiais_data_atendimento_filial|safe}},
+          datasets: [{
+            label: "Atendimentos",
+            backgroundColor: "#4e73df",
+            hoverBackgroundColor: "#2e59d9",
+            borderColor: "#4e73df",
+            data: {{data_atendimento_filial|safe}}
+          }],
         },
         options: {
             scales: {
@@ -760,63 +758,10 @@
       var colunas = new Chart(ctx, {
           type: 'bar',
           data: {
-              labels: ['PV10', 'CD', 'COF', 'TITO', 'J.FORA', 'V.MELO', 'AMPA', 'HORT', 'BGDRO', 'DIVI', 'JUSTN', 'P 2', 'JJ', 'TROP', 'SERRANO', 'H.M', 'BR040', 'DC TF', 'DC P2', 'DC BG', 'SL', 'ITABI', 'JATAI', 'IPATINGA'],
+              labels: {{filiais_data_atendimento_bh|safe}},
               datasets: [{
                   label: 'atendimentos',
-                  data: {{data_atendimento_bh}} ,
-                  backgroundColor: [
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(255, 159, 64, 0.2)',
-                      'rgba(175, 59, 59, 0.2)',
-                      'rgba(206, 83, 59, 0.2)',
-                      'rgba(255, 99, 132, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(255, 206, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(153, 102, 255,0.2)',
-                      'rgba(255, 159, 64, 0.2)',
-                      'rgba(175, 59, 59,  0.2)',
-                      'rgba(206, 83, 59,  0.2)',
-
-                      'rgba(225, 99, 132, 0.2)',
-                      'rgba(51, 162, 235, 0.2)',
-                      'rgba(215, 206, 86, 0.2)',
-                      'rgba(71, 192, 192, 0.2)',
-                      'rgba(113, 102, 255,0.2)',
-                      'rgba(215, 159, 64, 0.2)',
-                      'rgba(115, 59, 59,  0.2)',
-                      'rgba(216, 83, 59,  0.2)',
-                  ],
-                  borderColor: [
-                      'rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255, 1)',
-                      'rgba(255, 159, 64, 1)',
-                      'rgba(175, 59, 59,1)',
-                      'rgba(206, 83, 59, 1)',
-                      'rgba(255, 99, 132, 1)',
-                      'rgba(54, 162, 235, 1)',
-                      'rgba(255, 206, 86, 1)',
-                      'rgba(75, 192, 192, 1)',
-                      'rgba(153, 102, 255,1)',
-                      'rgba(255, 159, 64, 1)',
-                      'rgba(175, 59, 59,  1)',
-                      'rgba(206, 83, 59,  1)',
-                      'rgba(225, 99, 132, 1)',
-                      'rgba(51, 162, 235, 1)',
-                      'rgba(215, 206, 86, 1)',
-                      'rgba(71, 192, 192, 1)',
-                      'rgba(113, 102, 255,1)',
-                      'rgba(215, 159, 64, 1)',
-                      'rgba(115, 59, 59,  1)',
-                      'rgba(216, 83, 59,  1)',
-                  ],
+                  data: {{data_atendimento_bh|safe}} ,
                   borderWidth: 2
               }]
           },
@@ -1359,13 +1304,13 @@ var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["Dulce", "Sion", "Ceanorte", "Jaraguá", "Mangabeira", "Posto Dulce", "Posto JG", "DC Dulce"],
+    labels: {{filiais_data_atendimento_filial|safe}},
     datasets: [{
       label: "Atendimentos",
       backgroundColor: "#4e73df",
       hoverBackgroundColor: "#2e59d9",
       borderColor: "#4e73df",
-      data: {{data_atendimento_filial}}
+      data: {{data_atendimento_filial|safe}}
     }],
   },
   options: {

@@ -8,9 +8,10 @@
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">Listagem de Envios</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Listagem de envios pendentes</h6>
     </div>
     <div class="card-body">
+      <a class="btn btn-primary" href="{% url 'envios:pdfpendentesenvios' %}">Gerar relatório</a>
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTableEnvio" width="100%" cellspacing="0">
         <thead>

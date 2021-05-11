@@ -16,11 +16,15 @@ class AtendimentoViewForm(forms.ModelForm):
 
 
 class AtendimentoForm(forms.ModelForm): 
+    problema = forms.CharField(required=True,widget = forms.Textarea(attrs={'rows':5, 'cols':50}))
+    setor = forms.ChoiceField(required=True,choices=Equipamento.SETOR_CHOICES)
+    loja = forms.ModelChoiceField(required=True,queryset=Lojas.object.all())
+    solicitante = forms.CharField(required=True)
     class Meta:
         model = Atendimento
         exclude = ("create_at", "updated_at", "user", "user_finaliza","setor_visualiza_solucao")
         widgets = {
-            'problema': forms.Textarea(attrs={'rows':5, 'cols':50}),
+            #'problema': forms.Textarea(attrs={'rows':5, 'cols':50}),
             'solucao': forms.Textarea(attrs={'rows':5, 'cols':50}),
         }
 

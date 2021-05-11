@@ -80,13 +80,15 @@ def lista_chamado(request):
     template='lista_chamado.html'
 
 
-    grupo_usuario = Profile.objects.get(user = request.user)
-    if grupo_usuario.grupo == "BH":
-        chamado = Chamado.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')
-    elif grupo_usuario.grupo == "MONTES CLAROS":
-        chamado = Chamado.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')
-    else:
-        chamado = Chamado.object.all().order_by('-create_at')
+    # grupo_usuario = Profile.objects.get(user = request.user)
+    # if grupo_usuario.grupo == "BH":
+    #     chamado = Chamado.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')
+    # elif grupo_usuario.grupo == "MONTES CLAROS":
+    #     chamado = Chamado.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')
+    # else:
+    #     chamado = Chamado.object.all().order_by('-create_at')
+
+    chamado = Chamado.object.filter(loja__in=request.user.profile.filiais.all()).order_by('-create_at')
 
     user = request.user
     staff = is_staff(user)
@@ -101,12 +103,14 @@ def lista_chamado_pendente(request):
     template='lista_chamado_pendente.html'
     grupo_usuario = Profile.objects.get(user = request.user)
 
-    if grupo_usuario.grupo == "BH":
-        chamado = Chamado.object.filter(Q(loja_id__in = lista_id_bh), status = 'p')
-    elif grupo_usuario.grupo == "MONTES CLAROS":
-        chamado = Chamado.object.filter(Q(loja_id__in = lista_id_moc), status = 'p')
-    else:
-        chamado = Chamado.object.filter(status = 'p')
+    chamado = Chamado.object.filter(loja__in=request.user.profile.filiais.all())
+
+    # if grupo_usuario.grupo == "BH":
+    #     chamado = Chamado.object.filter(Q(loja_id__in = lista_id_bh), status = 'p')
+    # elif grupo_usuario.grupo == "MONTES CLAROS":
+    #     chamado = Chamado.object.filter(Q(loja_id__in = lista_id_moc), status = 'p')
+    # else:
+    #     chamado = Chamado.object.filter(status = 'p')
 
     user = request.user
     staff = is_staff(user)
