@@ -66,6 +66,7 @@ def add_atendimento(request,user):
             model.solicitante = form.cleaned_data['solicitante']
             model.solucao = form.cleaned_data['solucao']
             model.status = form.cleaned_data['status']
+            model.responsavel = form.cleaned_data['responsavel']
 
             if model.status == 'r':
                 model.user_finaliza = request.user
