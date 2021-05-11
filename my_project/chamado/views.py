@@ -103,7 +103,7 @@ def lista_chamado_pendente(request):
     template='lista_chamado_pendente.html'
     grupo_usuario = Profile.objects.get(user = request.user)
 
-    chamado = Chamado.object.filter(loja__in=request.user.profile.filiais.all())
+    chamado = Chamado.object.filter(loja__in=request.user.profile.filiais.all(),status = 'p')
 
     # if grupo_usuario.grupo == "BH":
     #     chamado = Chamado.object.filter(Q(loja_id__in = lista_id_bh), status = 'p')
