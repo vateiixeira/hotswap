@@ -100,7 +100,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'hotswap',
-        'USER': 'postgres',
+        'USER': 'root',
         'PASSWORD': '1',
         'HOST': 'localhost',
         'PORT': '',

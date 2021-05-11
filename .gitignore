@@ -114,3 +114,5 @@ media/
 my_project.rar
 *.rar
 .rar
+staticfiles/
+static/
