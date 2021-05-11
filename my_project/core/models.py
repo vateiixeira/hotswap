@@ -8,11 +8,12 @@ GRUPO_USUARIOS = (
 )
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='profile',on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     grupo = models.CharField("Área de atuacao", max_length=20, choices=GRUPO_USUARIOS, default="BH" )
+    filiais = models.ManyToManyField('core.Lojas', blank=True)
         
     class Meta:
         verbose_name = "Profile"
@@ -30,6 +31,7 @@ class Lojas(models.Model):
     bairro = models.CharField('Bairro', max_length=50)
     cep = models.CharField('cep',max_length=20)
     cidade = models.CharField('Cidade', max_length=50)
+    polo = models.CharField("Polo", max_length=20, choices=GRUPO_USUARIOS, default="BH" )
 
     object = models.Manager()
     

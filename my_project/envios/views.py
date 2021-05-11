@@ -43,6 +43,34 @@ def lista_envio(request):
     }
     return render(request,template,context)
 
+def lista_envio_pendente(request):
+    template = 'lista_envio_pendente.html'
+
+    # grupo_usuario = Profile.objects.get(user = request.user)
+    # if grupo_usuario.grupo == "BH":
+    #     envio = EnvioBh.object.filter(Q(filial_origem_id__gt = 8)).order_by('-create_at')
+    # elif grupo_usuario.grupo == "MONTES CLAROS":
+    #     envio = EnvioBh.object.filter(Q(filial_origem_id__lt = 9)).order_by('-create_at')
+    # else:
+    envio = EnvioBh.object.filter(recebido=False,filial_origem__in=request.user.profile.filiais.all()).order_by('pk')
+    recebimento = Recebimento.object.all().order_by('-pk')   
+
+    instancia = Recebimento()    
+    if request.method == 'POST':
+        objeto = EnvioBh.object.get(id=request.POST.get('envio'))
+        instancia.envio = objeto
+        instancia.user = request.user
+        instancia.save()
+        objeto.recebido = True
+        objeto.save()     
+        return redirect('envios:lista_envio_pendente')    
+
+    context = {
+        'envio':envio,
+        'recebimento':recebimento,
+    }
+    return render(request,template,context)
+
 def envio(request):
     template = 'add_envio.html'
     
@@ -51,7 +79,7 @@ def envio(request):
         
     if request.method == 'POST':
 
-#       PEGA OS DADOS DO POST E JOGA NAS LISTAS
+       #PEGA OS DADOS DO POST E JOGA NAS LISTAS
         for key, values in request.POST.lists():
             if key == 'filial_origem':
                 filial_origem = values
@@ -128,6 +156,8 @@ def envio(request):
         'formset': formset,
     }
     return render(request,template,context)
+
+
 
 # def envio(request):
 #     template = 'add_envio.html'
@@ -291,6 +321,31 @@ class PdfPorDataFilial(View):
         }
 
         return Render.render('pdf_data_filial_envio.html', params)
+
+class PdfEnviosPendentes(View):
+    def get(self, request):
+        titulo = 'Envios pendentes'
+        dtgeracao = datetime.now()
+        lista = []
+        # FORMATO DATA = ANO/MES/DIA
+        #FILTRA OS ENVIOS PELA DATA DIGITADA
+        origem = list(request.user.profile.filiais.all().values_list('name', flat=True))
+        envios = EnvioBh.object.filter(recebido=False, filial_origem__in=request.user.profile.filiais.all()).order_by('pk')
+        #PEGA OS ID DOS ENVIOS E FILTRA PELO MOVIMENTO PARA PEGAR OS EQUIPAMENTOS UTILIZADOS        
+        for i in envios:
+            lista.append(i.id)
+        if not lista:
+            return redirect('core:erro_relatorio')
+        movimento = Movimento.object.filter(envio__in=envios)
+        params = {
+            'titulo': titulo,
+            'envios': envios,
+            'movimento': movimento,
+            'dtgeracao': dtgeracao,
+            'origem':origem
+        }
+
+        return Render.render('pdf_pendentes_envio.html', params)
 
 
 # ENVIO POR USUARIO        

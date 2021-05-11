@@ -20,6 +20,7 @@ class Atendimento(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     loja = models.ForeignKey(Lojas, verbose_name="Filial", on_delete=models.CASCADE)
     user_finaliza = models.ForeignKey(User, related_name='finalizado_user', on_delete=models.CASCADE, null=True, blank=True)
+    responsavel = models.ForeignKey(User, related_name='resonsavel',on_delete=models.CASCADE, null=True, blank=True )
     setor_visualiza_solucao = models.BooleanField('Setores podem ver soluçao', default=False)
 
     create_at = models.DateTimeField('Criado em', auto_now_add=True)

@@ -54,6 +54,9 @@ def homepage(request):
     # mensagens não lidas
     msg_nao_lida = Msg.object.filter(lida=False, dest=user).count()
 
+    # envios pendentes
+    envios_pendentes = EnvioBh.object.filter(recebido=False, filial_origem__in=request.user.profile.filiais.all()).count()
+
     #lista filiais
     lista_filial = []
     query_filial = Lojas.object.all()
@@ -71,46 +74,61 @@ def homepage(request):
 
 
     atendimento_pendente = atendimento_pendente_def()
+    
     atendimento_pendente_bh = atendimento_pendente_def_bh()
-    data_atendimento_filial = contagem_atendimento_filial()
-    data_atendimento_bh = contagem_atendimento_bh()
+    
+    data_atendimento_filial = contagem_atendimento_filial(request)
+    filiais_data_atendimento_filial = list(Lojas.object.filter(polo='MONTES CLAROS').order_by('id').values_list('name',flat=True))
+    
+    data_atendimento_bh = contagem_atendimento_bh(request)
+    filiais_data_atendimento_bh = list(Lojas.object.filter(polo='BH').order_by('id').values_list('name',flat=True))
+    
     limit_contagem_atendimentos_moc = data_atendimento_filial[0]
-    contagem_chamados_anual_moc = contagem_chamados_anual()
-    data = contagem_chamados_anual_bh()
-    data_filial = contagem_chamados_filial()
-    chamados = Chamado.object.filter(status='p', loja_id__in = lista_id_moc).count()
-    chamados_bh = Chamado.object.filter(status='p', loja_id__in = lista_id_bh).count()
-    mes_envios = contagem_envios_mes()
-    custo_chamado = custo_chamado_mensal()
-    custo_chamado_bh = custo_chamado_mensal_bh()
-    custo_chamado_anual_moc = custo_chamados_anual_moc()
-    custo_chamado_anual_bh = custo_chamados_anual_bh()
+    contagem_chamados_anual_moc = contagem_chamados_anual(request)
+    data = contagem_chamados_anual_bh(request)
+    #data_filial = contagem_chamados_filial()
+    chamados = Chamado.object.filter(status='p', loja__in = request.user.profile.filiais.all()).count()
+    chamados_bh = Chamado.object.filter(status='p', loja__in = request.user.profile.filiais.all()).count()
+   
+    # nao usa
+    #mes_envios = contagem_envios_mes()
+    
+    custo_chamado = custo_chamado_mensal(request)
+    custo_chamado_bh = custo_chamado_mensal_bh(request)
+    custo_chamado_anual_moc = custo_chamados_anual_moc(request)
+    custo_chamado_anual_bh = custo_chamados_anual_bh(request)
+
+    seus_atendimentos_pendentes = Atendimento.object.filter(responsavel=request.user,  status='p').count()
+    
     context = {
         'lojas_bh': lojas_bh,
         'see_bh': see_bh,
         'staff': is_staff(user),
         'id': id_user,
-        'data_filial': data_filial,
+        #'data_filial': data_filial,
         'contagem_chamados_anual_moc': contagem_chamados_anual_moc,      
         'data': data,      
         'user': user,
         'chamados': chamados,
         'chamados_bh': chamados_bh,
-        'mes_envios': mes_envios,
         'custo_chamado':custo_chamado,
         'custo_chamado_bh':custo_chamado_bh,
         'form_atendi': form_atendi,
         'grupo_msg': grupo_msg,
         'id_msg': id_msg,
         'data_atendimento_filial':data_atendimento_filial,
+        'filiais_data_atendimento_filial':filiais_data_atendimento_filial,
         'atendimento_pendente':atendimento_pendente,
         'atendimento_pendente_bh':atendimento_pendente_bh,
         'msg_nao_lida':msg_nao_lida,  
         'lista_filial': lista_filial, 
         'limit_contagem_atendimentos_moc': limit_contagem_atendimentos_moc,     
         'data_atendimento_bh': data_atendimento_bh,  
+        'filiais_data_atendimento_bh': filiais_data_atendimento_bh,  
         'custo_chamados_anual_moc': custo_chamado_anual_moc,   
         'custo_chamados_anual_bh': custo_chamado_anual_bh,   
+        'envios_pendentes': envios_pendentes,
+        'seus_atendimentos_pendentes': seus_atendimentos_pendentes
     }
     
     return render(request,template,context)
@@ -283,38 +301,38 @@ def notas_travadas_mysql(request):
     return JsonResponse(data, safe=False)
 
 
-def contagem_chamados_anual():
+def contagem_chamados_anual(request):
     dia,mes,ano = get_data_final_mes()
-    janeiro = Chamado.object.filter(create_at__lte=f'{ano}-1-31', create_at__gte=f'{ano}-1-1', loja_id__in = lista_id_moc).count()
-    fevereiro = Chamado.object.filter(create_at__lte=f'{ano}-2-28', create_at__gte=f'{ano}-2-1', loja_id__in = lista_id_moc).count()
-    marco = Chamado.object.filter(create_at__lte=f'{ano}-3-31', create_at__gte=f'{ano}-3-1', loja_id__in = lista_id_moc).count()
-    abril = Chamado.object.filter(create_at__lte=f'{ano}-4-30', create_at__gte=f'{ano}-4-1', loja_id__in = lista_id_moc).count()
-    maio = Chamado.object.filter(create_at__lte=f'{ano}-5-31', create_at__gte=f'{ano}-5-1', loja_id__in = lista_id_moc).count()
-    jun = Chamado.object.filter(create_at__lte=f'{ano}-6-30', create_at__gte=f'{ano}-6-1', loja_id__in = lista_id_moc).count()
-    julho = Chamado.object.filter(create_at__lte=f'{ano}-7-31', create_at__gte=f'{ano}-7-1', loja_id__in = lista_id_moc).count()
-    agosto = Chamado.object.filter(create_at__lte=f'{ano}-8-31', create_at__gte=f'{ano}-8-1', loja_id__in = lista_id_moc).count()
-    setembro = Chamado.object.filter(create_at__lte=f'{ano}-9-30', create_at__gte=f'{ano}-9-1', loja_id__in = lista_id_moc).count()
-    outubro = Chamado.object.filter(create_at__lte=f'{ano}-10-31', create_at__gte=f'{ano}-10-1', loja_id__in = lista_id_moc).count()
-    novembro = Chamado.object.filter(create_at__lte=f'{ano}-11-30', create_at__gte=f'{ano}-11-1', loja_id__in = lista_id_moc).count()
-    dezembro = Chamado.object.filter(create_at__lte=f'{ano}-12-31', create_at__gte=f'{ano}-12-1', loja_id__in = lista_id_moc).count()
+    janeiro = Chamado.object.filter(create_at__lte=f'{ano}-1-31', create_at__gte=f'{ano}-1-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    fevereiro = Chamado.object.filter(create_at__lte=f'{ano}-2-28', create_at__gte=f'{ano}-2-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    marco = Chamado.object.filter(create_at__lte=f'{ano}-3-31', create_at__gte=f'{ano}-3-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    abril = Chamado.object.filter(create_at__lte=f'{ano}-4-30', create_at__gte=f'{ano}-4-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    maio = Chamado.object.filter(create_at__lte=f'{ano}-5-31', create_at__gte=f'{ano}-5-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    jun = Chamado.object.filter(create_at__lte=f'{ano}-6-30', create_at__gte=f'{ano}-6-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    julho = Chamado.object.filter(create_at__lte=f'{ano}-7-31', create_at__gte=f'{ano}-7-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    agosto = Chamado.object.filter(create_at__lte=f'{ano}-8-31', create_at__gte=f'{ano}-8-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    setembro = Chamado.object.filter(create_at__lte=f'{ano}-9-30', create_at__gte=f'{ano}-9-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    outubro = Chamado.object.filter(create_at__lte=f'{ano}-10-31', create_at__gte=f'{ano}-10-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    novembro = Chamado.object.filter(create_at__lte=f'{ano}-11-30', create_at__gte=f'{ano}-11-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
+    dezembro = Chamado.object.filter(create_at__lte=f'{ano}-12-31', create_at__gte=f'{ano}-12-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).count()
     data = [janeiro , fevereiro, marco, abril, maio, jun, julho, agosto, setembro, outubro,novembro,dezembro]
     return data
 
 
-def contagem_chamados_anual_bh():
+def contagem_chamados_anual_bh(request):
     dia,mes,ano = get_data_final_mes()
-    janeiro = Chamado.object.filter(create_at__lte=f'{ano}-1-31', create_at__gte=f'{ano}-1-1', loja_id__in = lista_id_bh).count()
-    fevereiro = Chamado.object.filter(create_at__lte=f'{ano}-2-28', create_at__gte=f'{ano}-2-1', loja_id__in = lista_id_bh).count()
-    marco = Chamado.object.filter(create_at__lte=f'{ano}-3-31', create_at__gte=f'{ano}-3-1', loja_id__in = lista_id_bh).count()
-    abril = Chamado.object.filter(create_at__lte=f'{ano}-4-30', create_at__gte=f'{ano}-4-1', loja_id__in = lista_id_bh).count()
-    maio = Chamado.object.filter(create_at__lte=f'{ano}-5-31', create_at__gte=f'{ano}-5-1', loja_id__in = lista_id_bh).count()
-    jun = Chamado.object.filter(create_at__lte=f'{ano}-6-30', create_at__gte=f'{ano}-6-1', loja_id__in = lista_id_bh).count()
-    julho = Chamado.object.filter(create_at__lte=f'{ano}-7-31', create_at__gte=f'{ano}-7-1', loja_id__in = lista_id_bh).count()
-    agosto = Chamado.object.filter(create_at__lte=f'{ano}-8-31', create_at__gte=f'{ano}-8-1', loja_id__in = lista_id_bh).count()
-    setembro = Chamado.object.filter(create_at__lte=f'{ano}-9-30', create_at__gte=f'{ano}-9-1', loja_id__in = lista_id_bh).count()
-    outubro = Chamado.object.filter(create_at__lte=f'{ano}-10-31', create_at__gte=f'{ano}-10-1', loja_id__in = lista_id_bh).count()
-    novembro = Chamado.object.filter(create_at__lte=f'{ano}-11-30', create_at__gte=f'{ano}-11-1', loja_id__in = lista_id_bh).count()
-    dezembro = Chamado.object.filter(create_at__lte=f'{ano}-12-31', create_at__gte=f'{ano}-12-1', loja_id__in = lista_id_bh).count()
+    janeiro = Chamado.object.filter(create_at__lte=f'{ano}-1-31', create_at__gte=f'{ano}-1-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    fevereiro = Chamado.object.filter(create_at__lte=f'{ano}-2-28', create_at__gte=f'{ano}-2-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    marco = Chamado.object.filter(create_at__lte=f'{ano}-3-31', create_at__gte=f'{ano}-3-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    abril = Chamado.object.filter(create_at__lte=f'{ano}-4-30', create_at__gte=f'{ano}-4-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    maio = Chamado.object.filter(create_at__lte=f'{ano}-5-31', create_at__gte=f'{ano}-5-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    jun = Chamado.object.filter(create_at__lte=f'{ano}-6-30', create_at__gte=f'{ano}-6-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    julho = Chamado.object.filter(create_at__lte=f'{ano}-7-31', create_at__gte=f'{ano}-7-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    agosto = Chamado.object.filter(create_at__lte=f'{ano}-8-31', create_at__gte=f'{ano}-8-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    setembro = Chamado.object.filter(create_at__lte=f'{ano}-9-30', create_at__gte=f'{ano}-9-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    outubro = Chamado.object.filter(create_at__lte=f'{ano}-10-31', create_at__gte=f'{ano}-10-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    novembro = Chamado.object.filter(create_at__lte=f'{ano}-11-30', create_at__gte=f'{ano}-11-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
+    dezembro = Chamado.object.filter(create_at__lte=f'{ano}-12-31', create_at__gte=f'{ano}-12-1', loja__in = request.user.profile.filiais.filter(polo='BH')).count()
     data = [janeiro , fevereiro, marco, abril, maio, jun, julho, agosto, setembro, outubro,novembro,dezembro]
     return data
 
@@ -329,62 +347,71 @@ def contagem_chamados_filial():
     return data_filial
 
     
-def contagem_atendimento_bh():
+def contagem_atendimento_bh(request):
     dia,mes,ano = get_data_final_mes()
-    pav10 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=10).count()
-    cd = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=12).count()
-    cof= Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=13).count()
-    tito = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=14).count()
-    jfora = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=15).count()
-    vaz = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=16).count()
-    ampa = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=17).count()
-    hort = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=18).count()
-    bridadeiro = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=19).count()
-    divi = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=20).count()
-    justin = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=21).count()
-    p2 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=22).count()
-    jj = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=23).count()
-    trop = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=24).count()
-    serrano = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=26).count()
-    hm = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=27).count()
-    br040 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=28).count()
-    dctf = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=29).count()
-    dcp2 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=30).count()
-    dcbg = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=31).count()
-    sl = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=32).count()
-    itabi = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=33).count()
-    jatai = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=34).count()
-    ipatinga = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=35).count()
-    data = [pav10, cd, cof, tito,jfora,vaz,ampa,hort,bridadeiro,divi,justin,p2,jj,trop,serrano,hm,br040,dctf,dcp2,dcbg,sl,itabi,jatai,ipatinga]
+    lista_lojas = Lojas.object.filter(polo='BH').order_by('id')
+    data = []
+    for i in lista_lojas:
+        valor = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=i).count()
+        data.append(valor)
+    # pav10 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=10).count()
+    # cd = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=12).count()
+    # cof= Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=13).count()
+    # tito = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=14).count()
+    # jfora = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=15).count()
+    # vaz = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=16).count()
+    # ampa = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=17).count()
+    # hort = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=18).count()
+    # bridadeiro = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=19).count()
+    # divi = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=20).count()
+    # justin = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=21).count()
+    # p2 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=22).count()
+    # jj = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=23).count()
+    # trop = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=24).count()
+    # serrano = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=26).count()
+    # hm = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=27).count()
+    # br040 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=28).count()
+    # dctf = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=29).count()
+    # dcp2 = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=30).count()
+    # dcbg = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=31).count()
+    # sl = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=32).count()
+    # itabi = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=33).count()
+    # jatai = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=34).count()
+    # ipatinga = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=35).count()
     return data
 
-def contagem_atendimento_filial():
+def contagem_atendimento_filial(request):
     dia,mes,ano = get_data_final_mes()
-    dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=2).count()
-    sion = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=4).count()
-    jaragua = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=7).count()
-    ceanorte = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=3).count()
-    mangabeira = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=6).count()
-    posto_dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=11).count()
-    posto_jg = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=25).count()
-    dc_dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=9).count()
-    data = [dulce , sion , ceanorte , jaragua, mangabeira, posto_dulce, posto_jg, dc_dulce]
+    lista_lojas = Lojas.object.filter(polo='MONTES CLAROS').order_by('id')
+    data = []
+    for i in lista_lojas:
+        valor = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=i).count()
+        data.append(valor)
+    # dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=2).count()
+    # sion = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=4).count()
+    # jaragua = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=7).count()
+    # ceanorte = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=3).count()
+    # mangabeira = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=6).count()
+    # posto_dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=11).count()
+    # posto_jg = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=25).count()
+    # dc_dulce = Atendimento.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1'),loja=9).count()
+    # data = [dulce , sion , ceanorte , jaragua, mangabeira, posto_dulce, posto_jg, dc_dulce]
     return data
 
-def custo_chamados_anual_moc():
+def custo_chamados_anual_moc(request):
     dia,mes,ano = get_data_final_mes()
-    janeiro = Chamado.object.filter(updated_at__lte=f'{ano}-1-31', updated_at__gte=f'{ano}-1-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    fevereiro = Chamado.object.filter(updated_at__lte=f'{ano}-2-28', updated_at__gte=f'{ano}-2-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    marco = Chamado.object.filter(updated_at__lte=f'{ano}-3-31', updated_at__gte=f'{ano}-3-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    abril = Chamado.object.filter(updated_at__lte=f'{ano}-4-30', updated_at__gte=f'{ano}-4-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    maio = Chamado.object.filter(updated_at__lte=f'{ano}-5-31', updated_at__gte=f'{ano}-5-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    jun = Chamado.object.filter(updated_at__lte=f'{ano}-6-30', updated_at__gte=f'{ano}-6-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    julho = Chamado.object.filter(updated_at__lte=f'{ano}-7-31', updated_at__gte=f'{ano}-7-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    agosto = Chamado.object.filter(updated_at__lte=f'{ano}-8-31', updated_at__gte=f'{ano}-8-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    setembro = Chamado.object.filter(updated_at__lte=f'{ano}-9-30', updated_at__gte=f'{ano}-9-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    outubro = Chamado.object.filter(updated_at__lte=f'{ano}-10-31', updated_at__gte=f'{ano}-10-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    novembro = Chamado.object.filter(updated_at__lte=f'{ano}-11-30', updated_at__gte=f'{ano}-11-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
-    dezembro = Chamado.object.filter(updated_at__lte=f'{ano}-12-31', updated_at__gte=f'{ano}-12-1', loja_id__in = lista_id_moc).aggregate(Sum('valor'))
+    janeiro = Chamado.object.filter(updated_at__lte=f'{ano}-1-31', updated_at__gte=f'{ano}-1-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    fevereiro = Chamado.object.filter(updated_at__lte=f'{ano}-2-28', updated_at__gte=f'{ano}-2-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    marco = Chamado.object.filter(updated_at__lte=f'{ano}-3-31', updated_at__gte=f'{ano}-3-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    abril = Chamado.object.filter(updated_at__lte=f'{ano}-4-30', updated_at__gte=f'{ano}-4-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    maio = Chamado.object.filter(updated_at__lte=f'{ano}-5-31', updated_at__gte=f'{ano}-5-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    jun = Chamado.object.filter(updated_at__lte=f'{ano}-6-30', updated_at__gte=f'{ano}-6-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    julho = Chamado.object.filter(updated_at__lte=f'{ano}-7-31', updated_at__gte=f'{ano}-7-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    agosto = Chamado.object.filter(updated_at__lte=f'{ano}-8-31', updated_at__gte=f'{ano}-8-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    setembro = Chamado.object.filter(updated_at__lte=f'{ano}-9-30', updated_at__gte=f'{ano}-9-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    outubro = Chamado.object.filter(updated_at__lte=f'{ano}-10-31', updated_at__gte=f'{ano}-10-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    novembro = Chamado.object.filter(updated_at__lte=f'{ano}-11-30', updated_at__gte=f'{ano}-11-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
+    dezembro = Chamado.object.filter(updated_at__lte=f'{ano}-12-31', updated_at__gte=f'{ano}-12-1', loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS')).aggregate(Sum('valor'))
     data = [janeiro.get('valor__sum') , fevereiro.get('valor__sum'), marco.get('valor__sum'), abril.get('valor__sum'), 
             maio.get('valor__sum'), jun.get('valor__sum'), julho.get('valor__sum'), agosto.get('valor__sum'), 
             setembro.get('valor__sum'), outubro.get('valor__sum'),novembro.get('valor__sum'),dezembro.get('valor__sum')]
@@ -400,20 +427,20 @@ def custo_chamados_anual_moc():
             aux.append(valor)
     return aux
 
-def custo_chamados_anual_bh():
+def custo_chamados_anual_bh(request):
     dia,mes,ano = get_data_final_mes()
-    janeiro = Chamado.object.filter(updated_at__lte=f'{ano}-1-31', updated_at__gte=f'{ano}-1-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    fevereiro = Chamado.object.filter(updated_at__lte=f'{ano}-2-28', updated_at__gte=f'{ano}-2-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    marco = Chamado.object.filter(updated_at__lte=f'{ano}-3-31', updated_at__gte=f'{ano}-3-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    abril = Chamado.object.filter(updated_at__lte=f'{ano}-4-30', updated_at__gte=f'{ano}-4-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    maio = Chamado.object.filter(updated_at__lte=f'{ano}-5-31', updated_at__gte=f'{ano}-5-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    jun = Chamado.object.filter(updated_at__lte=f'{ano}-6-30', updated_at__gte=f'{ano}-6-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    julho = Chamado.object.filter(updated_at__lte=f'{ano}-7-31', updated_at__gte=f'{ano}-7-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    agosto = Chamado.object.filter(updated_at__lte=f'{ano}-8-31', updated_at__gte=f'{ano}-8-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    setembro = Chamado.object.filter(updated_at__lte=f'{ano}-9-30', updated_at__gte=f'{ano}-9-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    outubro = Chamado.object.filter(updated_at__lte=f'{ano}-10-31', updated_at__gte=f'{ano}-10-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    novembro = Chamado.object.filter(updated_at__lte=f'{ano}-11-30', updated_at__gte=f'{ano}-11-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
-    dezembro = Chamado.object.filter(updated_at__lte=f'{ano}-12-31', updated_at__gte=f'{ano}-12-1', loja_id__in = lista_id_bh).aggregate(Sum('valor'))
+    janeiro = Chamado.object.filter(updated_at__lte=f'{ano}-1-31', updated_at__gte=f'{ano}-1-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    fevereiro = Chamado.object.filter(updated_at__lte=f'{ano}-2-28', updated_at__gte=f'{ano}-2-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    marco = Chamado.object.filter(updated_at__lte=f'{ano}-3-31', updated_at__gte=f'{ano}-3-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    abril = Chamado.object.filter(updated_at__lte=f'{ano}-4-30', updated_at__gte=f'{ano}-4-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    maio = Chamado.object.filter(updated_at__lte=f'{ano}-5-31', updated_at__gte=f'{ano}-5-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    jun = Chamado.object.filter(updated_at__lte=f'{ano}-6-30', updated_at__gte=f'{ano}-6-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    julho = Chamado.object.filter(updated_at__lte=f'{ano}-7-31', updated_at__gte=f'{ano}-7-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    agosto = Chamado.object.filter(updated_at__lte=f'{ano}-8-31', updated_at__gte=f'{ano}-8-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    setembro = Chamado.object.filter(updated_at__lte=f'{ano}-9-30', updated_at__gte=f'{ano}-9-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    outubro = Chamado.object.filter(updated_at__lte=f'{ano}-10-31', updated_at__gte=f'{ano}-10-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    novembro = Chamado.object.filter(updated_at__lte=f'{ano}-11-30', updated_at__gte=f'{ano}-11-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
+    dezembro = Chamado.object.filter(updated_at__lte=f'{ano}-12-31', updated_at__gte=f'{ano}-12-1', loja__in = request.user.profile.filiais.filter(polo='BH')).aggregate(Sum('valor'))
     data = [janeiro.get('valor__sum') , fevereiro.get('valor__sum'), marco.get('valor__sum'), abril.get('valor__sum'), 
             maio.get('valor__sum'), jun.get('valor__sum'), julho.get('valor__sum'), agosto.get('valor__sum'), 
             setembro.get('valor__sum'), outubro.get('valor__sum'),novembro.get('valor__sum'),dezembro.get('valor__sum')]
@@ -424,7 +451,7 @@ def custo_chamados_anual_bh():
             i = 0
             aux.append(i)
         else:
-# ITEREAR OS VALORES GERADOS PARA TRATAR SE EH NONE E TAMBEM FAZER RETORNAR O FLOAT SE HOPUVER VALOR.. 
+    # ITEREAR OS VALORES GERADOS PARA TRATAR SE EH NONE E TAMBEM FAZER RETORNAR O FLOAT SE HOPUVER VALOR.. 
             valor = float(i)
             aux.append(valor)
     return aux
@@ -441,10 +468,10 @@ def contagem_envios_mes():
     mes_envios = EnvioBh.object.filter(create_at__lte=(f'{ano}-{mes}-{dia}'), create_at__gte=(f'{ano}-{mes}-1')).count()
     return mes_envios
 
-def custo_chamado_mensal():
+def custo_chamado_mensal(request):
     chamado_custo = 0
     dia,mes,ano = get_data_final_mes()
-    result = Chamado.object.filter(dt_finalizado__lte=(f'{ano}-{mes}-{dia}'), dt_finalizado__gte=(f'{ano}-{mes}-1'), loja_id__in = lista_id_moc)
+    result = Chamado.object.filter(dt_finalizado__lte=(f'{ano}-{mes}-{dia}'), dt_finalizado__gte=(f'{ano}-{mes}-1'), loja__in = request.user.profile.filiais.filter(polo='MONTES CLAROS'))
     # ser
     if not result:
         chamado_custo = 0
@@ -452,10 +479,10 @@ def custo_chamado_mensal():
         chamado_custo = chamado_custo + i.valor
     return chamado_custo
 
-def custo_chamado_mensal_bh():
+def custo_chamado_mensal_bh(request):
     chamado_custo = 0
     dia,mes,ano = get_data_final_mes()
-    result = Chamado.object.filter(dt_finalizado__lte=(f'{ano}-{mes}-{dia}'), dt_finalizado__gte=(f'{ano}-{mes}-1'), loja_id__in = lista_id_bh)
+    result = Chamado.object.filter(dt_finalizado__lte=(f'{ano}-{mes}-{dia}'), dt_finalizado__gte=(f'{ano}-{mes}-1'), loja_id__in = request.user.profile.filiais.filter(polo='BH'))
     if not result:
         chamado_custo = 0
     for i in result:        

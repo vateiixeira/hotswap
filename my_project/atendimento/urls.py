@@ -6,6 +6,7 @@ app_name='atendimento'
 urlpatterns = [
     path('', lista_atendimento, name='lista_atendimento'),    
     path('pendente/', lista_atendimento_pendente, name='lista_atendimento_pendente'),
+    path('pendente-user/', lista_atendimento_pendente_user, name='lista_atendimento_pendente_user'),
     path('edit/<int:pk>/', update_atendimento, name='update_atendimento'),
     path('delete/<int:pk>/', DeleteAtendimento.as_view(), name='delete_atendimento'), 
     path('rel/porusuario/', atendimento_por_tecnico, name='atendimento_por_tecnico'),

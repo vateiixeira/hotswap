@@ -81,14 +81,15 @@ def add_atendimento(request,user):
 def lista_atendimento(request):
     teamplate= 'lista_atendimento.html'
     
-    grupo_usuario = Profile.objects.get(user = request.user)
-    if grupo_usuario.grupo == "BH":
-        envio = Atendimento.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')[:200]
-    elif grupo_usuario.grupo == "MONTES CLAROS":
-        envio = Atendimento.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')[:200]
-    else:
-        envio = Atendimento.object.all().order_by('-create_at')[:200]
+    # grupo_usuario = Profile.objects.get(user = request.user)
+    # if grupo_usuario.grupo == "BH":
+    #     envio = Atendimento.object.filter(Q(loja_id__in = lista_id_bh)).order_by('-create_at')[:200]
+    # elif grupo_usuario.grupo == "MONTES CLAROS":
+    #     envio = Atendimento.object.filter(Q(loja_id__in = lista_id_moc)).order_by('-create_at')[:200]
+    # else:
+    #     envio = Atendimento.object.all().order_by('-create_at')[:200]
 
+    envio = Atendimento.object.filter(loja__in=request.user.profile.filiais.all()).order_by('-create_at')[:200]
     context = {
         "envio" : envio
     }
@@ -106,13 +107,34 @@ def lista_atendimento_pendente(request):
     template = 'lista_atendimento_pendente.html'
     
     
-    grupo_usuario = Profile.objects.get(user = request.user)
-    if grupo_usuario.grupo == "BH":
-        envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__in = lista_id_bh))
-    elif grupo_usuario.grupo == "MONTES CLAROS":
-        envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__in = lista_id_moc))
-    else:
-        envio = Atendimento.object.filter(status='p')
+    # grupo_usuario = Profile.objects.get(user = request.user)
+    # if grupo_usuario.grupo == "BH":
+    #     envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__in = lista_id_bh))
+    # elif grupo_usuario.grupo == "MONTES CLAROS":
+    #     envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__in = lista_id_moc))
+    # else:
+    #     envio = Atendimento.object.filter(status='p')
+
+    envio = Atendimento.object.filter(loja__in=request.user.profile.filiais.all(), status='p').order_by('-create_at')[:200]
+
+    context = {
+        'envio':envio
+    }
+    return render(request,template,context)
+
+def lista_atendimento_pendente_user(request):
+    template = 'lista_atendimento_pendente.html'
+    
+    
+    # grupo_usuario = Profile.objects.get(user = request.user)
+    # if grupo_usuario.grupo == "BH":
+    #     envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__in = lista_id_bh))
+    # elif grupo_usuario.grupo == "MONTES CLAROS":
+    #     envio = Atendimento.object.filter(Q(status='p') & Q(loja_id__in = lista_id_moc))
+    # else:
+    #     envio = Atendimento.object.filter(status='p')
+
+    envio = Atendimento.object.filter(responsavel=request.user, status='p').order_by('-create_at')[:200]
 
     context = {
         'envio':envio
