@@ -44,6 +44,9 @@ Usuário: {{usuario}}<br />
 			<th scope="col">
 			<h3>Finalizado por:</h3>
 			</th>
+			<th scope="col">
+			<h3>Responsável:</h3>
+			</th>
 		</tr>
 	</thead>
 	<tbody>		
@@ -61,8 +64,9 @@ Usuário: {{usuario}}<br />
 			{%else%}
 				<td>{{i.user_finaliza.first_name}}</td>
 			{%endif%}
-				</tr>
-			{% endfor %}
+			<td>{{i.responsavel.first_name}}</td>
+		</tr>
+		{% endfor %}
 		
 	</tbody>
 </table>

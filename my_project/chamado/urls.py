@@ -10,6 +10,7 @@ urlpatterns = [
     path('listagem/pendente', lista_chamado_pendente, name='lista_chamado_pendente'),
     path('edit/<int:pk>/', update_chamado, name='update_chamado'),
     path('delete/<int:pk>/', DeleteChamado.as_view(), name='delete_chamado'),  
+    path('garantia-equipamento/', garantia_equipamento, name='garantia_equipamento'),  
     path('rel/pordata/', chamado_por_data, name='chamado_por_data'),
     path('pdf/data/<str:dtinicial>/<str:dtfinal>/', PdfPorData.as_view(), name='pdfdata'), 
     path('pdf/data/<str:dtinicial>/<str:dtfinal>/<int:idorigem>/', PdfPorDataFilial.as_view(), name='pdfdatafilial'), 

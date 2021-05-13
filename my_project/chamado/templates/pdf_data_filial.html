@@ -13,9 +13,16 @@
 <body>
 <p>{{dtgeracao}}</p>
 <hr />
-<p><strong>Relat&oacute;rio de chamados por data</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}<br />
-Filial: {{origem}}<br />
-
+<p>
+	<strong>Relat&oacute;rio de chamado por data</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}<br />
+	Filial: {{origem}}<br />
+	Total: {{total_geral}}<br />
+	{% for i in totais %}
+	<strong>
+	{{i}}
+	</strong>
+	<br />
+	{% endfor %}
 </p>
 <p>&nbsp;</p>
 
@@ -40,6 +47,9 @@ Filial: {{origem}}<br />
 			<th scope="col">
 			<h3>Responsavel</h3>
 			</th>
+			<th scope="col">
+				<h3>Status</h3>
+			</th>
 		</tr>
 	</thead>
 	<tbody>		
@@ -51,6 +61,7 @@ Filial: {{origem}}<br />
 			<td>{{i.defeito}}</td>
 			<td>{{i.valor}}</td>
 			<td>{{i.user}}</td>
+			<td>{{i.chamado_verbose}} </td>
 			</tr>
 		{% endfor %}
 		

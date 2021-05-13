@@ -12,7 +12,16 @@
 <body>
 <p>{{dtgeracao}}</p>
 <hr />
-<p><strong>Relat&oacute;rio de chamado por data</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}</p>
+<p>
+	<strong>Relat&oacute;rio de chamado por data</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}<br />
+	Total: {{total_geral}}<br />
+	{% for i in totais %}
+	<strong>
+	{{i}}
+	</strong>
+	<br />
+	{% endfor %}
+</p>
 <p>&nbsp;</p>
 
 <table align="left" border="1" cellpadding="3" cellspacing="40" style="width:700px">
@@ -56,11 +65,8 @@
 			<td>{{i.loja}}</td>
 			<td>{{i.defeito}}</td>
 			<td>{{i.valor}}</td>
-			{% if i.status == 'p' %}
-			<td>PENDENTE</td>
-			{% else %}
-			<td>CONCLUIDO</td>
-			{% endif %}			
+			<td>{{i.chamado_verbose}} </td>
+					
 			</tr>
 		{% endfor %}
 		{% endfor %}

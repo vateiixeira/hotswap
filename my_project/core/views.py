@@ -71,11 +71,6 @@ def homepage(request):
     for i in query_bh:
         lojas_bh.append(i.id)
 
-
-
-    atendimento_pendente = atendimento_pendente_def()
-    
-    atendimento_pendente_bh = atendimento_pendente_def_bh()
     
     data_atendimento_filial = contagem_atendimento_filial(request)
     filiais_data_atendimento_filial = list(Lojas.object.filter(polo='MONTES CLAROS').order_by('id').values_list('name',flat=True))
@@ -87,11 +82,14 @@ def homepage(request):
     contagem_chamados_anual_moc = contagem_chamados_anual(request)
     data = contagem_chamados_anual_bh(request)
     #data_filial = contagem_chamados_filial()
-    chamados = Chamado.object.filter(status='p', loja__in = request.user.profile.filiais.all()).count()
-    chamados_bh = Chamado.object.filter(status='p', loja__in = request.user.profile.filiais.all()).count()
+    chamados = Chamado.object.filter(status=Chamado.STATUS_CHAMADO_PENDENTE, loja__name__in = filiais_data_atendimento_filial).count()
+    chamados_bh = Chamado.object.filter(status=Chamado.STATUS_CHAMADO_PENDENTE, loja__name__in = filiais_data_atendimento_bh).count()
    
     # nao usa
     #mes_envios = contagem_envios_mes()
+    atendimento_pendente = Atendimento.object.filter(status='p', loja__name__in = filiais_data_atendimento_filial).count()
+    
+    atendimento_pendente_bh = Atendimento.object.filter(status='p', loja__name__in = filiais_data_atendimento_bh).count()
     
     custo_chamado = custo_chamado_mensal(request)
     custo_chamado_bh = custo_chamado_mensal_bh(request)
@@ -489,10 +487,10 @@ def custo_chamado_mensal_bh(request):
         chamado_custo = chamado_custo + i.valor
     return chamado_custo
 
-def atendimento_pendente_def():
+def atendimento_pendente_def(request):
     data = Atendimento.object.filter(status='p', loja_id__in = lista_id_moc).count()
     return data
 
-def atendimento_pendente_def_bh():
+def atendimento_pendente_def_bh(request):
     data = Atendimento.object.filter(status='p', loja_id__in = lista_id_bh).count()
     return data

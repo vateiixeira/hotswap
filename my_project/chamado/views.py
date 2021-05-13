@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render,redirect, get_object_or_404
 from my_project.chamado.models import Chamado
 from my_project.chamado.forms import ChamadoForm
@@ -6,7 +7,8 @@ from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
 from my_project.core.utils import render_to_pdf, Render
-from datetime import datetime
+from datetime import datetime, timedelta
+from django.utils import timezone
 from django.views.generic import View
 from .forms import *
 from my_project.core.utils import is_staff
@@ -64,16 +66,43 @@ def cadastro(request):
         model.serial = request.POST.get('serial')        
         model.loja = Lojas.object.get(id=request.POST.get('loja'))
         model.defeito = request.POST.get('defeito')
-        model.valor = request.POST.get('valor')
+        
+        valor = request.POST.get('valor')
+        valor = valor.replace(',','.')
+        model.valor = valor
+        
         model.status = request.POST.get('status')
+        model.fornecedor = Fornecedor.object.get(id=request.POST.get('fornecedor'))
+        model.justificativa = request.POST.get('justificativa')
+        model.nfe = request.POST.get('nfe')
         model.user = usuario    
-        model.save()
+        try:
+            model.save()
+        except Exception as ex:
+            return HttpResponseBadRequest(ex)
     else:
         form = ChamadoForm()
     context = {
         "form": form
     }
     return render(request,template,context)
+
+def garantia_equipamento(request):
+    if request.method =='POST':
+        serial = request.POST.get('serial')
+        chamado = Chamado.object.filter(serial=serial, dt_finalizado__isnull=False).order_by('-dt_finalizado')
+        if chamado:
+            ultimo_chamado = chamado.first()
+            if not ultimo_chamado.fornecedor:
+                return HttpResponse('Equipamento com chamado, mas sem fornecedor cadastrado.')
+            if ultimo_chamado.dt_finalizado + timedelta(days=ultimo_chamado.fornecedor.garantia) > timezone.now().date():
+                dias_garantia = (ultimo_chamado.dt_finalizado + timedelta(days=ultimo_chamado.fornecedor.garantia)) - timezone.now().date()
+                return HttpResponse('Equipamento ainda possui {} dias de garantia.'.format(dias_garantia.days))
+            else:
+                dias_apos_garantia = timezone.now().date() - (ultimo_chamado.dt_finalizado + timedelta(days=ultimo_chamado.fornecedor.garantia))
+                return HttpResponse('Perdeu garantia há {} dias'.format(dias_apos_garantia.days))
+        else:
+            return HttpResponse('Equipamento sem abertura de chamado até entao.')
 
 
 def lista_chamado(request):
@@ -103,7 +132,7 @@ def lista_chamado_pendente(request):
     template='lista_chamado_pendente.html'
     grupo_usuario = Profile.objects.get(user = request.user)
 
-    chamado = Chamado.object.filter(loja__in=request.user.profile.filiais.all(),status = 'p')
+    chamado = Chamado.object.filter(loja__in=request.user.profile.filiais.all(),status = Chamado.STATUS_CHAMADO_PENDENTE)
 
     # if grupo_usuario.grupo == "BH":
     #     chamado = Chamado.object.filter(Q(loja_id__in = lista_id_bh), status = 'p')
@@ -177,6 +206,11 @@ class PdfPorData(View):
         for i in chamado:
             list_produtos.append(i.serial)
         equipamento = Equipamento.object.filter(serial__in = list_produtos)
+
+        totais = []
+        status_capturados = list(chamado.order_by('status').distinct('status').values_list('status',flat=True))
+        for i in status_capturados:
+            totais.append(f'{chamado.filter(status=i).last().chamado_verbose()}: {chamado.filter(status=i).count()}')
      
         if not chamado.exists():
             return redirect('core:erro_relatorio')  
@@ -187,6 +221,8 @@ class PdfPorData(View):
             'dtinicial': dtinicial,
             'dtfinal': dtfinal,
             'titulo': titulo,
+            'totais': totais,
+            'total_geral': chamado.count()
         }
         return Render.render('pdf_chamado.html', params)
 
@@ -215,12 +251,23 @@ def chamado_por_data_filial(request):
 class PdfPorDataFilial(View):
     def get(self, request, dtinicial, dtfinal, idorigem):
         titulo = 'Chamado por data e filial'
+       
         dtgeracao = datetime.now()
+        
         origem = Lojas.object.get(id=idorigem)
+        
         chamado = Chamado.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, loja=idorigem) 
+        
         loja = Lojas.object.get(id=idorigem)
+        
         if not chamado.exists():
             return redirect('core:erro_relatorio')
+
+        totais = []
+        status_capturados = list(chamado.order_by('status').distinct('status').values_list('status',flat=True))
+        for i in status_capturados:
+            totais.append(f'{chamado.filter(status=i).last().chamado_verbose()}: {chamado.filter(status=i).count()}')
+        
         params = {
             'chamado': chamado,
             'dtgeracao': dtgeracao,
@@ -229,6 +276,8 @@ class PdfPorDataFilial(View):
             'loja': loja,
             'origem': origem,
             'titulo': titulo,
+            'totais': totais,
+            'total_geral': chamado.count()
         }
 
         return Render.render('pdf_data_filial.html', params)

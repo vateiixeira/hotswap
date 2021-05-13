@@ -1,5 +1,5 @@
 from django.db import models
-from my_project.core.models import Lojas
+from my_project.core.models import Fornecedor, Lojas
 from django.contrib.auth.models import User
 
 
@@ -10,6 +10,18 @@ class Chamado(models.Model):
         ("c", "COMPRADO"),
         ("o", "RECOLHIDO"),
     ]
+    STATUS_CHAMADO_CORRETIVO = 'corretivo'
+    STATUS_CHAMADO_MAUUSO = 'mau-uso'
+    STATUS_CHAMADO_AQUISICAO = 'aquisicao'
+    STATUS_CHAMADO_PENDENTE = 'pendente'
+
+    STATUS_CHAMADO_CHOICES = (
+        (STATUS_CHAMADO_CORRETIVO, 'Corretivo'),
+        (STATUS_CHAMADO_MAUUSO, 'Mau uso'),
+        (STATUS_CHAMADO_AQUISICAO, 'Aquisição'),
+        (STATUS_CHAMADO_PENDENTE, 'Pendente'),
+    )
+
 
     chamado = models.IntegerField('Número chamado')   
     modelo = models.CharField('Modelo', max_length=50)
@@ -21,10 +33,15 @@ class Chamado(models.Model):
     quantidade = models.IntegerField('Quantidade', default=1)
     defeito = models.CharField("Defeito", max_length=200)
     valor = models.DecimalField('Valor', max_digits=7, decimal_places=2, blank=True)
-    status = models.CharField(max_length=1, choices=SIT_CHOICE, default='p')
+    status = models.CharField(max_length=60, choices=STATUS_CHAMADO_CHOICES, default=STATUS_CHAMADO_PENDENTE)
+    justificativa = models.TextField('Justificativa do chamado', null=True,blank=True)
+    nfe = models.CharField('Nota Fiscal', max_length=60, null=True,blank=True)
+    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.SET_NULL, related_name='chamado', null=True,blank=True)
     dt_finalizado = models.DateField(verbose_name='Data Finalizado', null=True)
 
     # status True = chamado não resolvido
+    def chamado_verbose(self):
+        return dict(Chamado.STATUS_CHAMADO_CHOICES)[self.status]
 
     object = models.Manager()
 

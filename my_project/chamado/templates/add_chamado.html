@@ -25,6 +25,32 @@
 
 {% block js %}
 <script>
+    console.log($('#id_serial'))
+    $('#id_serial').change( function(){
+        console.log('Form changed!');
+        console.log($('#id_serial').val());
+        var serial_new = $('#id_serial').val()
+        $.ajax({
+            url : "{% url 'chamado:garantia_equipamento' %}", // the endpoint
+            type : "POST", // http method
+            data : { 
+                serial :serial_new,
+             },
+            // handle a successful response
+            success : function(json) {
+                $.notify(json, "success");
+            },
+            // handle a non-successful response
+            error : function(xhr,errmsg,err) {
+                $.notify("Error! Valide os campos e envie novamente!", "error");
+                $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                    " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            }
+        });
+    });
+</script>
+<script>
 $(function() {
     // Submit post on submit
     $('#post-form').on('submit', function(event){
@@ -44,7 +70,10 @@ $(function() {
                 loja :   $('#id_loja').val(),
                 defeito :$('#id_defeito').val(),
                 valor :  $('#id_valor').val(),
-                status : $('#id_status').val() 
+                status : $('#id_status').val(), 
+                justificativa : $('#id_justificativa').val(), 
+                fornecedor : $('#id_fornecedor').val(), 
+                nfe : $('#id_nfe').val(), 
              },
             // handle a successful response
             success : function(json) {
@@ -55,11 +84,14 @@ $(function() {
                 $('#id_defeito').val('')
                 $('#id_valor').val(''),
                 $('#id_status').val('') 
+                $('#id_justificativa').val('') 
+                $('#id_fornecedor').val('') 
+                $('#id_nfe').val('') 
                 $.notify("Chamado cadastrado com sucesso!", "success");
             },
             // handle a non-successful response
             error : function(xhr,errmsg,err) {
-                $.notify("Error! Valide os campos e envie novamente!", "error");
+                $.notify(xhr.responseText, "error");
                 $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
                     " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console

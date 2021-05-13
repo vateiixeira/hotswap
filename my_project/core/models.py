@@ -53,6 +53,7 @@ class Fornecedor(models.Model):
     bairro = models.CharField('Bairro', max_length=50)
     cep = models.CharField('Cep',max_length=50)
     cidade = models.CharField('Cidade', max_length=50)
+    garantia = models.IntegerField('Dias de garantia', default=90)
 
     object = models.Manager()
     

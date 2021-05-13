@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelChoiceField
 from my_project.estoque.models import Equipamento
-from my_project.core.models import Lojas
+from my_project.core.models import Fornecedor, Lojas
 from django_select2.forms import Select2Widget
 from django.contrib.auth.models import User
 from .models import Chamado
@@ -11,12 +11,6 @@ class MyModelChoiceField(ModelChoiceField):
     def label_from_instance(self, obj):
         return str(obj.modelo)
     
-SIT_CHOICE = [
-    ("p", "PENDENTE"),
-    ("r", "RESOLVIDO"),
-    ("c", "COMPRADO"),
-    ("o", "RECOLHIDO"),
-]
 
 class UpdateChamadoForm(forms.ModelForm):
     defeito = forms.CharField(widget=forms.TextInput(attrs={'size':'60'}))
@@ -25,17 +19,20 @@ class UpdateChamadoForm(forms.ModelForm):
     dt_finalizado = forms.DateField(input_formats=['%d/%m/%Y'])
     class Meta:
         model = Chamado
-        fields = ['chamado','modelo','serial','loja','defeito','quantidade','valor','status','dt_finalizado']
+        fields = ['chamado','modelo','serial','loja','defeito','quantidade','valor','status','dt_finalizado', 'fornecedor', 'justificativa']
 
 
 class ChamadoForm(forms.Form):
+    fornecedor = forms.ModelChoiceField(queryset=Fornecedor.object.all())
     chamado = forms.IntegerField()    
     modelo = forms.ModelChoiceField(queryset=Equipamento.object.all().values_list('modelo', flat=True).distinct(),widget=Select2Widget)
     serial = forms.ModelChoiceField(queryset=Equipamento.object.all().values_list('serial', flat=True).distinct(),widget=Select2Widget)
     loja = forms.ModelChoiceField(queryset=Lojas.object.all())
     defeito = forms.CharField(widget=forms.Textarea)
-    valor = forms.DecimalField(max_digits=7, decimal_places=2)
-    status = forms.ChoiceField(choices=SIT_CHOICE)
+    valor = forms.DecimalField(max_digits=7, decimal_places=2,widget=forms.TextInput(attrs={'placeholder': '000.00'}))
+    status = forms.ChoiceField(choices=Chamado.STATUS_CHAMADO_CHOICES)
+    justificativa = forms.CharField(widget=forms.Textarea, required=False)
+    nfe = forms.CharField(label='NF-e',widget=forms.TextInput(attrs={'placeholder': 'Número da nota fiscal'}), required=False)
 
 class RelatorioDataForm(forms.Form):
     inicial = forms.DateField(input_formats=['%Y-%m-%d'],initial= "Ano-Mês-Dia")

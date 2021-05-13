@@ -187,6 +187,52 @@ class PdfTecnicoAtendimento(View):
             'dtfinal': dtfinal,
             'titulo': titulo,
         }
+        return Render.render('pdf_tecnico.html', params) 
+
+# ENVIO POR USUARIO        
+def atendimento_por_responsavel(request):
+    template = 'viewportecnico_atendimento.html'
+    dtinicial = dtfinal = 0
+    if request.method == 'POST':
+        form = RelatorioTecnicoForm(request.POST)
+        if form.is_valid():
+            dtinicial = str(form.cleaned_data['inicial'])
+            dtfinal = str(form.cleaned_data['final'])
+            usuario = request.POST.get('usuario')
+            return redirect('atendimento:pdftecnico',dtinicial=dtinicial, dtfinal=dtfinal, usuario=usuario) 
+        else: 
+            messages.error(request, "Formulário invalido!")
+            form = RelatorioTecnicoForm()
+    else: 
+        form = RelatorioTecnicoForm()
+    context = {
+        'staff': is_staff(request.user),
+        'form': form
+    }    
+    return render(request,template, context)
+
+class PdfResponsavelAtendimento(View):
+    def get(self, request, dtinicial, dtfinal, usuario):
+        titulo = 'Atendimento por técnico'
+        dtgeracao = datetime.now()
+
+        abertos = Atendimento.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, responsavel_id=usuario)
+
+        #finalizados = Atendimento.object.filter(updated_at__lte=dtfinal, updated_at__gte=dtinicial, status = 'r', responsavel_id=usuario)
+        atendimento = abertos # | finalizados
+
+        if not atendimento:
+            return redirect('core:erro_relatorio')
+
+        usuario = User.objects.get(id=usuario)
+        params = {
+            'usuario': usuario,
+            'atendimento': atendimento,
+            'dtgeracao': dtgeracao,
+            'dtinicial': dtinicial,
+            'dtfinal': dtfinal,
+            'titulo': titulo,
+        }
         return Render.render('pdf_tecnico.html', params)    
 
 #FIM ENVIO POR USUARIO

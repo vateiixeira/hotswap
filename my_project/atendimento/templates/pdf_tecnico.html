@@ -24,6 +24,9 @@ Usuário: {{usuario}}<br />
 			<h3>Data</h3>
 			</th>
 			<th scope="col">
+			<h3>Status</h3>
+			</th>
+			<th scope="col">
 			<h3>Problema</h3>
 			</th>
 			<th scope="col">
@@ -44,12 +47,16 @@ Usuário: {{usuario}}<br />
 			<th scope="col">
 				<h3>Finalizado por:</h3>
 			</th>
+			<th scope="col">
+				<h3>Responsável</h3>
+			</th>
 		</tr>
 	</thead>
 	<tbody>		
 		{% for i in atendimento %}
 			<tr>
 			<td>{{i.create_at|date:"d-M-Y"}}</td>
+			<td>{{i.status.get_gender_display }}</td>
 			<td>{{i.problema}}</td>
 			<td>{{i.solucao}}</td>
 			<td>{{i.setor}}</td>
@@ -61,6 +68,7 @@ Usuário: {{usuario}}<br />
 			{%else%}
 				<td>{{i.user_finaliza.first_name}}</td>
 			{%endif%}
+			<td>{{i.responsavel.first_name}}</td>
 			</tr>
 		{% endfor %}
 		
