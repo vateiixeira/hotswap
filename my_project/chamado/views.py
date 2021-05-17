@@ -1,4 +1,5 @@
-from django.http.response import HttpResponse, HttpResponseBadRequest
+from my_project.core.tasks import envia_email_chamado
+from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.shortcuts import render,redirect, get_object_or_404
 from my_project.chamado.models import Chamado
 from my_project.chamado.forms import ChamadoForm
@@ -78,6 +79,9 @@ def cadastro(request):
         model.user = usuario    
         try:
             model.save()
+            model.refresh_from_db()
+            envia_email_chamado.delay(model.id)
+            return redirect('core:homepage')
         except Exception as ex:
             return HttpResponseBadRequest(ex)
     else:

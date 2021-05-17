@@ -18,6 +18,7 @@ ALLOWED_HOSTS = [ '192.168.0.102', 'hotswap', 'localhost', '192.168.0.238', '127
 
 from decouple import config
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,7 +47,8 @@ INSTALLED_APPS = [
     'bootstrap4',
     'rest_framework',
     'corsheaders',
-    'django_extensions'
+    'django_extensions',
+    'solo'
 ]
 
 MIDDLEWARE = [
@@ -174,3 +176,12 @@ EMAIL_HOST = 'smtp-mail.outlook.com'
 EMAIL_HOST_USER = config('EMAIL_USER')
 FROM_EMAIL = config('EMAIL_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
+
+
+# celery
+BROKER_URL = config('BROKER_URL')
+# CELERY REDIS
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_SEND_EVENTS=True
+CELERY_TIMEZONE = TIME_ZONE

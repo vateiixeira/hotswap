@@ -35,3 +35,8 @@ wrapt==1.11.2
 xhtml2pdf==0.2.3
 django-extensions
 python-decouple
+redis
+celery
+crontab
+django-solo
+python-dateutil

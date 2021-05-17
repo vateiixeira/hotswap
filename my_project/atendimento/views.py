@@ -1,3 +1,4 @@
+from my_project.core.tasks import envia_email_atendimento
 from django.shortcuts import render
 from .forms import RelatorioTecnicoForm,RelatorioCompletoForm, RelatorioSetorForm,RelatorioCompletoTodasForm,AtendimentoViewForm
 from django.shortcuts import render,redirect, get_object_or_404
@@ -74,6 +75,8 @@ def add_atendimento(request,user):
             model.setor = form.cleaned_data['setor']        
             model.problema = form.cleaned_data['problema']
             model.save()
+            model.refresh_from_db()
+            envia_email_atendimento.delay(model.id)
         else:
             form = AtendimentoForm()
             messages.error(request, "Formulário inválido!")

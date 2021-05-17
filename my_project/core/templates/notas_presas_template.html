@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html data-lt-installed="true" style="margin: 0; padding: 0;">
+<head><meta name="viewport" content="width=device-width"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Enjoy the Ride State</title>
+	<style type="text/css">/* -------------------------------------
+    GLOBAL
+------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  width: auto;
+  display: block;
+  margin-bottom: -5px;
+}
+
+a.linkbloco{
+  display: block;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  -webkit-text-size-adjust: none;
+  width: 100% !important;
+}
+
+
+/* -------------------------------------
+    ELEMENTS
+------------------------------------- */
+a {
+  color: #348eda;
+}
+
+.last {
+  margin-bottom: 0;
+}
+
+.first {
+  margin-top: 0;
+}
+
+.padding {
+  padding: 10px 0;
+}
+
+
+/* -------------------------------------
+    BODY
+------------------------------------- */
+table.body-wrap {
+  padding: 0;
+  width: 100%;
+}
+
+table.body-wrap .container {
+  border: none;
+}
+
+.bloco-texto{
+  padding: 40px;
+  font-family: "Open Sans", 'Tahoma','Verdana','Segoe', sans-serif; 
+  font-size: 100%;
+  line-height: 1.6em;
+  background-color: #fff;
+}
+
+.bloco-texto ul{
+  padding-left: 2em;
+}
+
+
+/* -------------------------------------
+    FOOTER
+------------------------------------- */
+table.footer-wrap {
+  clear: both !important;
+  width: 100%;  
+}
+
+.footer-wrap .container p {
+  color: #666666;
+  font-size: 12px;
+  
+}
+
+table.footer-wrap a {
+  color: #999999;
+}
+
+
+/* -------------------------------------
+    TYPOGRAPHY
+------------------------------------- */
+h1, 
+h2, 
+h3 {
+  font-weight: 200;
+  line-height: 1.2em;
+  margin: 0px 0 10px;
+}
+
+h1 {
+  font-size: 28px;
+  color: #1d1a3f;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+h2 {
+  font-size: 28px;
+}
+h3 {
+  font-size: 22px;
+}
+
+p, 
+ul, 
+ol {
+  font-size: 14px;
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+
+ul li, 
+ol li {
+  margin-left: 5px;
+  list-style-position: inside;
+}
+
+/* ---------------------------------------------------
+    RESPONSIVENESS
+------------------------------------------------------ */
+
+/* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+.container {
+  clear: both !important;
+  display: block !important;
+  margin: 0 auto !important;
+  max-width: 740px !important;
+}
+
+/* Set the padding on the td rather than the div for Outlook compatibility */
+.body-wrap .container {
+  padding: 0px;
+}
+
+/* This should also be a block element, so that it will fill 100% of the .container */
+.content {
+  display: block;
+  margin: 0 auto;
+  max-width: 740px;
+}
+
+/* Let's make sure tables in the content area are 100% wide */
+.content table {
+  width: 100%;
+}
+	</style>
+</head>
+<body bgcolor="#f6f6f6" style="-webkit-font-smoothing: antialiased; height: 100%; -webkit-text-size-adjust: none; width: 100% !important; margin: 0; padding: 0;"><!-- body -->
+<table bgcolor="#f6f6f6" class="body-wrap" style="width: 100%; margin: 0; padding: 0;">
+	<tbody>
+		<tr style="margin: 0; padding: 0;">
+			<td style="margin: 0; padding: 0;"></td>
+			<td bgcolor="#f6f6f6" class="container" style="clear: both !important; display: block !important; max-width: 740px !important; margin: 0 auto; padding: 0px; border: none;"><!-- content -->
+			<div class="content" style="display: block; max-width: 740px; margin: 0 auto; padding: 0;">
+			<table style="width: 100%; margin: 0; padding: 0;">
+				<tbody>
+					<!-- <tr style="margin: 0; padding: 0;">
+						<td style="margin: 0; padding: 0;"><a class="linkbloco" href="https://ridestate.com/?None" style="display: block; color: #348eda; margin: 0; padding: 0;"><img alt="" src="http://res.cloudinary.com/caleidosdev/image/upload/v1473447919/newmod-topo_isoubl.png" style="max-width: 100%; width: auto; display: block; margin: 0 0 -5px; padding: 0;" /> </a></td>
+					</tr>
+					<tr style="margin: 0; padding: 0;">
+						<td style="margin: 0; padding: 0;"><a class="linkbloco" href="https://ridestate.com/?None" style="display: block; color: #348eda; margin: 0; padding: 0;"><img alt="" src="http://newsletter.ridestate.com/img/capa-geral.jpg" style="max-width: 100%; width: auto; display: block; margin: 0 0 -5px; padding: 0;" /> </a></td>
+					</tr> -->
+					<tr style="margin: 0; padding: 0;">
+						<td bgcolor="#fff" class="bloco-texto" style="font-family: 'Open Sans', 'Tahoma','Verdana','Segoe', sans-serif; font-size: 100%; line-height: 1.6em; background-color: #fff; margin: 0; padding: 40px;"><!--  TEXTO DO EMAIL -->
+						<h1 style="font-weight: 200; line-height: 1.9em; font-size: 28px; color: #1d1a3f; text-transform: uppercase; margin: 0px 0 10px; padding: 0;">{{title}}</h1>
+                            
+						<p style="font-size: 14px; font-weight: normal; margin: 0 0 0px; padding: 0;">Horário: {{ horario }}</p>
+						<p style="font-size: 14px; font-weight: normal; margin: 0 0 0px; padding: 0;">Quantidade: {{ quantidade }}</p>
+
+						<p style="font-size: 14px; font-weight: normal; margin: 90px 0 10px; padding: 0;">Este é um e-mail automático, não responda!</p>
+                        
+						<p style="font-size: 14px; font-weight: normal; margin: 0 0 10px; padding: 0;">Hotswap system</p>
+						</td>
+					</tr>
+					<!-- <tr style="margin: 0; padding: 0;">
+						<td style="margin: 0; padding: 0;"><a class="linkbloco" href="https://ridestate.com/?None" style="display: block; color: #348eda; margin: 0; padding: 0;"><img alt="" src="http://res.cloudinary.com/caleidosdev/image/upload/v1473447922/newmod-info_tzdftl.png" style="max-width: 100%; width: auto; display: block; margin: 0 0 -5px; padding: 0;" /> </a></td>
+					</tr>
+					<tr style="margin: 0; padding: 0;">
+						<td style="margin: 0; padding: 0;"></td>
+					</tr>
+					<tr style="margin: 0; padding: 0;">
+						<td style="margin: 0; padding: 0;"><a class="linkbloco" href="https://ridestate.com/?None" style="display: block; color: #348eda; margin: 0; padding: 0;"><img alt="" src="http://res.cloudinary.com/caleidosdev/image/upload/v1473447914/newmod-link_rsuxme.jpg" style="max-width: 100%; width: auto; display: block; margin: 0 0 -5px; padding: 0;" /> </a></td>
+					</tr> -->
+				</tbody>
+			</table>
+			</div>
+			<!-- /content --></td>
+			<td style="margin: 0; padding: 0;"></td>
+		</tr>
+	</tbody>
+</table>
+<!-- /body --></body>
+</html>

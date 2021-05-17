@@ -1,9 +1,17 @@
 from django.contrib import admin
 from .models import *
 from django.contrib.admin import AdminSite
+from solo.admin import SingletonModelAdmin
 
 AdminSite.site_header = 'Hotswap | Painel Administrativo'
 
+@admin.register(ConfiguracaoEmail)
+class ConfiguracaoEmailAdmin(SingletonModelAdmin):
+   ...
+
+@admin.register(ConfiguracaoSocin)
+class ConfiguracaoSocinAdmin(SingletonModelAdmin):
+   ...
 class LojasAdmin(admin.ModelAdmin):
    list_display = ['name', 'numero', 'cnpj']
    search_fields = ['cnpj', 'numero', 'name']
