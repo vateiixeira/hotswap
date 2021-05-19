@@ -82,10 +82,10 @@ class ConfiguracaoEmail(SingletonModel):
     send_notas_presas = models.BooleanField('Envia e-mail de notas presas ?', blank=True, default=True)
     notas_presas = ArrayField(models.CharField(max_length=128), default=list, blank=True)
     
-    send_chamados_mensais = models.BooleanField('Envia e-mail de chamados presas ?', blank=True, default=True)
+    send_chamados_mensais = models.BooleanField('Envia e-mail de chamados mensais ?', blank=True, default=True)
     chamados_mensais = ArrayField(models.CharField(max_length=128), default=list, blank=True)
     
-    send_atendimentos_mensais = models.BooleanField('Envia e-mail de atendimentos presas ?', blank=True, default=True)
+    send_atendimentos_mensais = models.BooleanField('Envia e-mail de atendimentos mensais ?', blank=True, default=True)
     atendimentos_mensais = ArrayField(models.CharField(max_length=128), default=list, blank=True)
 
     class Meta:
