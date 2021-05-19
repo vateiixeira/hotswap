@@ -62,7 +62,7 @@ def envia_email_chamado(chamado_id):
             'Número': chamado.chamado,
             'Modelo' : chamado.modelo,
             'Serial' : chamado.serial,
-            'Criado por:' : chamado.user,
+            'Criado por' : chamado.user,
             'Loja' : chamado.loja,
             'Quantidade': chamado.quantidade,
             'Defeito' : chamado.defeito,

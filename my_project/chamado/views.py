@@ -64,7 +64,8 @@ def cadastro(request):
         form = ChamadoForm(request.POST)
         model.chamado = request.POST.get('chamado')
         model.modelo = request.POST.get('modelo')
-        model.serial = request.POST.get('serial')        
+        model.serial = request.POST.get('serial') 
+        model.equipamento = Equipamento.object.filter(serial=model.serial).last()
         model.loja = Lojas.object.get(id=request.POST.get('loja'))
         model.defeito = request.POST.get('defeito')
         
@@ -202,30 +203,38 @@ class PdfPorData(View):
     def get(self, request, dtinicial, dtfinal):
         titulo = 'Chamado por data'
         dtgeracao = datetime.now()
-        chamado = Chamado.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial)  
+        chamado = Chamado.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial).select_related('equipamento')
         
         # PEGA O SERIAL DOS CHAMADOS EM QUESTAO E JOGA NUMA LISTA
         # DEPOIS FAZ UMA QUERYSET PARA PEGAR OS DADOS DO PRODUTO
-        list_produtos = []
-        for i in chamado:
-            list_produtos.append(i.serial)
-        equipamento = Equipamento.object.filter(serial__in = list_produtos)
+        # list_produtos = []
+        # for i in chamado:
+        #     list_produtos.append(i.serial)
+        #equipamento = Equipamento.object.filter(serial__in = list_produtos)
+        from django.db.models import Sum
 
         totais = []
+        totais_valor = []
+        total_valor_geral = 0
         status_capturados = list(chamado.order_by('status').distinct('status').values_list('status',flat=True))
         for i in status_capturados:
             totais.append(f'{chamado.filter(status=i).last().chamado_verbose()}: {chamado.filter(status=i).count()}')
+            valor = chamado.filter(status=i).aggregate(Sum("valor"))["valor__sum"]
+            totais_valor.append(f'Valor {chamado.filter(status=i).last().chamado_verbose()}: {valor}')
+            total_valor_geral += valor
      
         if not chamado.exists():
             return redirect('core:erro_relatorio')  
         params = {
-            'equipamento':equipamento,
+            #'equipamento':equipamento,
             'chamado': chamado,
             'dtgeracao': dtgeracao,
             'dtinicial': dtinicial,
             'dtfinal': dtfinal,
             'titulo': titulo,
             'totais': totais,
+            'totais_valor': totais_valor,
+            'total_valor_geral': total_valor_geral,
             'total_geral': chamado.count()
         }
         return Render.render('pdf_chamado.html', params)
@@ -267,11 +276,18 @@ class PdfPorDataFilial(View):
         if not chamado.exists():
             return redirect('core:erro_relatorio')
 
+        from django.db.models import Sum
+
         totais = []
+        totais_valor = []
+        total_valor_geral = 0
         status_capturados = list(chamado.order_by('status').distinct('status').values_list('status',flat=True))
         for i in status_capturados:
             totais.append(f'{chamado.filter(status=i).last().chamado_verbose()}: {chamado.filter(status=i).count()}')
-        
+            valor = chamado.filter(status=i).aggregate(Sum("valor"))["valor__sum"]
+            totais_valor.append(f'Valor {chamado.filter(status=i).last().chamado_verbose()}: {valor}')
+            total_valor_geral += valor
+     
         params = {
             'chamado': chamado,
             'dtgeracao': dtgeracao,
@@ -281,6 +297,8 @@ class PdfPorDataFilial(View):
             'origem': origem,
             'titulo': titulo,
             'totais': totais,
+            'totais_valor': totais_valor,
+            'total_valor_geral': total_valor_geral,
             'total_geral': chamado.count()
         }
 
@@ -313,6 +331,20 @@ class PdfPorUsuario(View):
         dtgeracao = datetime.now()
         chamado = Chamado.object.filter(create_at__lte=dtfinal, create_at__gte=dtinicial, user_id=usuario)
         usuario = User.objects.get(id=usuario)
+
+        from django.db.models import Sum
+
+        totais = []
+        totais_valor = []
+        total_valor_geral = 0
+        status_capturados = list(chamado.order_by('status').distinct('status').values_list('status',flat=True))
+        for i in status_capturados:
+            totais.append(f'{chamado.filter(status=i).last().chamado_verbose()}: {chamado.filter(status=i).count()}')
+            valor = chamado.filter(status=i).aggregate(Sum("valor"))["valor__sum"]
+            totais_valor.append(f'Valor {chamado.filter(status=i).last().chamado_verbose()}: {valor}')
+            total_valor_geral += valor
+
+
         if not chamado:
             return redirect('core:erro_relatorio')
         params = {
@@ -322,6 +354,10 @@ class PdfPorUsuario(View):
             'dtinicial': dtinicial,
             'dtfinal': dtfinal,
             'titulo': titulo,
+            'totais': totais,
+            'totais_valor': totais_valor,
+            'total_valor_geral': total_valor_geral,
+            'total_geral': chamado.count()
         }
 
         return Render.render('pdf_usuario.html', params)    

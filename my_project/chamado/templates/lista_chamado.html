@@ -36,11 +36,8 @@
               <td>{{ chamado.loja }}</td>
               <td>{{ chamado.serial }}</td>
               <td>{{ chamado.defeito }}</td>
-              {% if chamado.status == 'r'%}
-              <td> Resolvido </td>
-              {% else %}
-              <td> Pendente </td>
-              {% endif %}
+              <td>{{chamado.chamado_verbose}} </td>
+              
               <td>
               <a href="{% url 'chamado:update_chamado' pk=chamado.pk %}" class="btn btn-warning btn-circle btn-sm">
               <i class="fas fa-exclamation-triangle"></i>

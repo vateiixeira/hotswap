@@ -1,4 +1,3 @@
-!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -9,6 +8,22 @@
 <hr />
 <p><strong>Relat&oacute;rio de chamados por usuário</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}<br />
 Usuário: {{usuario}}<br />
+Total: {{total_geral}}<br />
+<br>
+{% for i in totais %}
+<strong>
+	{{i}}
+</strong>
+<br>
+{% endfor %}
+<br />
+{% for x in totais_valor %}
+<strong>
+	{{x}}
+</strong>
+<br />
+{% endfor %}
+<strong>VALOR TOTAL: {{total_valor_geral}}</strong>
 </p>
 <p>&nbsp;</p>
 
@@ -43,11 +58,7 @@ Usuário: {{usuario}}<br />
 			<td>{{i.serial}}</td>
 			<td>{{i.defeito}}</td>
 			<td>{{i.valor}}</td>
-			{% if i.status == 'p' %}
-			<td>PENDENTE</td>
-			{% else %}
-			<td>CONCLUIDO</td>
-			{% endif %}		
+			<td>{{i.chamado_verbose}} </td>	
 			</tr>
 		{% endfor %}
 		

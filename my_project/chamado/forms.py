@@ -13,10 +13,18 @@ class MyModelChoiceField(ModelChoiceField):
     
 
 class UpdateChamadoForm(forms.ModelForm):
-    defeito = forms.CharField(widget=forms.TextInput(attrs={'size':'60'}))
+    #defeito = forms.CharField(widget=forms.TextInput(attrs={'size':'60'}))
     quantidade = forms.IntegerField(min_value=0, widget=forms.TextInput(attrs={'size':'8'}))
     valor = forms.DecimalField(min_value=0, decimal_places=2, widget=forms.TextInput(attrs={'size':'8'}))
-    dt_finalizado = forms.DateField(input_formats=['%d/%m/%Y'])
+    dt_finalizado = forms.DateField(label='Data de finalização',widget=forms.DateInput(format='%d/%m/%Y',attrs={'type':'date'}),required=False)
+
+    def clean(self):
+        form_data = self.cleaned_data
+        status = self.cleaned_data.get('status')
+        if form_data.get('dt_finalizado',None):
+            if status == Chamado.STATUS_CHAMADO_PENDENTE:
+                self._errors["dt_finalizado"] = ["Quando é preenchido a data de finalização, deve-se escolher um status diferente de pendente."]
+        return form_data
     class Meta:
         model = Chamado
         fields = ['chamado','modelo','serial','loja','defeito','quantidade','valor','status','dt_finalizado', 'fornecedor', 'justificativa']

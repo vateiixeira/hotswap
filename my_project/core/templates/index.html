@@ -295,10 +295,10 @@
           
                   {% endblock atendimento %}          
           <!-- Sidebar Toggle (Topbar) -->         
-          <div class="criatividadezero">
+          <!-- <div class="criatividadezero">
             <span style="font: bold;">Notas presas banco Socin: </span> 
             <span id="conteudo"></span>
-          </div>    
+          </div>     -->
           <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
@@ -339,6 +339,21 @@
         {% block content %}
         <!-- Begin Page Content -->
         <div class="row" style="margin-left: 10px;">
+          <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-danger shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <span class="text-xs font-weight-bold text-danger text-uppercase mb-1">NOTAS PRESAS SOCIN</span>
+                      <div id="conteudo"  class="h5 mb-0 font-weight-bold text-gray-800"></div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-exclamation fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>   
           <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
@@ -1480,7 +1495,7 @@ var myBarChart = new Chart(ctx, {
               type: "GET",
               url: "http://192.168.0.238/ajax/notas_travadas_mysql/",
               dataType: "json",
-              beforeSend: function() {$("#conteudo").empty();$("#conteudo").append("Carregando");}                    
+              beforeSend: function() {$("#conteudo").empty();$("#conteudo").append("...");}                    
           }).done(function(data) {
               $("#conteudo").empty();         
               $("#conteudo").append(data);

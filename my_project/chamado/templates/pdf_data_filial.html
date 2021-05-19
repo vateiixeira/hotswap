@@ -17,12 +17,21 @@
 	<strong>Relat&oacute;rio de chamado por data</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}<br />
 	Filial: {{origem}}<br />
 	Total: {{total_geral}}<br />
+	<br>
 	{% for i in totais %}
 	<strong>
-	{{i}}
+		{{i}}
+	</strong>
+	<br>
+	{% endfor %}
+	<br />
+	{% for x in totais_valor %}
+	<strong>
+		{{x}}
 	</strong>
 	<br />
 	{% endfor %}
+	<strong>VALOR TOTAL: {{total_valor_geral}}</strong>
 </p>
 <p>&nbsp;</p>
 

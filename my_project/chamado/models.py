@@ -1,3 +1,4 @@
+from my_project.estoque.models import Equipamento
 from django.db import models
 from my_project.core.models import Fornecedor, Lojas
 from django.contrib.auth.models import User
@@ -26,12 +27,13 @@ class Chamado(models.Model):
     chamado = models.IntegerField('Número chamado')   
     modelo = models.CharField('Modelo', max_length=50)
     serial = models.CharField("Serial",max_length=100)
+    equipamento = models.ForeignKey(Equipamento,on_delete=models.CASCADE,null=True,blank=True)
     loja = models.ForeignKey(Lojas,on_delete=models.CASCADE) 
     create_at = models.DateTimeField('Criado em', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quantidade = models.IntegerField('Quantidade', default=1)
-    defeito = models.CharField("Defeito", max_length=200)
+    defeito = models.TextField("Defeito",null=True,blank=True)
     valor = models.DecimalField('Valor', max_digits=7, decimal_places=2, blank=True)
     status = models.CharField(max_length=60, choices=STATUS_CHAMADO_CHOICES, default=STATUS_CHAMADO_PENDENTE)
     justificativa = models.TextField('Justificativa do chamado', null=True,blank=True)

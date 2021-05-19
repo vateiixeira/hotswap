@@ -7,13 +7,13 @@
     <form class="pure-form pure-form-aligned" method="POST" target="_blank" >
     {% csrf_token %}
     {% for field in form %}    
-    <div class="pure-control-group">
+    <div class="pure-control-group" >
     {{ field.errors }}
     {{ field.label_tag }} {{ field }}    
     </div>    
     {% endfor %}
-        <div>
-        <button type='submit' id="btn-form-submit" class="btn btn-success btn-icon-split" >
+        <div class=pure-control-group>
+        <button type='submit' id="btn-form-submit" class="btn btn-success btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-check"></i>
             </span>

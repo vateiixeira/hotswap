@@ -13,8 +13,8 @@ urlpatterns = [
     path('garantia-equipamento/', garantia_equipamento, name='garantia_equipamento'),  
     path('rel/pordata/', chamado_por_data, name='chamado_por_data'),
     path('pdf/data/<str:dtinicial>/<str:dtfinal>/', PdfPorData.as_view(), name='pdfdata'), 
-    path('pdf/data/<str:dtinicial>/<str:dtfinal>/<int:idorigem>/', PdfPorDataFilial.as_view(), name='pdfdatafilial'), 
+    path('pdf/data-filial/<str:dtinicial>/<str:dtfinal>/<int:idorigem>/', PdfPorDataFilial.as_view(), name='pdfdatafilial'), 
     path('rel/pordatafilial/', chamado_por_data_filial, name='chamado_por_data_filial'),
     path('rel/porusuario/', chamado_por_usuario, name='chamado_por_usuario'),
-    path('pdf/data/<str:dtinicial>/<str:dtfinal>/<int:usuario>', PdfPorUsuario.as_view(), name='pdfusuario'),
+    path('pdf/data-usuario/<str:dtinicial>/<str:dtfinal>/<int:usuario>', PdfPorUsuario.as_view(), name='pdfusuario'),
 ]

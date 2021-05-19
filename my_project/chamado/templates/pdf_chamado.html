@@ -15,12 +15,21 @@
 <p>
 	<strong>Relat&oacute;rio de chamado por data</strong><br />Inicio: {{dtinicial}}<br />Fim:{{dtfinal}}<br />
 	Total: {{total_geral}}<br />
+	<br>
 	{% for i in totais %}
 	<strong>
-	{{i}}
+		{{i}}
+	</strong>
+	<br>
+	{% endfor %}
+	<br />
+	{% for x in totais_valor %}
+	<strong>
+		{{x}}
 	</strong>
 	<br />
 	{% endfor %}
+	<strong>VALOR TOTAL: {{total_valor_geral}}</strong>
 </p>
 <p>&nbsp;</p>
 
@@ -54,21 +63,19 @@
 		</tr>
 	</thead>
 	<tbody>	
-		{% for product in equipamento %}
 		{% for i in chamado %}
 		
 			<tr>
 			<td>{{i.chamado}}</td>
 			<td>{{i.modelo}}</td>
 			<td>{{i.serial}}</td>
-			<td>{{product.patrimonio}}</td>
+			<td>{{i.equipamento.patrimonio}}</td>
 			<td>{{i.loja}}</td>
 			<td>{{i.defeito}}</td>
 			<td>{{i.valor}}</td>
 			<td>{{i.chamado_verbose}} </td>
 					
 			</tr>
-		{% endfor %}
 		{% endfor %}
 		
 	</tbody>
