@@ -14,10 +14,9 @@ SECRET_KEY = 'x4&en%b6kbe4+z&y+7&0iqtf9gx%g8tt)c@gh&vhc+$5-c6wq0'
 
 DEBUG = True
 
-ALLOWED_HOSTS = [ '192.168.0.102', 'hotswap', 'localhost', '192.168.0.238', '127.0.0.1','192.168.1.64']
+from decouple import config, Csv
 
-from decouple import config
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=Csv())
 
 # Application definition
 
