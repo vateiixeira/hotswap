@@ -285,14 +285,19 @@ def sessao_travada():
 
 def notas_travadas_mysql(request):
     if request.method == 'GET':
-        cnx = mysql.connector.connect(user='econect', password='123456',
-                                host='192.168.3.123',
-                                database='concentrador')
-        cursor = cnx.cursor()
-        script = "select count(*) from exp_imp_movimento where data_movimento= CURDATE() and situacao_movimento=1 and tipo_movimento=1;"
-        cursor.execute(script) 
-        for i in cursor:
-            data = i[0]
+        socin = ConfiguracaoSocin.get_solo()
+        try:
+            cnx = mysql.connector.connect(user=socin.user, password=socin.password,
+                                    host=socin.host,
+                                    database=socin.database,
+                                    connect_timeout=2)
+            cursor = cnx.cursor()
+            script = "select count(*) from exp_imp_movimento where data_movimento= CURDATE() and situacao_movimento=1 and tipo_movimento=1;"
+            cursor.execute(script) 
+            for i in cursor:
+                data = i[0]
+        except Exception:
+            return JsonResponse('error', safe=False) 
     #now = datetime.now()
     #data = now.year, now.month, now.day, now.hour, now.minute, now.second
 
@@ -420,7 +425,7 @@ def custo_chamados_anual_moc(request):
             i = 0
             aux.append(i)
         else:
-# ITEREAR OS VALORES GERADOS PARA TRATAR SE EH NONE E TAMBEM FAZER RETORNAR O FLOAT SE HOPUVER VALOR.. 
+    # ITEREAR OS VALORES GERADOS PARA TRATAR SE EH NONE E TAMBEM FAZER RETORNAR O FLOAT SE HOPUVER VALOR.. 
             valor = float(i)
             aux.append(valor)
     return aux

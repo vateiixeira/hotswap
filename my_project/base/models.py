@@ -11,6 +11,7 @@ class DataInauguracao(models.Model):
     cod_filial = models.IntegerField()
     loja = models.CharField(max_length=20)
     inauguracao = models.CharField(max_length=20)
+    data_inauguracao = models.DateField('Data da inauguração',null=True,blank=True)
     
     def __str__(self):
         return self.loja
@@ -23,22 +24,22 @@ class TestDataInauguracao(models.Model):
 
 
 class CircuitoDados(models.Model):
-    nome_filial = models.CharField(max_length=20)
-    cod_filial = models.CharField(max_length=20, null=True)
-    faixa_ip = models.CharField(max_length=20, null=True)
-    produto = models.CharField(max_length=20)
-    circuito = models.CharField(max_length=20)
-    roteador = models.CharField(max_length=20, null=True)
-    velocidade = models.CharField(max_length=10, null=True)
+    nome_filial = models.CharField(max_length=20, null=True,default='',blank=True)
+    cod_filial = models.CharField(max_length=20, null=True,default='',blank=True)
+    faixa_ip = models.CharField(max_length=20, null=True,default='',blank=True)
+    produto = models.CharField(max_length=20, null=True,default='',blank=True)
+    circuito = models.CharField(max_length=20, null=True,default='',blank=True)
+    roteador = models.CharField(max_length=20, null=True,default='',blank=True)
+    velocidade = models.CharField(max_length=10, null=True,default='',blank=True)
     
     
 class CircuitoVoz(models.Model):
-    regiao_filial = models.CharField(max_length=20)
-    operadora = models.CharField(max_length=100)
-    designacao = models.CharField(max_length=200)
-    servico_equipamento = models.CharField(max_length=200,null=True)
-    tel_abrir_chamado = models.CharField(max_length=30, null=True)
-    op_urla = models.CharField(max_length=50,null=True)
+    regiao_filial = models.CharField(max_length=20, null=True,default='',blank=True)
+    operadora = models.CharField(max_length=100, null=True,default='',blank=True)
+    designacao = models.CharField(max_length=200, null=True,default='',blank=True)
+    servico_equipamento = models.CharField(max_length=200,null=True,default='',blank=True)
+    tel_abrir_chamado = models.CharField(max_length=30, null=True,default='',blank=True)
+    op_urla = models.CharField(max_length=50,null=True,default='',blank=True)
     
 
 

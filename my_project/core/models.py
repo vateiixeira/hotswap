@@ -3,10 +3,14 @@ from django.contrib.auth.models import User
 from solo.models import SingletonModel
 from django.contrib.postgres.fields import ArrayField
 
+
+GRUPO_USUARIOS_MOC = 'MONTES CLAROS'
+GRUPO_USUARIOS_BH = 'BH'
+GRUPO_USUARIOS_GERAL = 'GERAL'
 GRUPO_USUARIOS = (
-    ("MONTES CLAROS","MONTES CLAROS"),
-    ("BH","BH"),
-    ("GERAL","GERAL"),
+    (GRUPO_USUARIOS_MOC,"MONTES CLAROS"),
+    (GRUPO_USUARIOS_BH,"BH"),
+    (GRUPO_USUARIOS_GERAL,"GERAL"),
 )
 
 class Profile(models.Model):

@@ -4,6 +4,7 @@ from rest_framework import authentication, permissions, viewsets
 from django.contrib.auth.models import User
 from django.middleware.csrf import get_token
 from my_project.envios.models import EnvioBh
+from my_project.estoque.models import Equipamento
 from .serializers import Envio_Serializer, UsuarioHelpDeskSerializer,AtendimentoSerializer
 from rest_framework.decorators import api_view
 from my_project.helpdesk.models import Usuario
@@ -125,6 +126,27 @@ def change_date(request):
             x.create_at = f'{finalizado} 03:00:00.000200'
             x.save()
         return Response('ok')
+
+
+@api_view(['GET'])
+def lista_setores(request):
+    setores = Equipamento.SETOR_CHOICES
+    data = [{
+        'id': i[0],
+        'value': i[1]
+    } for i in setores]
+    return Response(data)
+
+@api_view(['GET'])
+def lista_polos(request):
+    from my_project.core.models import GRUPO_USUARIOS
+    setores = GRUPO_USUARIOS
+    data = [{
+        'id': i[0],
+        'value': i[1]
+    } for i in setores]
+    return Response(data)
+
 
 
 

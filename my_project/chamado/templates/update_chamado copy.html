@@ -2,9 +2,6 @@
 {% block atendimento %}
 {% endblock atendimento %}
 {% block content%}
-{% block extrahead %}
-{{ form.media }}
-{% endblock %}
 <h1 style="margin-left: 50px;">Editar Chamado</h1>
 
 <form class="pure-form pure-form-aligned">
@@ -15,17 +12,13 @@
 </form>
     <form class="pure-form pure-form-aligned" method="POST" >
     {% csrf_token %}
-            <div class="pure-control-group">
-                {{ form.as_p }}                
-            </div>
-    </form>
-    <!-- <form class="pure-form pure-form-aligned" method="POST" >
-    {% csrf_token %}
         <fieldset>
             <div class="pure-control-group">
-                {{ form.as_p }}                
+
+            {{ form.as_p }}
+            {{ form.media }}
             </div>
-    </form> -->
+    </form>
     <div class="pure-control-group" style="margin-left: 70px;">
     <button type='submit' class="btn btn-success btn-icon-split" >
         <span class="icon text-white-50">

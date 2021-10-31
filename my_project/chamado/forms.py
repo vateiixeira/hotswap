@@ -5,6 +5,7 @@ from my_project.core.models import Fornecedor, Lojas
 from django_select2.forms import Select2Widget
 from django.contrib.auth.models import User
 from .models import Chamado
+from bootstrap_datepicker_plus import DatePickerInput
 
 
 class MyModelChoiceField(ModelChoiceField):
@@ -16,7 +17,11 @@ class UpdateChamadoForm(forms.ModelForm):
     #defeito = forms.CharField(widget=forms.TextInput(attrs={'size':'60'}))
     quantidade = forms.IntegerField(min_value=0, widget=forms.TextInput(attrs={'size':'8'}))
     valor = forms.DecimalField(min_value=0, decimal_places=2, widget=forms.TextInput(attrs={'size':'8'}))
-    dt_finalizado = forms.DateField(label='Data de finalização',widget=forms.DateInput(format='%d/%m/%Y',attrs={'type':'date'}),required=False)
+    dt_finalizado = forms.DateField(label='Data de finalização',widget=DatePickerInput(format='%d/%m/%Y',
+                        options={
+                            'locale': 'pt-br'
+                        }),required=False)
+    #create_at = forms.DateField(input_formats=['%d-%m-%Y'],label='Data de finalização',widget=DatePickerInput(attrs={'type':'date'}),required=False,disabled=True)
 
     def clean(self):
         form_data = self.cleaned_data

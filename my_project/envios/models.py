@@ -28,7 +28,7 @@ class EnvioBh(models.Model):
         
 
 class Recebimento(models.Model):
-    envio = models.ForeignKey(EnvioBh, on_delete=models.CASCADE)
+    envio = models.ForeignKey(EnvioBh, related_name='recebimento',on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     create_at = models.DateTimeField('Recebido em', auto_now_add=True)
 

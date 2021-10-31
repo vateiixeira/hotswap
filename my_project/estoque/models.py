@@ -69,7 +69,6 @@ class Equipamento(models.Model):
         ("ACOUGUE", "Açougue"),
         ("TREINAMENTO", "Treinamento"),
         ("SOE", "Soe"),
-        ("ALMOXARIFADO", "Almoxarifado"),
         ("CPD", "CPD"),
         ("CALLCENTER", "Callcenter"),
         ("COMERCIAL", "Comercial"),
@@ -101,7 +100,7 @@ class Equipamento(models.Model):
     create_at = models.DateTimeField('Criado em', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
     qtd = models.IntegerField('Estoque', default=0)
-    obs = models.TextField()
+    obs = models.TextField(default='',blank=True)
     #image = models.ImageField(upload_to='courses/images', verbose_name='Imagem', null=True, blank=True)
     #user = models.ForeignKey(User, on_delete=models.CASCADE)
     hd = models.ForeignKey(CategoriaHD, on_delete=models.CASCADE, null=True, blank=True)

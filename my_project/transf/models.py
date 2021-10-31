@@ -8,10 +8,11 @@ class Transferencia(models.Model):
     destino = models.ForeignKey(Lojas,related_name='transf_destino', on_delete=models.CASCADE)
     obs = models.CharField('Observações', max_length=300) 
     qtd = models.IntegerField('Quantidade')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    
     create_at = models.DateTimeField('Criado em', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
         
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     object = models.Manager()    
 

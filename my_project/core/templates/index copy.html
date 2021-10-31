@@ -12,29 +12,23 @@
   <title>Hotswap </title>
   {% block head %}
   {% endblock head %}
-  {% load bootstrap4 %}
-  {% bootstrap_css %}
-  {% bootstrap_javascript jquery='full' %}
-  {% block extrahead %}
-  {% endblock %}
-
   <link rel="icon" href="{% static 'img/fav.png' %}" type="image/png">
   <script src="{% static 'js/count-up.js' %}"></script>
   <script src="{% static 'js/Chart.min.js' %}"></script>
   <!-- bootstrap4 -->
-  <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" /> -->
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
   <script src="{% static 'js/popper.min.js' %}" ></script>
   <script src="{% static 'js/jquery.mask.js' %}" ></script>
-  <!-- <script src="{% static 'js/bootstrap.min.js' %}" ></script> -->
+  <script src="{% static 'js/bootstrap.min.js' %}" ></script>
   <!-- Custom fonts for this template-->
   <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
   <link href="{% static 'css/fonts.css' %}" rel="stylesheet">
-  <!-- <script src="{% static 'js/jquery-3.4.1.js' %}" ></script> -->
+  <script src="{% static 'js/jquery-3.4.1.js' %}" ></script>
   <link href="{% static 'css/pure-min.css' %}" rel="stylesheet">
   <!--<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">-->
   <!-- Fengyuan Chen's Datepicker -->
-<!-- <link rel="stylesheet" href="{% static 'js/datepicker.min.css' %}" /> -->
-<!-- <script src="{% static 'js/datepicker.min.js' %}"></script> -->
+<link rel="stylesheet" href="{% static 'js/datepicker.min.css' %}" />
+<script src="{% static 'js/datepicker.min.js' %}"></script>
 
   <!-- Custom styles for this template-->
 <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
@@ -1429,24 +1423,24 @@ var myBarChart = new Chart(ctx, {
   <script href="{% static 'js/jquery.counterup.min.js' %}"></script>
 
   <!-- Fengyuan Chen's Datepicker -->
-  <!-- <link href="{% static 'js/datepicker.min.css' %}"/>
-  <script src="{% static 'js/datepicker.min.js' %}"></script> -->
+  <link href="{% static 'js/datepicker.min.css' %}"/>
+  <script src="{% static 'js/datepicker.min.js' %}"></script>
 
     <!-- Page level plugins -->
   <script src="{% static 'vendor/datatables/jquery.dataTables.min.js' %}"></script>
   <script src="{% static 'vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
 
     <!-- Boostrap JS-->
-  <!-- <script src="{% static 'bootstrap/js/bootstrap.min.js' %}" crossorigin="anonymous"></script> -->
+  <script src="{% static 'bootstrap/js/bootstrap.min.js' %}" crossorigin="anonymous"></script>
 
   <!-- Page level custom scripts -->
   <script src="{% static 'js/demo/datatables-demo.js' %}"></script>
 
     <!-- Core plugin JavaScript-->
-  <!-- <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script> -->
+  <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
   
 
-  <!-- <script>
+  <script>
     $(function () {
         $("#id_dt_vencimento").datepicker({
         format:'dd-mm-yyyy',
@@ -1495,7 +1489,7 @@ var myBarChart = new Chart(ctx, {
         monthsShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
         });        
     });
-    </script> -->
+    </script>
 
     <!-- SCRIPT PARA ABRIR UMA NOVA PAGINA QUANDI CLICAR NO BOTÃO COM SUBMIT DENTRO DO FORM. ** COLOCAR BLNK NO FORM PARA FUNFAR.-->
   <script>

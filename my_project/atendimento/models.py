@@ -26,6 +26,9 @@ class Atendimento(models.Model):
     create_at = models.DateTimeField('Criado em', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
 
+    def status_verbose(self):
+        return dict(SIT_CHOICE)[self.status]
+
     class Meta:
         verbose_name = "Atendimento"
         verbose_name_plural = "Atendimentos"
