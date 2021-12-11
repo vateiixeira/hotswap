@@ -5,7 +5,8 @@ __pycache__/
 
 # C extensions
 *.so
-
+*.log
+*.log.*
 # Distribution / packaging
 .Python
 env/
@@ -107,9 +108,9 @@ media/
 *.db
 *.pid
 # django migrations 
-**/migrations/**
-!**/migrations
-!**/migrations/__init__.py
+#**/migrations/**
+#!**/migrations
+#!**/migrations/__init__.py
 
 my_project.rar
 *.rar
