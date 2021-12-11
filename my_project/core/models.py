@@ -107,4 +107,4 @@ class ConfiguracaoSocin(SingletonModel):
 
     class Meta:
         verbose_name = 'Configuração banco Socin'
-        verbose_name_plural = 'Configuração banco Socin's
+        verbose_name_plural = 'Configuração banco Socin'
