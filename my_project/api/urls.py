@@ -6,7 +6,7 @@ from my_project.api.compras.views import ComprasViewset
 from my_project.core.views import notas_travadas_mysql
 from .views import *
 from rest_framework import routers
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
 from .user.views import UserViewset
 from .equipamento.views import EquipamentoViewset,CategoriaHDViewset,CategoriaMemoriaViewset,CategoriaProcessadorViewset,CategoriaSOViewset
 from .core.views import DashboardView, FornecedorViewset, LojasViewset
@@ -51,7 +51,7 @@ urlpatterns = [
     path('helpdesk/lista', list_atendimento_helpdesk),
     path('change_date', change_date, name='change_date'),
     path('login/', obtain_jwt_token, name='login'),
-    path('refresh-token', change_date, name='change_date'),
+    path('refresh-token/', refresh_jwt_token, name='change_date'),
     path('setores/', lista_setores, name='setores'),
     path('polos/', lista_polos, name='setores'),
     path('lista-status-chamado/', lista_status_chamados, name='lista-status-chamado'),
