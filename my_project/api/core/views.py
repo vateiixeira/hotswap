@@ -10,6 +10,7 @@ from rest_framework.decorators import action
 from rest_framework.decorators import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from my_project.envios.models import EnvioBh
 
 class LojasViewset(viewsets.ModelViewSet):
     queryset = Lojas.object.all()
@@ -63,6 +64,7 @@ class DashboardView(APIView):
 
         # chamados
         chamados_pendentes = str(Chamado.object.filter(loja__in=lojas,status=Chamado.STATUS_CHAMADO_PENDENTE).count())
+        envios_pendentes = str(EnvioBh.object.filter(filial_destino__in=lojas,recebido=False).count())
         chamados_custo_moc = custo_chamado_mensal(request)
         chamados_custo_bh = custo_chamado_mensal_bh(request)
         
@@ -107,6 +109,7 @@ class DashboardView(APIView):
             'ranking_atendimentos_moc': ranking_atendimentos_moc,
             'custo_chamado_mensal_card': f"MOC:${chamados_custo_moc} | BH:${chamados_custo_bh}",
             'chamados_pendentes': chamados_pendentes,
+            'envios_pendentes': envios_pendentes,
             'ranking_chamados_custo_moc': ranking_chamados_custo_moc,
             'ranking_chamados_custo_bh': ranking_chamados_custo_bh,
             'ranking_chamados_qtd_bh': ranking_chamados_qtd_bh,

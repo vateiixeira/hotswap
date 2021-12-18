@@ -14,6 +14,7 @@ class AtendimentoFilterBackend(filters.BaseFilterBackend):
             coreapi.Field(name='setor', required=False, location='query', description='id setor'),            
             coreapi.Field(name='data_de', required=False, location='query', description='data_de'),            
             coreapi.Field(name='data_ate', required=False, location='query', description='data_ate'),            
+            coreapi.Field(name='status', required=False, location='query', description='status'),            
         ]
 
     def filter_queryset(self, request, queryset, view):
@@ -28,6 +29,9 @@ class AtendimentoFilterBackend(filters.BaseFilterBackend):
         
         if request.GET.get('setor'):
             queryset = queryset.filter(setor=request.GET.get('setor'))
+        
+        if request.GET.get('status'):
+            queryset = queryset.filter(status=request.GET.get('status'))
 
         data_de = request.GET.get('data_de')
         if data_de:

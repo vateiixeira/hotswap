@@ -12,6 +12,7 @@ class ChamadoFilterBackend(filters.BaseFilterBackend):
             coreapi.Field(name='user', required=False, location='query', description='id user'),                      
             coreapi.Field(name='data_de', required=False, location='query', description='data_de'),            
             coreapi.Field(name='data_ate', required=False, location='query', description='data_ate'),            
+            coreapi.Field(name='status', required=False, location='query', description='status'),            
         ]
 
     def filter_queryset(self, request, queryset, view):
@@ -20,6 +21,9 @@ class ChamadoFilterBackend(filters.BaseFilterBackend):
                 
         if request.GET.get('user'):
             queryset = queryset.filter(user_id=request.GET.get('user'))
+        
+        if request.GET.get('status'):
+            queryset = queryset.filter(status=request.GET.get('status'))
 
         data_de = request.GET.get('data_de')
         if data_de:
