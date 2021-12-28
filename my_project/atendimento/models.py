@@ -12,8 +12,8 @@ SIT_CHOICE = [
 ]
 
 class Atendimento(models.Model):
-    problema = models.CharField("Problema", max_length=455)
-    solucao = models.CharField("Resolução", max_length=455, blank=True)
+    problema = models.CharField("Problema", max_length=1024)
+    solucao = models.CharField("Resolução", max_length=1024, blank=True)
     status = models.CharField(max_length=1, choices=SIT_CHOICE, default='p')
     setor = models.CharField("Setor", max_length=50, choices= Equipamento.SETOR_CHOICES)
     solicitante = models.CharField("Solicitante", max_length=50)

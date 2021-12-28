@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
+
+from my_project.core.dates import normalized
 from .models import *
 from .forms import *
 from my_project.chamado.models import Chamado
@@ -285,21 +287,17 @@ def sessao_travada():
 
 def notas_travadas_mysql(request):
     if request.method == 'GET':
-        socin = ConfiguracaoSocin.get_solo()
-        try:
-            cnx = mysql.connector.connect(user=socin.user, password=socin.password,
-                                    host=socin.host,
-                                    database=socin.database,
-                                    connect_timeout=2)
-            cursor = cnx.cursor()
-            script = "select count(*) from exp_imp_movimento where data_movimento= CURDATE() and situacao_movimento=1 and tipo_movimento=1;"
-            cursor.execute(script) 
-            for i in cursor:
-                data = i[0]
-        except Exception:
-            return JsonResponse('error', safe=False) 
-    #now = datetime.now()
-    #data = now.year, now.month, now.day, now.hour, now.minute, now.second
+        obj = NotasSocin.objects.last()
+        if not obj:
+            data = {
+                'valor': 0,
+                'data': 'error',
+            }
+        else:
+            data = {
+                'valor': obj.valor,
+                'data': normalized(obj.data).strftime('%H:%M:%S'),
+            }
 
     return JsonResponse(data, safe=False)
 

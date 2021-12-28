@@ -34,8 +34,12 @@ app.conf.update(
         #colocar tasks beat aqui   
         'core.envia_email_notas_presas':{
             'task': 'my_project.core.tasks.envia_email_notas_presas',
-            'schedule': timedelta(minutes=1)
-        }    
+            'schedule': timedelta(minutes=3)
+        },    
+        'core.notas_socin':{
+            'task': 'my_project.core.tasks.notas_socin',
+            'schedule': timedelta(minutes=3)
+        },    
     }
 )
 

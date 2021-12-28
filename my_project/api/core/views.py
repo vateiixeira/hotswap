@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from django.http import Http404
-from my_project.api.core.utils import get_data_year_chamado
+from my_project.api.core.utils import get_data_year_atendimento, get_data_year_chamado
 from my_project.atendimento.models import Atendimento
 from my_project.chamado.models import Chamado
 from my_project.core.models import GRUPO_USUARIOS, GRUPO_USUARIOS_BH, GRUPO_USUARIOS_GERAL, GRUPO_USUARIOS_MOC, Lojas, Fornecedor
@@ -46,7 +46,7 @@ class DashboardView(APIView):
         # ranking atendimentos bh
         list_filiais_grafico_bh = list(Lojas.object.filter(id__in=lojas,polo=GRUPO_USUARIOS_BH).values_list('name',flat=True))
         show_fico_bh = True if len(list_filiais_grafico_bh) > 0 else False
-        data_grafico_bh = get_data_year_chamado(filiais_bh)
+        data_grafico_bh = get_data_year_atendimento(filiais_bh)
         ranking_atendimentos_bh = {
             'show': show_fico_bh,
             'filiais': list_filiais_grafico_bh,
@@ -55,7 +55,8 @@ class DashboardView(APIView):
         # ranking atendimentos moc
         list_filiais_grafico_moc = list(Lojas.object.filter(id__in=lojas,polo=GRUPO_USUARIOS_MOC).values_list('name',flat=True))
         show_fico_moc = True if len(list_filiais_grafico_moc) > 0 else False
-        data_grafico_moc = get_data_year_chamado(filiais_moc)
+        data_grafico_moc = get_data_year_atendimento(filiais_moc)
+        # alterar funcao para pegar ateneimtneot
         ranking_atendimentos_moc = {
             'show': show_fico_moc,
             'filiais': list_filiais_grafico_moc,

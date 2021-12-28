@@ -12,6 +12,10 @@ class ConfiguracaoEmailAdmin(SingletonModelAdmin):
 @admin.register(ConfiguracaoSocin)
 class ConfiguracaoSocinAdmin(SingletonModelAdmin):
    ...
+
+@admin.register(NotasSocin)
+class ConfiguracaoSocinAdmin(admin.ModelAdmin):
+   ...
 class LojasAdmin(admin.ModelAdmin):
    list_display = ['name', 'numero', 'cnpj']
    search_fields = ['cnpj', 'numero', 'name']

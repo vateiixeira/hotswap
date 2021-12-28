@@ -108,3 +108,11 @@ class ConfiguracaoSocin(SingletonModel):
     class Meta:
         verbose_name = 'Configuração banco Socin'
         verbose_name_plural = 'Configuração banco Socin'
+
+class NotasSocin(models.Model):
+    valor = models.IntegerField('Quantidade de notas presas', default=0)
+    data = models.DateTimeField('Data', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Notas presas'
+        verbose_name_plural = 'Notas presas'

@@ -1,5 +1,5 @@
 from django.utils import timezone
-from my_project.core.models import ConfiguracaoEmail, ConfiguracaoSocin, Profile
+from my_project.core.models import ConfiguracaoEmail, ConfiguracaoSocin, NotasSocin, Profile
 from celery import shared_task
 from my_project.atendimento.models import Atendimento
 from my_project.chamado.models import Chamado
@@ -137,3 +137,24 @@ def envia_email_notas_presas():
             subject = f'{quantidade} notas presas SOCIN'            
             send_mail_notas_presas(subject,config.notas_presas,normalized(timezone.now()),quantidade)
 
+
+@shared_task
+def notas_socin():
+    import mysql.connector
+    from mysql.connector import Error
+    socin = ConfiguracaoSocin.get_solo()
+    try:
+        cnx = mysql.connector.connect(user=socin.user, password=socin.password,
+                                host=socin.host,
+                                database=socin.database,
+                                connect_timeout=2)
+        cursor = cnx.cursor()
+        script = "select count(*) from exp_imp_movimento where data_movimento= CURDATE() and situacao_movimento=1 and tipo_movimento=1;"
+        cursor.execute(script) 
+        for i in cursor:
+            data = i[0]
+            NotasSocin.objects.create(
+                valor = data
+            )
+    except Exception as exc:
+        raise exc  
