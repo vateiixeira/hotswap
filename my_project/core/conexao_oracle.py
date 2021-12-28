@@ -21,7 +21,7 @@ def conecta():
             dba_objects c 
             where b.sid = a.session_id and
             a.object_id = c.object_id and
-            block_session is not null
+            blocking_session is not null
             group by  b.inst_id,session_id ,b.osuser , terminal ,
             machine, program,os_user_name ,blocking_session,module
             order by inst_id,session_id"""    )
