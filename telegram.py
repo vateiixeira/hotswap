@@ -27,13 +27,14 @@ django.setup()
 from my_project.core.models import NotasSocin,ConfiguracaoSocin,ConfiguracaoEmail
 from django.utils import timezone
 from datetime import timedelta
+from decouple import config
 
 # These example values won't work. You must get your own api_id and
 # api_hash from https://my.telegram.org, under API Development.
-token_http = '5056457780:AAETIRlqs1vbg3BtzvAjFxkgI6xgzus3kAc'
+token_http = config('TOKEN_BOT','')
 
-api_id = 5276077
-api_hash = '29e2e425fc4419b0bf57b029bdd325df'
+api_id = config('API_ID')
+api_hash = config('API_SECRET')
 
 client = TelegramClient('bot', api_id, api_hash).start(bot_token=token_http)
 from time import sleep
