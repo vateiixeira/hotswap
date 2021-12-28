@@ -43,7 +43,7 @@ from time import sleep
 
 with client:
     real_id, peer_type = utils.resolve_id(-1274793802)
-    print('Iniciando bot')
+    print('Iniciando bot **')
     while True:
         notas = NotasSocin.objects.last()
         config = ConfiguracaoSocin.get_solo()
