@@ -50,14 +50,17 @@ with client:
         configs_email = ConfiguracaoEmail.get_solo()
         configs_email.refresh_from_db()
         if configs_email.telegram_notas_presas:
+            print('Habilitado,procurando notas...')
             config.refresh_from_db()
             if notas and notas.valor >= config.quantidade_para_ativar_envio and notas.data > timezone.now() + timedelta(minutes=2):
+                print('Nota encontrada,enviando...')
                 msg = f'*** ALERTA ***\n NOTAS PRESAS SOCIN \nQUANTIDADE: {notas.valor}'
                 client.send_message(types.PeerChannel(real_id),msg)
                 sleep(300)
                 sleep(2)
             else:
                 sleep(5)
+        print('Não encontrou')
 
 
 #client.log_out()
