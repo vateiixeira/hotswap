@@ -15,7 +15,7 @@ class ConfiguracaoSocinAdmin(SingletonModelAdmin):
 
 @admin.register(NotasSocin)
 class ConfiguracaoSocinAdmin(admin.ModelAdmin):
-   ...
+   readonly_fields = ['data']
 class LojasAdmin(admin.ModelAdmin):
    list_display = ['name', 'numero', 'cnpj']
    search_fields = ['cnpj', 'numero', 'name']

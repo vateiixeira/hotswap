@@ -24,7 +24,7 @@ from telethon import utils
 
 django.setup()
 
-from my_project.core.models import NotasSocin,ConfiguracaoSocin
+from my_project.core.models import NotasSocin,ConfiguracaoSocin,ConfiguracaoEmail
 from django.utils import timezone
 from datetime import timedelta
 
@@ -43,17 +43,21 @@ from time import sleep
 
 with client:
     real_id, peer_type = utils.resolve_id(-1274793802)
+    print('Iniciando bot')
     while True:
         notas = NotasSocin.objects.last()
         config = ConfiguracaoSocin.get_solo()
-        config.refresh_from_db()
-        if notas and notas.valor >= config.quantidade_para_ativar_envio and notas.data > timezone.now() + timedelta(minutes=2):
-            msg = f'*** ALERTA ***\n NOTAS PRESAS SOCIN \nQUANTIDADE: {notas.valor}'
-            client.send_message(types.PeerChannel(real_id),msg)
-            sleep(300)
-            sleep(2)
-        else:
-            sleep(5)
+        configs_email = ConfiguracaoEmail.get_solo()
+        configs_email.refresh_from_db()
+        if config.telegram_notas_presas:
+            config.refresh_from_db()
+            if notas and notas.valor >= config.quantidade_para_ativar_envio and notas.data > timezone.now() + timedelta(minutes=2):
+                msg = f'*** ALERTA ***\n NOTAS PRESAS SOCIN \nQUANTIDADE: {notas.valor}'
+                client.send_message(types.PeerChannel(real_id),msg)
+                sleep(300)
+                sleep(2)
+            else:
+                sleep(5)
 
 
 #client.log_out()

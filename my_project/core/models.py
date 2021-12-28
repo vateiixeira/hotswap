@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from solo.models import SingletonModel
 from django.contrib.postgres.fields import ArrayField
+from my_project.core.dates import normalized
 
 
 GRUPO_USUARIOS_MOC = 'MONTES CLAROS'
@@ -80,6 +81,7 @@ class Fornecedor(models.Model):
         return self.name
 
 class ConfiguracaoEmail(SingletonModel):
+    telegram_notas_presas = models.BooleanField('Habilita envio de notas presas telegram', blank=True, default=True)
     send_novos_atendimentos = models.BooleanField('Envia e-mail de novos atendimentos ?', blank=True, default=True)
     send_novos_chamados = models.BooleanField('Envia e-mail de novos chamados ?', blank=True, default=True)
     
@@ -93,8 +95,8 @@ class ConfiguracaoEmail(SingletonModel):
     atendimentos_mensais = ArrayField(models.CharField(max_length=128), default=list, blank=True)
 
     class Meta:
-        verbose_name = 'Configuração de e-mail'
-        verbose_name_plural = 'Configurações de e-mails'
+        verbose_name = 'Configuração de e-mail/Telegram'
+        verbose_name_plural = 'Configurações de e-mails/Telegram'
 
 class ConfiguracaoSocin(SingletonModel):
     user = models.CharField('Usuário do banco', blank=True, default='', max_length=128)
@@ -112,6 +114,9 @@ class ConfiguracaoSocin(SingletonModel):
 class NotasSocin(models.Model):
     valor = models.IntegerField('Quantidade de notas presas', default=0)
     data = models.DateTimeField('Data', auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f'{self.valor} - {normalized(self.data)}'
 
     class Meta:
         verbose_name = 'Notas presas'
