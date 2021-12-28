@@ -12,9 +12,15 @@ class ConfiguracaoEmailAdmin(SingletonModelAdmin):
 @admin.register(ConfiguracaoSocin)
 class ConfiguracaoSocinAdmin(SingletonModelAdmin):
    ...
+@admin.register(ConfiguracaoSessoes)
+class ConfiguracaoSessoesAdmin(SingletonModelAdmin):
+   ...
 
 @admin.register(NotasSocin)
-class ConfiguracaoSocinAdmin(admin.ModelAdmin):
+class NotasSocinAdmin(admin.ModelAdmin):
+   readonly_fields = ['data']
+@admin.register(SessoesBlock)
+class SessoesBlockAdmin(admin.ModelAdmin):
    readonly_fields = ['data']
 class LojasAdmin(admin.ModelAdmin):
    list_display = ['name', 'numero', 'cnpj']

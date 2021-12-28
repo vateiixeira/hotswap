@@ -1,5 +1,7 @@
+import os
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.functional import cached_property
 from solo.models import SingletonModel
 from django.contrib.postgres.fields import ArrayField
 from my_project.core.dates import normalized
@@ -121,3 +123,33 @@ class NotasSocin(models.Model):
     class Meta:
         verbose_name = 'Notas presas'
         verbose_name_plural = 'Notas presas'
+
+class ConfiguracaoSessoes(SingletonModel):
+    habilita_monitoramento = models.BooleanField('Habilita monitoramento no banco?', blank=True, default=True)
+    habilita_telegram = models.BooleanField('Habilita envio de avisos telegram?', blank=True, default=True)
+    minutos = models.IntegerField('Minutos a considerar sessao travada p/ ativar avisos', default=5 , blank=True)
+    
+    @cached_property
+    def enabled(self):
+        return self.habilita_monitoramento and self.minutos > 0
+
+    class Meta:
+        verbose_name = 'Configuração de sessoes'
+        verbose_name_plural = 'Configuração de sessoes'
+
+class SessoesBlock(models.Model):
+    session_id = models.IntegerField('ID da sessao', default=0,blank=True)
+    usuario = models.CharField('Usuário', blank=True, default='', max_length=128)
+    terminal = models.CharField('Terminal', blank=True, default='', max_length=128)
+    maquina = models.CharField('Maquina', blank=True, default='', max_length=128)
+    programa = models.CharField('Programa', blank=True, default='', max_length=128)
+    os_username =  models.CharField('Usuário SO', blank=True, default='', max_length=128)
+    sessao_bloqueada = models.IntegerField('Sessao bloqueada', default=0,blank=True) 
+    data =  models.DateTimeField('Ocorrencia', null=True,blank=True)
+
+    class Meta:
+        verbose_name = 'Sessoes bloqueadas'
+        verbose_name_plural = 'Sessoes bloqueadas'
+
+    def __str__(self) -> str:
+        return f'{self.maquina} - {self.sessao_bloqueada}'

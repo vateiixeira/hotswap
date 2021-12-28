@@ -23,7 +23,7 @@ from my_project.core.models import Profile
 import mysql.connector
 from mysql.connector import Error
 from my_project.atendimento.models import Atendimento
-from .conexao_oracle import conecta
+#from .conexao_oracle import conecta
 from django.contrib.auth.models import User
 from my_project.msg.models import Group_Msg
 from my_project.atendimento.views import lista_id_bh, lista_id_moc
@@ -282,8 +282,8 @@ def validate_username(request):
     return JsonResponse(data)
 
 def sessao_travada():
-    query = conecta()
-    return query
+    #query = conecta()
+    return None
 
 def notas_travadas_mysql(request):
     if request.method == 'GET':
