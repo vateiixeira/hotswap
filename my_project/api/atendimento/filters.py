@@ -36,7 +36,7 @@ class AtendimentoFilterBackend(filters.BaseFilterBackend):
         data_de = request.GET.get('data_de')
         if data_de:
             if PATTERN_DATE.match(data_de):
-                queryset = queryset.filter(create_at__gte=parse_date(data_de, '%Y-%m-%d') + timedelta(days=1))
+                queryset = queryset.filter(create_at__gte=parse_date(data_de, '%Y-%m-%d'))
         
         data_ate = request.GET.get('data_ate')
         if data_ate:
