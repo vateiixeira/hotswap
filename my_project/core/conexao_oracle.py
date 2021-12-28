@@ -67,7 +67,7 @@ class Sessoes():
             if i[self.stats['sessao_bloqueada']] != None:
                 bloqueados.append(i)
                 origem.append(i[self.stats['sessao_bloqueada']])
-            if i[self.stats['session_id']] in origem:
+            if i[self.stats['session_id']] in origem and i[self.stats['session_id']] not in origem:
                 origem_data[i[self.stats['session_id']]]= i                
             
         return {
@@ -82,6 +82,7 @@ def oracle_sessoes():
     blocks = {}
     config = ConfiguracaoSessoes.get_solo()
     while True:
+        config.refresh_from_db()
         data = con.run()
         if len(data['origem']) > 0:
             #print(data['bloqueados'])
@@ -99,12 +100,14 @@ def oracle_sessoes():
                             sessao_bloqueada =data['origem_data'][lock][stats['sessao_bloqueada']],
                             data= blocks.get(lock,None),
                         )
+                        # aqui precisa ir pro channel no redis para notificar front e telegram
                 else:
                     blocks[lock] = timezone.now()
             print(blocks)
             print('-'*50)
         else:
             blocks = {}
+            # aqui precisa excluir channel para sair notificacao do front
 
         time.sleep(10)
 
