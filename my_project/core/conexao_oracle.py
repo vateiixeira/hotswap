@@ -26,6 +26,7 @@ def conecta():
             machine, program,os_user_name ,blocking_session,module
             order by inst_id,session_id"""    )
     result=cursor.fetchall()
+    cursor.close()
     return result
 
 
