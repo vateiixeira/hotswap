@@ -49,7 +49,7 @@ with client:
         config = ConfiguracaoSocin.get_solo()
         configs_email = ConfiguracaoEmail.get_solo()
         configs_email.refresh_from_db()
-        if config.telegram_notas_presas:
+        if configs_email.telegram_notas_presas:
             config.refresh_from_db()
             if notas and notas.valor >= config.quantidade_para_ativar_envio and notas.data > timezone.now() + timedelta(minutes=2):
                 msg = f'*** ALERTA ***\n NOTAS PRESAS SOCIN \nQUANTIDADE: {notas.valor}'
