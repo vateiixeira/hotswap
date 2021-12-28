@@ -52,7 +52,7 @@ with client:
         if configs_email.telegram_notas_presas:
             print(f'Habilitado,procurando notas...{config.quantidade_para_ativar_envio}/{notas.valor}')
             config.refresh_from_db()
-            if notas and notas.valor >= config.quantidade_para_ativar_envio and notas.data > timezone.now() + timedelta(minutes=3):
+            if notas and notas.valor >= config.quantidade_para_ativar_envio and notas.data + timedelta(minutes=3) > timezone.now():
                 print('Nota encontrada,enviando...')
                 msg = f'*** ALERTA ***\n NOTAS PRESAS SOCIN \nQUANTIDADE: {notas.valor}'
                 client.send_message(types.PeerChannel(real_id),msg)
