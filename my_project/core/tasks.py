@@ -142,7 +142,10 @@ def envia_email_notas_presas():
 def notas_socin():
     import mysql.connector
     from mysql.connector import Error
+    from channels.layers import get_channel_layer
+    from asgiref.sync import async_to_sync
     socin = ConfiguracaoSocin.get_solo()
+    channel_layer = get_channel_layer()
     try:
         cnx = mysql.connector.connect(user=socin.user, password=socin.password,
                                 host=socin.host,
@@ -156,5 +159,14 @@ def notas_socin():
             NotasSocin.objects.create(
                 valor = data
             )
+            async_to_sync(channel_layer.group_send)(
+                    'socin',
+                    {'type': 'chat_message', 'message': data}
+                )  
     except Exception as exc:
         raise exc  
+
+@shared_task
+def sessoes_travadas():
+    from my_project.core.conexao_oracle import oracle_sessoes
+    oracle_sessoes()

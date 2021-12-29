@@ -140,7 +140,7 @@ def oracle_sessoes():
                     'sessoes',
                     {'type': 'chat_message', 'message': msg, 'qtd': qtd}
                 )  
-        time.sleep(10)
+        #time.sleep(10)
 
 def test_oracle():
     import random
