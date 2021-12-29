@@ -38,7 +38,7 @@ app.conf.update(
         },    
         'core.notas_socin':{
             'task': 'my_project.core.tasks.notas_socin',
-            'schedule': timedelta(minutes=3)
+            'schedule': timedelta(seconds=10)
         },    
         'core.sessoes_travadas':{
             'task': 'my_project.core.tasks.sessoes_travadas',
