@@ -71,6 +71,9 @@ class Sessoes():
             if i[self.stats['session_id']] in origem:
                 origem_data[i[self.stats['session_id']]]= i                
             
+        if origem:
+            assert bool(origem_data) == True
+        
         return {
             'bloqueados': bloqueados,
             'origem': origem,
@@ -92,19 +95,22 @@ def oracle_sessoes():
             for lock in data['origem']:
                 if blocks.get(lock,None):
                     if blocks.get(lock,None)[0] + timedelta(minutes=config.minutos) < timezone.now():
-                        SessoesBlock.objects.create(
-                            session_id =blocks[lock][1],
-                            usuario =blocks[lock][1],
-                            terminal =blocks[lock][1],
-                            maquina =blocks[lock][1],
-                            programa =blocks[lock][1],
-                            os_username =blocks[lock][1],
-                            sessao_bloqueada =blocks[lock][1],
-                            data= blocks.get(lock,None)[0],
-                        )
-                        # aqui precisa ir pro channel no redis para notificar front e telegram
+                        if blocks.get(lock,None) and blocks.get(lock,None)[1]:
+                            SessoesBlock.objects.create(
+                                session_id =blocks[lock][1],
+                                usuario =blocks[lock][1],
+                                terminal =blocks[lock][1],
+                                maquina =blocks[lock][1],
+                                programa =blocks[lock][1],
+                                os_username =blocks[lock][1],
+                                sessao_bloqueada =blocks[lock][1],
+                                data= blocks.get(lock,None)[0],
+                            )
+                            # aqui precisa ir pro channel no redis para notificar front e telegram
+                        else:
+                            print('Nao achou data para gravar o lock.')                            
                 else:
-                    blocks[lock] = [timezone.now(),data['origem_data'][lock]]
+                    blocks[lock] = [timezone.now(),data['origem_data'].get(lock,None)]
             print(blocks)
             print('-'*50)
         else:
