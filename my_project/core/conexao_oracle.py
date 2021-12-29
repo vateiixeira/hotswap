@@ -92,7 +92,7 @@ def oracle_sessoes():
     con = Sessoes()
     blocks = {}
     config = ConfiguracaoSessoes.get_solo()
-    channel_layer = get_channel_layer()
+    #channel_layer = get_channel_layer()
     while True:
         config.refresh_from_db()
         data = con.run()
@@ -135,12 +135,12 @@ def oracle_sessoes():
         else:
             msg = []
 
-        qtd = len(data['bloqueados'])
-        async_to_sync(channel_layer.group_send)(
-                    'sessoes',
-                    {'type': 'chat_message', 'message': msg, 'qtd': qtd}
-                )  
-        #time.sleep(10)
+        #qtd = len(data['bloqueados'])
+        # async_to_sync(channel_layer.group_send)(
+        #             'sessoes',
+        #             {'type': 'chat_message', 'message': msg, 'qtd': qtd}
+        #         )  
+        time.sleep(10)
 
 def test_oracle():
     import random
