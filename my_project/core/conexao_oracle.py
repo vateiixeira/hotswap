@@ -90,7 +90,7 @@ def oracle_sessoes():
             print(data['origem'])
             for lock in data['origem']:
                 if blocks.get(lock,None):
-                    if blocks.get(lock,None) + timedelta(minutes=config.minutos) < timezone.now():
+                    if blocks.get(lock,None)[0] + timedelta(minutes=config.minutos) < timezone.now():
                         SessoesBlock.objects.create(
                             session_id =blocks[lock][1],
                             usuario =blocks[lock][1],
