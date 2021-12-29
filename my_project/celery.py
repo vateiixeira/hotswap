@@ -40,10 +40,10 @@ app.conf.update(
             'task': 'my_project.core.tasks.notas_socin',
             'schedule': timedelta(seconds=10)
         },    
-        'core.sessoes_travadas':{
-            'task': 'my_project.core.tasks.sessoes_travadas',
-            'schedule': timedelta(seconds=10)
-        },    
+        # 'core.sessoes_travadas':{
+        #     'task': 'my_project.core.tasks.sessoes_travadas',
+        #     'schedule': timedelta(seconds=10)
+        # },    
     }
 )
 
