@@ -1,3 +1,8 @@
+import os
+import django
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "my_project.settings")
+django.setup()
 
 from channels.auth import AuthMiddlewareStack
 from channels.routing import ChannelNameRouter, ProtocolTypeRouter, URLRouter
