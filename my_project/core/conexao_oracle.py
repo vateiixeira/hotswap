@@ -97,13 +97,13 @@ def oracle_sessoes():
                     if blocks.get(lock,None)[0] + timedelta(minutes=config.minutos) < timezone.now():
                         if blocks.get(lock,None) and blocks.get(lock,None)[1]:
                             SessoesBlock.objects.create(
-                                session_id =blocks[lock][1],
-                                usuario =blocks[lock][1],
-                                terminal =blocks[lock][1],
-                                maquina =blocks[lock][1],
-                                programa =blocks[lock][1],
-                                os_username =blocks[lock][1],
-                                sessao_bloqueada =blocks[lock][1],
+                                session_id =blocks[lock][1][stats['session_id']],
+                                usuario =blocks[lock][1][stats['usuario']],
+                                terminal =blocks[lock][1][stats['terminal']],
+                                maquina =blocks[lock][1][stats['maquina']],
+                                programa =blocks[lock][1][stats['programa']],
+                                os_username =blocks[lock][1][stats['os']],
+                                sessao_bloqueada =blocks[lock][1][stats['sessao_bloqueada']],
                                 data= blocks.get(lock,None)[0],
                             )
                             # aqui precisa ir pro channel no redis para notificar front e telegram
