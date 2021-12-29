@@ -6,7 +6,7 @@ from channels.http import AsgiHandler
 from my_project.ws import routing
 
 application = ProtocolTypeRouter({
-  "http": AsgiHandler(),
+  # "http": AsgiHandler(),
   "websocket": AuthMiddlewareStack(
         URLRouter(
             routing.websocket_urlpatterns
