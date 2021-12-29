@@ -66,8 +66,9 @@ class Sessoes():
         for i in result:
             if i[self.stats['sessao_bloqueada']] != None:
                 bloqueados.append(i)
-                origem.append(i[self.stats['sessao_bloqueada']])
-            if i[self.stats['session_id']] in origem and i[self.stats['session_id']] not in origem:
+                if i[self.stats['sessao_bloqueada']] not in origem:
+                    origem.append(i[self.stats['sessao_bloqueada']])
+            if i[self.stats['session_id']] in origem:
                 origem_data[i[self.stats['session_id']]]= i                
             
         return {
@@ -91,18 +92,18 @@ def oracle_sessoes():
                 if blocks.get(lock,None):
                     if blocks.get(lock,None) + timedelta(minutes=config.minutos) < timezone.now():
                         SessoesBlock.objects.create(
-                            session_id =data['origem_data'][lock][stats['session_id']],
-                            usuario =data['origem_data'][lock][stats['usuario']],
-                            terminal =data['origem_data'][lock][stats['terminal']],
-                            maquina =data['origem_data'][lock][stats['maquina']],
-                            programa =data['origem_data'][lock][stats['programa']],
-                            os_username =data['origem_data'][lock][stats['os']],
-                            sessao_bloqueada =data['origem_data'][lock][stats['sessao_bloqueada']],
-                            data= blocks.get(lock,None),
+                            session_id =blocks[lock][1],
+                            usuario =blocks[lock][1],
+                            terminal =blocks[lock][1],
+                            maquina =blocks[lock][1],
+                            programa =blocks[lock][1],
+                            os_username =blocks[lock][1],
+                            sessao_bloqueada =blocks[lock][1],
+                            data= blocks.get(lock,None)[0],
                         )
                         # aqui precisa ir pro channel no redis para notificar front e telegram
                 else:
-                    blocks[lock] = timezone.now()
+                    blocks[lock] = [timezone.now(),data['origem_data'][lock]]
             print(blocks)
             print('-'*50)
         else:
