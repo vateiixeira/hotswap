@@ -71,8 +71,13 @@ class Sessoes():
             if i[self.stats['session_id']] in origem:
                 origem_data[i[self.stats['session_id']]]= i                
             
-        if origem:
-            assert bool(origem_data) == True
+        if origem and not bool(origem_data):
+            return {
+                'bloqueados': [],
+                'origem': [],
+                'origem_data': {},
+            }
+            
         
         return {
             'bloqueados': bloqueados,
