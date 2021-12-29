@@ -88,6 +88,7 @@ def oracle_sessoes():
         if len(data['origem']) > 0:
             #print(data['bloqueados'])
             print(data['origem'])
+            print(data['origem_data'])
             for lock in data['origem']:
                 if blocks.get(lock,None):
                     if blocks.get(lock,None)[0] + timedelta(minutes=config.minutos) < timezone.now():
