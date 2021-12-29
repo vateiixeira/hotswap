@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'my_project.base',
     'my_project.api',
     'my_project.helpdesk',
+    'my_project.ws',
 
     'django_select2',
     'bootstrap4',
@@ -47,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_extensions',
-    'solo'
+    'solo',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -83,6 +85,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'my_project.wsgi.application'
+ASGI_APPLICATION = 'my_project.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 REST_FRAMEWORK = {

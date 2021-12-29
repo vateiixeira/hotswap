@@ -3,6 +3,8 @@ import cx_Oracle
 import time
 from django.utils import timezone
 from my_project.core.models import ConfiguracaoSessoes,SessoesBlock
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
 
 
 stats = {
@@ -90,6 +92,7 @@ def oracle_sessoes():
     con = Sessoes()
     blocks = {}
     config = ConfiguracaoSessoes.get_solo()
+    channel_layer = get_channel_layer()
     while True:
         config.refresh_from_db()
         data = con.run()
@@ -121,8 +124,44 @@ def oracle_sessoes():
         else:
             blocks = {}
             # aqui precisa excluir channel para sair notificacao do front
+        if data['origem_data']:
+            msg = [
+                {            
+                'title': f"{data['origem_data'][x][3]} | {data['origem_data'][x][4]}",#"VILLEFORT\\ADM-CONTAB09",
+                'description': f"{data['origem_data'][x][1]} - {data['origem_data'][x][5]}",#"ana.ferreira - ADM-CONTAB09",
+                'done': False,
+                } for x in data['origem_data']
+            ]
+        else:
+            msg = []
 
+        qtd = len(data['bloqueados'])
+        async_to_sync(channel_layer.group_send)(
+                    'sessoes',
+                    {'type': 'chat_message', 'message': msg, 'qtd': qtd}
+                )  
         time.sleep(10)
+
+def test_oracle():
+    import random
+    while True:
+        msg = [
+        {
+            'title': "VILLEFORT\\ADM-CONTAB09",
+            'description': "ana.ferreira - ADM-CONTAB09",
+            'done': False,
+            },
+        ]
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)(
+            'sessoes',
+            {'type': 'chat_message', 'message': msg, 'qtd': random.randint(1,15)}
+        )     
+        async_to_sync(channel_layer.group_send)(
+                    'socin',
+                    {'type': 'chat_message', 'message': random.randint(1,160)}
+                )  
+        time.sleep(3)  
 
 def convert(mes):
     if mes == 1:
