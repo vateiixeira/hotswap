@@ -164,6 +164,10 @@ def notas_socin():
                     {'type': 'chat_message', 'message': data}
                 )  
     except Exception as exc:
+        async_to_sync(channel_layer.group_send)(
+                    'socin',
+                    {'type': 'chat_message', 'message': 'error'}
+                )
         raise exc  
 
 @shared_task
