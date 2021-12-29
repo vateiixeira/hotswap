@@ -108,7 +108,7 @@ def oracle_sessoes():
                                 maquina =blocks[lock][1][stats['maquina']],
                                 programa =blocks[lock][1][stats['programa']],
                                 os_username =blocks[lock][1][stats['os']],
-                                sessao_bloqueada =blocks[lock][1][stats['sessao_bloqueada']],
+                                #sessao_bloqueada =blocks[lock][1][stats['sessao_bloqueada']],
                                 data= blocks.get(lock,None)[0],
                             )
                             # aqui precisa ir pro channel no redis para notificar front e telegram
