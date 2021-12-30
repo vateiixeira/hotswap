@@ -156,9 +156,9 @@ def notas_socin():
         cursor.execute(script) 
         for i in cursor:
             data = i[0]
-            NotasSocin.objects.create(
-                valor = data
-            )
+            # NotasSocin.objects.create(
+            #     valor = data
+            # )
             async_to_sync(channel_layer.group_send)(
                     'socin',
                     {'type': 'chat_message', 'message': data}
