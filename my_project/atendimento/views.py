@@ -17,6 +17,7 @@ from my_project.core.models import Profile
 from django.db.models import Q
 
 
+
 lista_id_bh = [8,10,12,13,14,15,16,17,18,19,20,21,22,23,24,26,27,28,29,30,31,32,33,34,35]
 lista_id_moc = [2,3,4,6,7,9,11,25]
 
