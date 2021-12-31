@@ -55,10 +55,9 @@ ws_url = "ws://192.168.1.222/ws/sessoes/"
 
 async def command_receiver():
     real_id, peer_type = utils.resolve_id(-1274793802)
-    async with websockets.connect(ws_url) as websocket:
-        while True:
-            message = await websocket.recv()
-            client.send_message(types.PeerChannel(real_id),message)    
+    websocket = await websockets.connect(ws_url)
+    message = await websocket.recv()
+    client.send_message(types.PeerChannel(real_id),message)    
 
 
 with client:
