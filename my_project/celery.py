@@ -42,7 +42,7 @@ app.conf.update(
         },    
         'core.exclui_notas_socin':{
             'task': 'my_project.core.tasks.exclui_notas_socin',
-            'schedule': timedelta(hour=1)
+            'schedule': crontab(hour='1')
         },    
     }
 )
