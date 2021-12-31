@@ -56,7 +56,7 @@ with client:
         config = ConfiguracaoSocin.get_solo()
         configs_email = ConfiguracaoEmail.get_solo()
         configs_email.refresh_from_db()
-        valor_sessao = redis_cli.get('sessoes-qtd')
+        valor_sessao = redis_cli.get('sessoes-qtd').decode("utf-8")
         
         if valor_sessao > 1 and not timeout_sessoes:
             msg = f'*** ALERTA ***\n SESSOES TRAVADAS \nQUANTIDADE: {valor_sessao}'
