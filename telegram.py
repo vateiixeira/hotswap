@@ -28,6 +28,7 @@ from my_project.core.models import NotasSocin,ConfiguracaoSocin,ConfiguracaoEmai
 from django.utils import timezone
 from datetime import timedelta
 from decouple import config
+import redis
 
 # These example values won't work. You must get your own api_id and
 # api_hash from https://my.telegram.org, under API Development.
@@ -44,23 +45,48 @@ from time import sleep
 
 with client:
     real_id, peer_type = utils.resolve_id(-1274793802)
-    print('Iniciando bot **')
+    redis_cli = redis.Redis(host='localhost', port=6379, db=0)
+    print('Iniciando bot')
+    wait_socin = 0
+    wait_sessao = 0
+    timeout_sessoes = False
+    timeout_socin = False
     while True:
         notas = NotasSocin.objects.last()
         config = ConfiguracaoSocin.get_solo()
         configs_email = ConfiguracaoEmail.get_solo()
         configs_email.refresh_from_db()
+        valor_sessao = redis_cli.get('sessoes-qtd')
+        
+        if valor_sessao > 1 and not timeout_sessoes:
+            msg = f'*** ALERTA ***\n SESSOES TRAVADAS \nQUANTIDADE: {valor_sessao}'
+            client.send_message(types.PeerChannel(real_id),msg)
+            timeout_sessoes = True
+        
         if configs_email.telegram_notas_presas:
-            print(f'Habilitado,procurando notas...{config.quantidade_para_ativar_envio}/{notas.valor}')
+            #print(f'Habilitado,procurando notas...{config.quantidade_para_ativar_envio}/{notas.valor}')
             config.refresh_from_db()
-            if notas and notas.valor >= config.quantidade_para_ativar_envio and notas.data + timedelta(minutes=3) > timezone.now():
-                print('Nota encontrada,enviando...')
+            if notas and notas.valor >= config.quantidade_para_ativar_envio and notas.data + timedelta(minutes=3) > timezone.now()\
+                    and not timeout_socin:
+                #print('Nota encontrada,enviando...')
                 msg = f'*** ALERTA ***\n NOTAS PRESAS SOCIN \nQUANTIDADE: {notas.valor}'
                 client.send_message(types.PeerChannel(real_id),msg)
+                timeout_socin = True
                 sleep(300)
-                sleep(2)
-            else:
-                sleep(5)
+        
+        if timeout_sessoes:
+            wait_sessao += 10
+        if timeout_socin:
+            wait_socin += 10
+
+        if wait_socin >= 300:
+            timeout_socin = False
+            wait_socin = 0
+        if wait_sessao >= 300:
+            timeout_sessoes = False
+            wait_sessao = 0
+
+        sleep(10)
         print('Não encontrou')
 
 

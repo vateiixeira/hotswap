@@ -12,11 +12,13 @@ from asgiref.sync import async_to_sync
 from django.utils import timezone
 from datetime import timedelta
 from time import sleep
+import redis
     
 con = Sessoes()
 blocks = {}
 config = ConfiguracaoSessoes.get_solo()
 channel_layer = get_channel_layer()
+redis_cli = redis.Redis(host='localhost', port=6379, db=0)
 while True:
     config.refresh_from_db()
     data = con.run()
@@ -61,6 +63,7 @@ while True:
     print('Executando')
     print(msg)
     qtd = len(data['bloqueados'])
+    redis_cli.set('sessoes-qtd',qtd)
     async_to_sync(channel_layer.group_send)(
                 'sessoes',
                 {'type': 'chat_message', 'message': msg, 'qtd': qtd}

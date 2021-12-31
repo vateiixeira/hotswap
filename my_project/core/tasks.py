@@ -7,6 +7,7 @@ from .emails import send_mail, send_mail_notas_presas
 from datetime import datetime, timedelta
 from .dates import normalized
 
+
 @shared_task
 def envia_email_atendimento(atendimento_id):
     atendimento = Atendimento.object.filter(id=atendimento_id)
