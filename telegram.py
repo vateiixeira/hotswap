@@ -58,7 +58,7 @@ with client:
         configs_email.refresh_from_db()
         valor_sessao = redis_cli.get('sessoes-qtd').decode("utf-8")
         
-        if int(valor_sessao) > 1 and not timeout_sessoes:
+        if int(valor_sessao) > 10 and not timeout_sessoes:
             msg = f'*** ALERTA ***\n SESSOES TRAVADAS \nQUANTIDADE: {valor_sessao}'
             client.send_message(types.PeerChannel(real_id),msg)
             timeout_sessoes = True
