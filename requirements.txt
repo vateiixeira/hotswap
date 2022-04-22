@@ -21,7 +21,7 @@ Pillow==6.2.1
 protobuf==3.11.2
 psycopg2==2.8.4
 pylint==2.4.1
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 pytz==2019.3
 reportlab==3.5.32
 six==1.12.0
