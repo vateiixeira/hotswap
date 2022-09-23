@@ -18,7 +18,7 @@ lazy-object-proxy==1.4.2
 mccabe==0.6.1
 mysql-connector-python==8.0.18
 Pillow==6.2.1
-protobuf==3.11.2
+protobuf==3.18.3
 psycopg2==2.8.4
 pylint==2.4.1
 PyPDF2==1.26.0
