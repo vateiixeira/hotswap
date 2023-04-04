@@ -24,7 +24,7 @@ class Chamado(models.Model):
     )
 
 
-    chamado = models.IntegerField('Número chamado')   
+    chamado = models.CharField('Número chamado',max_length=60)   
     modelo = models.CharField('Modelo', max_length=50)
     serial = models.CharField("Serial",max_length=100)
     equipamento = models.ForeignKey(Equipamento,on_delete=models.CASCADE,null=True,blank=True)
